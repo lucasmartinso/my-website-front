@@ -4,16 +4,14 @@ import { useContext, useState } from "react";
 
 export default function MainScreen() { 
     const {toggleLight, setToggleLight} = useContext(ToggleContext);
-    const [ change, setChange ] = useState(false);
-    console.log(change);
 
     return( 
         <Container>
             <ToggleBox>
-                <LightDark onClick={() => setChange(!change)}>
+                <LightDark onClick={() => setToggleLight(!toggleLight)} toggleLight={toggleLight}>
                     <ion-icon name="sunny" id="sunny"></ion-icon>
                     <ion-icon name="moon" id="moon"></ion-icon>
-                    <BallSlider change={change}></BallSlider>
+                    <BallSlider toggleLight={toggleLight}></BallSlider>
                 </LightDark>
             </ToggleBox>
         </Container>
@@ -37,11 +35,10 @@ export const LightDark = styled.label`
     width: 100%; 
     height: 100%;
     border-radius: 30px; 
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: black;
+    background-color: ${props => props.toggleLight ? ("black") : ("#FEF5E3")};
 
     ion-icon { 
         color: #ffd700;
@@ -49,17 +46,11 @@ export const LightDark = styled.label`
         height: 20px;
     }
 
-    // ion-icon#sunny { 
-    //     color: #ffd700;
-    //     width: 20px; 
-    //     height: 20px;
-    // }
-    
-    // ion-icon#moon { 
-    //     color: white;
-    //     width: 20px; 
-    //     height: 20px;
-    // }
+    ion-icon#sunny { 
+        color: orange;
+        width: 23px; 
+        height: 23px;
+    }
 
     &:hover { 
         cursor: pointer;
@@ -68,10 +59,10 @@ export const LightDark = styled.label`
 const BallSlider = styled.div`
     position: absolute;
     z-index: 1;
-    left: ${props => props.change ? ("6px") : ("50px")};
+    left: ${props => props.toggleLight ? ("6px") : ("50px")};
     width: 33px; 
     height: 33px;
-    background-color: white;
+    background-color: ${props => props.toggleLight ? ("white") : ("black")};
     border-radius: 50%;
     transition: 2s;
 `
