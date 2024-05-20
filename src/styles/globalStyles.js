@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   body{
     background-color:#FEF5E3;
     font-family: 'Syne', sans-serif;
+    margin: 0px 30px;
   }
   html{
     @media (max-width:612px) {
