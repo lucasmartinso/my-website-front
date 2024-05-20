@@ -18,19 +18,19 @@ export default function MainScreen() {
     )
 }
 
-export const Container = styled.div`
+const Container = styled.div`
     position: relative;
     width: 100%; 
     height: 100%;  
 `
-export const ToggleBox = styled.div`
+const ToggleBox = styled.div`
     position: absolute;
     width: 90px;
     height: 40px; 
     right: 20px;
     top: 50px;
 `
-export const LightDark = styled.label`
+const LightDark = styled.label`
     position: relative;
     width: 100%; 
     height: 100%;
