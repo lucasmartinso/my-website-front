@@ -1,8 +1,12 @@
+import { styled } from "styled-components"
+
 export default function History() { 
     return( 
         <Resume>
             <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.</span>
-
+            <ImageBox>
+                <img src="cdkcmdk" />
+            </ImageBox>
         </Resume>
     )
 }

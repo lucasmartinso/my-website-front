@@ -1,6 +1,7 @@
 import { styled } from "styled-components"; 
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useState } from "react";
+import History from "../pages/History";
 
 export default function MainScreen() { 
     const {toggleLight, setToggleLight} = useContext(ToggleContext);
@@ -14,6 +15,7 @@ export default function MainScreen() {
                     <BallSlider toggleLight={toggleLight}></BallSlider>
                 </LightDark>
             </ToggleBox>
+            <History />
         </Container>
     )
 }
