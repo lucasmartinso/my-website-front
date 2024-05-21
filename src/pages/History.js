@@ -69,7 +69,14 @@ export default function History() {
             {allMe.map(paragraph => { 
                 return <span>{paragraph}</span>
             })}
-        </About>
+        </About> 
+
+        <Skills toggleLight={toggleLight}> 
+            <p>HARD-SKILLS</p>
+            <BoxSkills> 
+                <p></p>
+            </BoxSkills>
+        </Skills>
         </>
     )
 }
@@ -156,4 +163,24 @@ const About = styled.div`
         font-weight: 400;
         font-size: 17px;
     }
+`
+const Skills = styled.div`
+    width: 100%; 
+    height: 100%;
+    margin-top: 100px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    color: ${props => props.toggleLight ? ("black") : ("white")}; 
+
+    p { 
+        font-family: "Oi", serif;
+        font-size: 50px;
+        margin-bottom: 50px;
+    } 
+`
+
+const BoxSkills = styled.div`
+    width: 100%; 
+    height: 
 `
