@@ -1,15 +1,17 @@
 import { styled } from "styled-components"
 import foto1 from "../styles/images/foto1.png";
-import { useState, useEffect } from "react";
+import foto2 from "../styles/images/foto2.jpeg";
+import ToggleContext from "../contexts/ToggleContext";
+import { useState, useEffect, useContext } from "react";
 
 export default function History() { 
+    const {toggleLight, setToggleLight} = useContext(ToggleContext);
     const texts = [
         "Sou Lucas...",
         "Desenvolvedor Full Stack, com experiência em desenvolvimento de aplicações web front-end e back-end.",
         "Atualmente estudante da UFJF no curso de Ciência da Computação.",
         "Apaixonado pelos estudos e pela resolução de problemas por meio da tecnologia, que tenham impacto efetivo na vida real."
     ];
-    
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
 
@@ -36,15 +38,15 @@ export default function History() {
 
     return( 
         <Resume>
-            <Abstract>
+            <Abstract toggleLight={toggleLight}>
                 {slowText.map((text, index) => (
                     <span key={index}>{text}</span>
                 ))}
             </Abstract>
 
-            <ImageBox>
-                {/* <Separator></Separator> */}
-                <img src={foto1} alt="foto1"/>
+            <ImageBox toggleLight={toggleLight}>
+                <img src={foto2} alt="foto1" id="sunny"/>
+                <img src={foto1} alt="foto2" id="moon"/>
             </ImageBox>
         </Resume>
     )
@@ -56,7 +58,7 @@ const Resume = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 130px; 
+    padding-top: 180px; 
 `
 const Abstract = styled.div`
     width: 60%; 
@@ -75,7 +77,8 @@ const Abstract = styled.div`
         text-align: left;
         text-overflow: ellipsis;
         border-right: 0.15em solid gray;
-        transition: 4s;
+        transition: 3s;
+        color: ${props => props.toggleLight ? ("black") : ("white")}
     } 
 
     span:after { 
@@ -100,16 +103,24 @@ const ImageBox = styled.div`
     display: flex; 
     justify-content: space-between;
     align-items: center;
+    transform: ${props => props.toggleLight ? ("rotateY(0deg)") : ("rotateY(360deg)")};
+    transition: 3s; 
 
     img { 
         width: 300px; 
         height: 400px;
         object-fit: cover;
+        //transition: 3s;
+        backface-visibility: hidden; 
+        transform-style: preserve-3d;
+        background-repeat: no-repeat;
+    } 
+
+    img#sunny { 
+        visibility: ${props => props.toggleLight ? ("visible") : ("hidden")};
     }
-`
-const Separator = styled.div`
-    height: 450px; 
-    width: 1px; 
-    background-color: gray;
-    margin: 0px 20px 0px 0px;
+
+    img#moon { 
+        visibility: ${props => props.toggleLight ? ("hidden") : ("visible")};
+    }
 `
