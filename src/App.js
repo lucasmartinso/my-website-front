@@ -7,6 +7,7 @@ import MainScreen from "./components/Main.js";
 
 export default function App() {
   const [ toggleLight, setToggleLight ] = useState(true);
+  const [ transitionPhoto, setTransitionPhoto ] = useState(true);
 
   return (
     <ToggleContext.Provider value={{toggleLight,setToggleLight}}>

@@ -1,6 +1,8 @@
 import { styled } from "styled-components"
 import foto1 from "../styles/images/foto1.png";
 import foto2 from "../styles/images/foto2.jpeg";
+import tvColor from "../styles/images/chuvisco-color.gif";
+import tvBlack from "../styles/images/chuvisco branco e preto.gif";
 import ToggleContext from "../contexts/ToggleContext";
 import { useState, useEffect, useContext } from "react";
 
@@ -14,6 +16,8 @@ export default function History() {
     ];
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
+    const [ changePhoto, setChangePhoto ] = useState(tvBlack);
+    const [ transitionPhoto, setTransitionPhoto ] = useState(false);
 
     useEffect(() => {
         texts.forEach((element, index) => {
@@ -34,7 +38,17 @@ export default function History() {
                 }, 75 * (letterIndex + textIndex/2 * textItem.length));
             });
         });
-    }, []);
+    }, []); 
+
+    async function transition() { 
+        setTransitionPhoto(true);
+        
+        await setTimeout(() => {
+            toggleLight ? setChangePhoto(tvColor) : setChangePhoto(tvBlack);
+        }, 3000);
+
+        setTransitionPhoto(false);
+    }
 
     return( 
         <Resume>
@@ -45,8 +59,12 @@ export default function History() {
             </Abstract>
 
             <ImageBox toggleLight={toggleLight}>
-                <img src={foto2} alt="foto1" id="sunny"/>
-                <img src={foto1} alt="foto2" id="moon"/>
+                {toggleLight ? ( 
+                     <img src={foto2} alt="foto1" id="sunny"/>
+                 ): ( !transitionPhoto ? transition() : 
+                        <img src={foto2} alt="foto1" id="sunny"/>
+                    )
+                }
             </ImageBox>
         </Resume>
     )
@@ -103,24 +121,11 @@ const ImageBox = styled.div`
     display: flex; 
     justify-content: space-between;
     align-items: center;
-    transform: ${props => props.toggleLight ? ("rotateY(0deg)") : ("rotateY(360deg)")};
     transition: 3s; 
 
     img { 
         width: 300px; 
         height: 400px;
         object-fit: cover;
-        //transition: 3s;
-        backface-visibility: hidden; 
-        transform-style: preserve-3d;
-        background-repeat: no-repeat;
     } 
-
-    img#sunny { 
-        visibility: ${props => props.toggleLight ? ("visible") : ("hidden")};
-    }
-
-    img#moon { 
-        visibility: ${props => props.toggleLight ? ("hidden") : ("visible")};
-    }
 `
