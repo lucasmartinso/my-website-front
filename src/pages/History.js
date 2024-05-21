@@ -10,18 +10,22 @@ import { useState, useEffect, useContext } from "react";
 export default function History() { 
     const { toggleLight } = useContext(ToggleContext);
     const { transitionPhoto } = useContext(TransitionContext);
-    const texts = [
+    const description = [
         "Sou Lucas...",
         "Desenvolvedor Full Stack, com experiência em desenvolvimento de aplicações web front-end e back-end.",
         "Atualmente estudante da UFJF no curso de Ciência da Computação.",
         "Apaixonado pelos estudos e pela resolução de problemas por meio da tecnologia, que tenham impacto efetivo na vida real."
+    ];
+    const allMe = [ 
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.", 
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque."
     ];
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
     
 
     useEffect(() => {
-        texts.forEach((element, index) => {
+        description.forEach((element, index) => {
             textArray[index] = element.split([]);
         });
         
@@ -42,6 +46,7 @@ export default function History() {
     }, []); 
 
     return( 
+        <>
         <Resume>
             <Abstract toggleLight={toggleLight}>
                 {slowText.map((text, index) => (
@@ -58,6 +63,14 @@ export default function History() {
                 }
             </ImageBox>
         </Resume>
+
+        <About toggleLight={toggleLight}> 
+            <p>HISTÓRIA</p>
+            {allMe.map(paragraph => { 
+                return <span>{paragraph}</span>
+            })}
+        </About>
+        </>
     )
 }
 
@@ -120,4 +133,27 @@ const ImageBox = styled.div`
         object-fit: cover;
         border-radius: 20px;
     } 
+`
+const About = styled.div`
+    width: 100%; 
+    height: 100%;
+    margin-top: 100px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    color: ${props => props.toggleLight ? ("black") : ("white")}; 
+
+    p { 
+        font-family: "Oi", serif;
+        font-size: 50px;
+        margin-bottom: 50px;
+    } 
+
+    span { 
+        width: 70%;
+        margin-bottom: 15px;
+        font-family: "Syne", sans-serif;
+        font-weight: 400;
+        font-size: 17px;
+    }
 `
