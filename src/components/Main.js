@@ -1,15 +1,26 @@
 import { styled } from "styled-components"; 
 import ToggleContext from "../contexts/ToggleContext";
-import { useContext, useState } from "react";
+import TransitionContext from "../contexts/TransitionContext";
+import { useContext } from "react";
 import History from "../pages/History";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 export default function MainScreen() { 
-    const {toggleLight, setToggleLight} = useContext(ToggleContext);
+    const { toggleLight, setToggleLight } = useContext(ToggleContext);
+    const { setTransitionPhoto } = useContext(TransitionContext);
+
+    async function change() { 
+        setToggleLight(!toggleLight); 
+        setTransitionPhoto(true); 
+
+        await wait(2000);
+        setTransitionPhoto(false);
+    }
 
     return( 
         <Container>
             <ToggleBox>
-                <LightDark onClick={() => setToggleLight(!toggleLight)} toggleLight={toggleLight}>
+                <LightDark onClick={change} toggleLight={toggleLight}>
                     <ion-icon name="sunny" id="sunny"></ion-icon>
                     <ion-icon name="moon" id="moon"></ion-icon>
                     <BallSlider toggleLight={toggleLight}></BallSlider>

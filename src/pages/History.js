@@ -1,13 +1,15 @@
 import { styled } from "styled-components"
-import foto1 from "../styles/images/foto1.png";
+import foto1 from "../styles/images/foto1.svg";
 import foto2 from "../styles/images/foto2.jpeg";
 import tvColor from "../styles/images/chuvisco-color.gif";
 import tvBlack from "../styles/images/chuvisco branco e preto.gif";
 import ToggleContext from "../contexts/ToggleContext";
+import TransitionContext from "../contexts/TransitionContext";
 import { useState, useEffect, useContext } from "react";
 
 export default function History() { 
-    const {toggleLight, setToggleLight} = useContext(ToggleContext);
+    const { toggleLight } = useContext(ToggleContext);
+    const { transitionPhoto } = useContext(TransitionContext);
     const texts = [
         "Sou Lucas...",
         "Desenvolvedor Full Stack, com experiência em desenvolvimento de aplicações web front-end e back-end.",
@@ -16,8 +18,7 @@ export default function History() {
     ];
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
-    const [ changePhoto, setChangePhoto ] = useState(tvBlack);
-    const [ transitionPhoto, setTransitionPhoto ] = useState(false);
+    
 
     useEffect(() => {
         texts.forEach((element, index) => {
@@ -40,16 +41,6 @@ export default function History() {
         });
     }, []); 
 
-    async function transition() { 
-        setTransitionPhoto(true);
-        
-        await setTimeout(() => {
-            toggleLight ? setChangePhoto(tvColor) : setChangePhoto(tvBlack);
-        }, 3000);
-
-        setTransitionPhoto(false);
-    }
-
     return( 
         <Resume>
             <Abstract toggleLight={toggleLight}>
@@ -59,11 +50,11 @@ export default function History() {
             </Abstract>
 
             <ImageBox toggleLight={toggleLight}>
-                {toggleLight ? ( 
-                     <img src={foto2} alt="foto1" id="sunny"/>
-                 ): ( !transitionPhoto ? transition() : 
-                        <img src={foto2} alt="foto1" id="sunny"/>
-                    )
+                {!transitionPhoto ? ( 
+                    <img src={toggleLight ? foto2 : foto1} alt="profile_photo"/>
+                ): ( 
+                    <img src={toggleLight ? tvBlack : tvColor} alt="transition_picute"/>
+                )
                 }
             </ImageBox>
         </Resume>
@@ -127,5 +118,6 @@ const ImageBox = styled.div`
         width: 300px; 
         height: 400px;
         object-fit: cover;
+        border-radius: 20px;
     } 
 `
