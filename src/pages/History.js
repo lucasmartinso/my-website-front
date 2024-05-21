@@ -11,29 +11,35 @@ export default function History() {
     ];
     
     const [ textArray, setTextArray ] = useState([]);
-    const [ slowText, setSlowText ] = useState('');
+    const [ slowText, setSlowText ] = useState([]);
 
     useEffect(() => {
         texts.forEach((element, index) => {
-            textArray[index] = element.split('');
+            textArray[index] = element.split([]);
         });
         
-        //console.log(textArray[0]);
-        textArray[0].forEach((letter, index) => { 
-            setTimeout(() => {
-                setSlowText(prev => prev + letter); 
-            }, 75*index);
-        }) 
-        console.log(slowText);
+        textArray.forEach((textItem, textIndex) => {
+            textItem.forEach((letter, letterIndex) => {
+                setTimeout(() => {
+                    setSlowText(prev => {
+                        const newSlowText = [...prev];
+                        if (!newSlowText[textIndex]) {
+                            newSlowText[textIndex] = '';
+                        }
+                        newSlowText[textIndex] += letter;
+                        return newSlowText;
+                    });
+                }, 75 * (letterIndex + textIndex/2 * textItem.length));
+            });
+        });
     }, []);
 
     return( 
         <Resume>
             <Abstract>
-                <span>{slowText}</span>
-                <span></span>
-                <span></span>
-                <span></span>
+                {slowText.map((text, index) => (
+                    <span key={index}>{text}</span>
+                ))}
             </Abstract>
 
             <ImageBox>
@@ -70,6 +76,22 @@ const Abstract = styled.div`
         text-overflow: ellipsis;
         border-right: 0.15em solid gray;
         transition: 4s;
+    } 
+
+    span:after { 
+        content: '|';
+        margin-left: 5px;
+        opacity: 1;
+        animation: blink .7s infinite;
+    } 
+
+    @keyframes blink {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
     }
 `
 const ImageBox = styled.div`
