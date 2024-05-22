@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import bottom from "../styles/images/init_bottom.gif";
 import top from "../styles/images/init_top.gif";
+import assignature from "../styles/images/assignature.svg";
 import { RotatingSquare } from "react-loader-spinner"
 
 
@@ -16,13 +17,13 @@ export default function InitialScreen() {
             setRenderTop(true);
         }, 4000);
 
-        // setTimeout(() => {
-        //     setTransition(true);
-        // }, 5000);
+        setTimeout(() => {
+            setTransition(true);
+        }, 5000);
 
-        // setTimeout(() => {
-        //     navigate("/hello");
-        // }, 7000);
+        setTimeout(() => {
+            navigate("/hello");
+        }, 7000);
     })
 
     return( 
@@ -42,6 +43,7 @@ export default function InitialScreen() {
                     }}
                     wrapperClass=""
                 />
+                <img src={assignature} alt="assignature" />
             </Central>
             <Gifs renderTop={renderTop}> 
                 <img src={bottom} alt="bottom" id="bottom"/>
@@ -67,7 +69,7 @@ const Gifs = styled.div`
     margin-top: 10px;
 
     img { 
-        width: 80%;
+        width: 70%;
         //object-fit: cover;
     }
 
@@ -85,4 +87,12 @@ const Central = styled.div`
     display: flex; 
     justify-content: center;
     align-items: center;
+    position: relative;
+
+    img { 
+        width: 220px;
+        height: 220px;
+        position: relative;
+        bottom: 0;
+    }
 `
