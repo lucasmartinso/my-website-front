@@ -1,36 +1,50 @@
 import { styled } from "styled-components"; 
 import ToggleContext from "../contexts/ToggleContext";
-import { useContext, useState } from "react";
+import TransitionContext from "../contexts/TransitionContext";
+import { useContext } from "react";
+import History from "../pages/History";
+import { wait } from "@testing-library/user-event/dist/utils";
 
 export default function MainScreen() { 
-    const {toggleLight, setToggleLight} = useContext(ToggleContext);
+    const { toggleLight, setToggleLight } = useContext(ToggleContext);
+    const { setTransitionPhoto } = useContext(TransitionContext);
+
+    async function change() { 
+        setToggleLight(!toggleLight); 
+        setTransitionPhoto(true); 
+
+        await wait(2000);
+        setTransitionPhoto(false);
+    }
 
     return( 
         <Container>
             <ToggleBox>
-                <LightDark onClick={() => setToggleLight(!toggleLight)} toggleLight={toggleLight}>
+                <LightDark onClick={change} toggleLight={toggleLight}>
                     <ion-icon name="sunny" id="sunny"></ion-icon>
                     <ion-icon name="moon" id="moon"></ion-icon>
                     <BallSlider toggleLight={toggleLight}></BallSlider>
                 </LightDark>
             </ToggleBox>
+            
+            <History />
         </Container>
     )
 }
 
-export const Container = styled.div`
+const Container = styled.div`
     position: relative;
     width: 100%; 
     height: 100%;  
 `
-export const ToggleBox = styled.div`
+const ToggleBox = styled.div`
     position: absolute;
     width: 90px;
     height: 40px; 
     right: 20px;
     top: 50px;
 `
-export const LightDark = styled.label`
+const LightDark = styled.label`
     position: relative;
     width: 100%; 
     height: 100%;
