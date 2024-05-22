@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 export default function InitialScreen() { 
     const navigate = useNavigate();
+
+    // useEffect(() => { 
+    //     setTimeout(() => {
+    //         navigate("/hello");
+    //     }, 4000);
+    // })
 
     return( 
         <Container> 
@@ -17,5 +24,5 @@ const Container = styled.div`
     position: fixed; 
     left: 0; 
     top: 0;
-    background-color: 
+    background-color: #302F2F;
 `
