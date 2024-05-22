@@ -26,6 +26,7 @@ export default function MainScreen() {
                     <BallSlider toggleLight={toggleLight}></BallSlider>
                 </LightDark>
             </ToggleBox>
+            
             <History />
         </Container>
     )

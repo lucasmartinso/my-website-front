@@ -25,6 +25,7 @@ export default function History() {
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
     const [ techs, setTechs ] = useState(''); 
+    const [ slideEffect, setSlideEffect ] = useState(true);
 
     useEffect(async () => {
         async function fetchData() {
@@ -51,6 +52,10 @@ export default function History() {
                         }, 75 * (letterIndex + textIndex / 2 * textItem.length));
                     });
                 });
+                
+                setTimeout(() => {
+                    setSlideEffect(false);
+                }, 95000);
             } catch (error) {
                 console.log(error);
             }
@@ -85,11 +90,12 @@ export default function History() {
             })}
         </About> 
 
-        <Skills toggleLight={toggleLight}> 
-            <p>HARD-SKILLS</p>
+        <Skills toggleLight={toggleLight} slideEffect={slideEffect}> 
+            <a>HARD-SKILLS <ion-icon name="information-circle"></ion-icon></a>
             <BoxSkills> 
                 <Skiil>
-                    <p>{techs.toUpperCase()}</p>
+                    <p id="right">{techs.toUpperCase()}</p>
+                    <p id="left">{techs.toUpperCase()}</p>
                 </Skiil>
             </BoxSkills>
         </Skills>
@@ -224,15 +230,31 @@ const Skills = styled.div`
     width: 100%; 
     height: 100%;
     margin-top: 100px;
+    padding-bottom: 100px;
     display: flex; 
     flex-direction: column; 
     align-items: center;
     color: ${props => props.toggleLight ? ("black") : ("white")}; 
 
-    p { 
+    a { 
         font-family: "Oi", serif;
         font-size: 50px;
-        margin-bottom: 50px;
+        margin-bottom: ${props => props.slideEffect ? ("50px") : ("10px")};
+        display: flex; 
+        align-items: center;
+        transition: margin-bottom 5s;
+
+        ion-icon { 
+            margin: 0px 0px 7px 10px;
+            color: ${props => props.toggleLight ? ("#CCCCCC") : ("rgba(255,255,255,0.5)")};
+            transition: 1s;
+
+            &:hover, 
+            &:focus { 
+                cursor: pointer;
+                color: ${props => props.toggleLight ? ("black") : ("white")};
+            }
+        }
     } 
 `
 const BoxSkills = styled.div`
@@ -243,30 +265,52 @@ const BoxSkills = styled.div`
 `
 const Skiil = styled.div`
     width: 100%;
-    height: 100%;
-    left: 0; 
-    transition: 10s;
+    height: 100%; 
+    transition: 3s;
+    overflow-x: hidden;
 
     p { 
-        width: 20%;
-        margin-bottom: 50px;
+        width: 100%;
         font-family: "Syne", sans-serif;
-        font-weight: 400;
+        font-weight: bold;
         font-size: 22px; 
-        font-family: "Syne", sans-serif;
-        font-weight: bold;animation-duration: 100s;
-        animation-name: slidein;
-      }
-      
-      @keyframes slidein {
+        //animation-iteration-count: infinite;
+        overflow: hidden;
+        margin-bottom: ${props => props.slideEffect ? ("15px") : ("0px")};        
+    }
+
+    p#right { 
+        animation-name: slidein-right;
+        animation-duration: 100s;
+        visibility: ${props => props.slideEffect ? ("visible") : ("hidden")};
+    }
+
+    p#left { 
+        animation-name: slidein-left;
+        animation-duration: 60s;
+    }
+
+    @keyframes slidein-right {
         from {
-          margin-left: 0%;
-          width: 100%;
+            margin-left: 0%;
+            width: 100%;
         }
-      
+    
         to {
             margin-left: 100%;
             width: 300%;
         }
-    } 
+    }
+
+    @keyframes slidein-left {
+        from {
+            margin-left: 100%;
+            width: 300%;
+        }
+    
+        to {
+            margin-left: 0%;
+            width: 100%;
+        }
+    }
 `

@@ -16,7 +16,8 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
           <Routes>
-              <Route path="/" element={<MainScreen />} />
+            <Route path="/" element={<MainScreen />} />
+              <Route path="/hello" element={<MainScreen />} />
           </Routes>
       </BrowserRouter>
     </TransitionContext.Provider>
