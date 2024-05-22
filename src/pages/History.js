@@ -1,11 +1,13 @@
 import { styled } from "styled-components"
-import foto1 from "../styles/images/foto1.svg";
+import { useState, useEffect, useContext } from "react";
+import foto1 from "../styles/images/foto1.png";
 import foto2 from "../styles/images/foto2.jpeg";
-import tvColor from "../styles/images/chuvisco-color.gif";
-import tvBlack from "../styles/images/chuvisco branco e preto.gif";
+import tvColor from "../styles/images/color.gif";
+import tvBlack from "../styles/images/black_white.gif";
 import ToggleContext from "../contexts/ToggleContext";
 import TransitionContext from "../contexts/TransitionContext";
-import { useState, useEffect, useContext } from "react";
+import * as techApi from "../requests/techApi";
+
 
 export default function History() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -22,27 +24,39 @@ export default function History() {
     ];
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
-    
+    const [ techs, setTechs ] = useState(''); 
 
-    useEffect(() => {
-        description.forEach((element, index) => {
-            textArray[index] = element.split([]);
-        });
-        
-        textArray.forEach((textItem, textIndex) => {
-            textItem.forEach((letter, letterIndex) => {
-                setTimeout(() => {
-                    setSlowText(prev => {
-                        const newSlowText = [...prev];
-                        if (!newSlowText[textIndex]) {
-                            newSlowText[textIndex] = '';
-                        }
-                        newSlowText[textIndex] += letter;
-                        return newSlowText;
+    useEffect(async () => {
+        async function fetchData() {
+            try {
+                const techx = await techApi.getTechs();
+                const techNames = techx.map(tech => tech.name).join('***');
+                setTechs(techNames);
+    
+                const textArrayData = description.map(element => element.split(''));
+                setTextArray(textArrayData);
+                console.log(textArray);
+    
+                textArrayData.forEach((textItem, textIndex) => {
+                    textItem.forEach((letter, letterIndex) => {
+                        setTimeout(() => {
+                            setSlowText(prev => {
+                                const newSlowText = [...prev];
+                                if (!newSlowText[textIndex]) {
+                                    newSlowText[textIndex] = '';
+                                }
+                                newSlowText[textIndex] += letter;
+                                return newSlowText;
+                            });
+                        }, 75 * (letterIndex + textIndex / 2 * textItem.length));
                     });
-                }, 75 * (letterIndex + textIndex/2 * textItem.length));
-            });
-        });
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    
+        fetchData();
     }, []); 
 
     return( 
@@ -54,7 +68,7 @@ export default function History() {
                 ))}
             </Abstract>
 
-            <ImageBox toggleLight={toggleLight}>
+            <ImageBox toggleLight={toggleLight} transitionPhoto={transitionPhoto}>
                 {!transitionPhoto ? ( 
                     <img src={toggleLight ? foto2 : foto1} alt="profile_photo"/>
                 ): ( 
@@ -74,7 +88,9 @@ export default function History() {
         <Skills toggleLight={toggleLight}> 
             <p>HARD-SKILLS</p>
             <BoxSkills> 
-                <p></p>
+                <Skiil>
+                    <p>{techs.toUpperCase()}</p>
+                </Skiil>
             </BoxSkills>
         </Skills>
         </>
@@ -139,6 +155,46 @@ const ImageBox = styled.div`
         height: 400px;
         object-fit: cover;
         border-radius: 20px;
+        transition: 0.5s;
+        box-shadow: ${props => {
+            if (props.transitionPhoto) {
+              if (props.toggleLight) {
+                return `
+                  rgba(48, 47, 47, 0.8) 5px 5px, 
+                  rgba(48, 47, 47, 0.5) 10px 10px, 
+                  rgba(48, 47, 47, 0.3) 15px 15px, 
+                  rgba(48, 47, 47, 0.2) 20px 20px, 
+                  rgba(48, 47, 47, 0.1) 25px 25px
+                `;
+              } else {
+                return `
+                  rgba(240, 46, 170, 0.4) 5px 5px, 
+                  rgba(240, 46, 170, 0.3) 10px 10px, 
+                  rgba(240, 46, 170, 0.2) 15px 15px, 
+                  rgba(240, 46, 170, 0.1) 20px 20px, 
+                  rgba(240, 46, 170, 0.05) 25px 25px
+                `;
+              }
+            } else {
+              if (props.toggleLight) {
+                return `
+                    rgba(48, 47, 47, 0.8) 5px 5px, 
+                    rgba(48, 47, 47, 0.5) 10px 10px, 
+                    rgba(48, 47, 47, 0.3) 15px 15px, 
+                    rgba(48, 47, 47, 0.2) 20px 20px, 
+                    rgba(48, 47, 47, 0.1) 25px 25px
+                `;
+              } else {
+                return `
+                  rgba(162, 157, 157, 0.7) 5px 5px, 
+                  rgba(162, 157, 157, 0.5) 10px 10px, 
+                  rgba(162, 157, 157, 0.3) 15px 15px, 
+                  rgba(162, 157, 157, 0.2) 20px 20px, 
+                  rgba(162, 157, 157, 0.1) 25px 25px
+                `;
+              }
+            }
+          }};
     } 
 `
 const About = styled.div`
@@ -179,8 +235,38 @@ const Skills = styled.div`
         margin-bottom: 50px;
     } 
 `
-
 const BoxSkills = styled.div`
     width: 100%; 
-    height: 
+    height: 100%; 
+    display: flex; 
+    justify-content: left;
+`
+const Skiil = styled.div`
+    width: 100%;
+    height: 100%;
+    left: 0; 
+    transition: 10s;
+
+    p { 
+        width: 20%;
+        margin-bottom: 50px;
+        font-family: "Syne", sans-serif;
+        font-weight: 400;
+        font-size: 22px; 
+        font-family: "Syne", sans-serif;
+        font-weight: bold;animation-duration: 100s;
+        animation-name: slidein;
+      }
+      
+      @keyframes slidein {
+        from {
+          margin-left: 0%;
+          width: 100%;
+        }
+      
+        to {
+            margin-left: 100%;
+            width: 300%;
+        }
+    } 
 `
