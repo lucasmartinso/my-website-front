@@ -4,6 +4,7 @@ import GlobalStyle from "./styles/globalStyles";
 import ToggleContext from "./contexts/ToggleContext";
 import TransitionContext from "./contexts/TransitionContext";
 import MainScreen from "./components/Main.js";
+import InitialScreen from "./components/Initial";
 
 
 export default function App() {
@@ -16,7 +17,7 @@ export default function App() {
       <GlobalStyle />
       <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainScreen />} />
+            <Route path="/" element={<InitialScreen />} />
               <Route path="/hello" element={<MainScreen />} />
           </Routes>
       </BrowserRouter>
