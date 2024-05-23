@@ -41,12 +41,20 @@ const ToggleBox = styled.div`
     position: absolute;
     width: 90px;
     height: 40px; 
-    right: 20px;
+    right: 250px;
     top: 50px;
+    transition: 2s;
+
+    @media (max-width: 1800px) {
+        right: 100px;
+    }
 
     @media (max-width: 1200px) {
         right: 20px;
-        top: 50px;
+    }
+
+    @media (max-width: 1200px) {
+        right: 0px;
     }
 `
 const LightDark = styled.label`
