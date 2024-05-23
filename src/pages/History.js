@@ -153,7 +153,7 @@ const Abstract = styled.div`
         width: 60%;
         
         span { 
-            width: 85%;
+            width: 80%;
             margin-top: 15px;
             font-size: 20px;
         }
@@ -223,13 +223,6 @@ const ImageBox = styled.div`
               }
             }
           }};
-    }
-
-    @media (max-width: 1600px) {
-        img { 
-            width: 450px; 
-            height: 400px;
-        }
     }
 
     @media (max-width: 1200px) {

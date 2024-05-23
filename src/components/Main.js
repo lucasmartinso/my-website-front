@@ -43,6 +43,11 @@ const ToggleBox = styled.div`
     height: 40px; 
     right: 20px;
     top: 50px;
+
+    @media (max-width: 1200px) {
+        right: 20px;
+        top: 50px;
+    }
 `
 const LightDark = styled.label`
     position: relative;
