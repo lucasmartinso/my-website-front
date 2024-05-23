@@ -17,13 +17,13 @@ export default function InitialScreen() {
             setRenderTop(true);
         }, 4000);
 
-        setTimeout(() => {
-            setTransition(true);
-        }, 5000);
+        // setTimeout(() => {
+        //     setTransition(true);
+        // }, 6000);
 
-        setTimeout(() => {
-            navigate("/hello");
-        }, 7000);
+        // setTimeout(() => {
+        //     navigate("/hello");
+        // }, 8000);
     })
 
     return( 
@@ -59,7 +59,7 @@ const Container = styled.div`
     left: 0; 
     top: 0;
     background-color: ${props => props.transition ? ("#FEF5E3") : ("#302F2F")}; 
-    transition: 10s;
+    transition: 5s;
 `
 const Gifs = styled.div`
     width: 100%; 
@@ -69,8 +69,7 @@ const Gifs = styled.div`
     margin-top: 10px;
 
     img { 
-        width: 70%;
-        //object-fit: cover;
+        width: 50%;
     }
 
     img#top { 
@@ -79,6 +78,12 @@ const Gifs = styled.div`
 
     img#bottom { 
         visibility: ${props => props.renderTop ? ("hidden"): ("visibility")};
+    }
+
+    @media (max-width: 1200px) {
+        img { 
+            width: 70%;
+        }
     }
 `
 const Central = styled.div`
