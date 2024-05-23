@@ -69,7 +69,7 @@ const Gifs = styled.div`
     margin-top: 10px;
 
     img { 
-        width: 50%;
+        width: 40%;
     }
 
     img#top { 
@@ -83,6 +83,12 @@ const Gifs = styled.div`
     @media (max-width: 1200px) {
         img { 
             width: 70%;
+        }
+    } 
+
+    @media (max-width: 700px) {
+        img { 
+            width: 80%;
         }
     }
 `
