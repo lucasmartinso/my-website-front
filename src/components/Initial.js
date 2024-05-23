@@ -17,13 +17,13 @@ export default function InitialScreen() {
             setRenderTop(true);
         }, 4000);
 
-        // setTimeout(() => {
-        //     setTransition(true);
-        // }, 6000);
+        setTimeout(() => {
+            setTransition(true);
+        }, 6000);
 
-        // setTimeout(() => {
-        //     navigate("/hello");
-        // }, 8000);
+        setTimeout(() => {
+            navigate("/hello");
+        }, 8000);
     })
 
     return( 

@@ -27,6 +27,7 @@ export default function History() {
     const [ techs, setTechs ] = useState(''); 
     const [ slideEffect, setSlideEffect ] = useState(true);
 
+    console.log(slideEffect);
     useEffect(async () => {
         async function fetchData() {
             try {
@@ -93,7 +94,7 @@ export default function History() {
         <Skills toggleLight={toggleLight} slideEffect={slideEffect}> 
             <a>HARD-SKILLS <ion-icon name="information-circle"></ion-icon></a>
             <BoxSkills> 
-                <Skiil>
+                <Skiil slideEffect={slideEffect}>
                     <p id="right">{techs.toUpperCase()}</p>
                     <p id="left">{techs.toUpperCase()}</p>
                 </Skiil>
@@ -107,28 +108,28 @@ const Resume = styled.div`
     width: 100%; 
     height: 100%; 
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-top: 180px; 
 `
 const Abstract = styled.div`
-    width: 60%; 
+    width: 40%; 
     height: 100%;
     display: flex; 
     justify-content: center;
     flex-direction: column;
 
     span { 
-        width: 85%;
-        margin-top: 15px;
-        font-size: 20px;
+        width: 80%;
+        margin-top: 20px;
+        font-size: 22px;
         //font-family: "Kavoon", serif;
         font-family: "Space Mono", monospace;
         font-weight: 700;
         text-align: left;
         text-overflow: ellipsis;
         border-right: 0.15em solid gray;
-        transition: 3s;
+        transition: color linear 3s;
         color: ${props => props.toggleLight ? ("black") : ("white")}
     } 
 
@@ -147,6 +148,27 @@ const Abstract = styled.div`
           opacity: 0;
         }
     }
+
+    @media (max-width: 1200px) {
+        width: 60%;
+        
+        span { 
+            width: 85%;
+            margin-top: 15px;
+            font-size: 20px;
+        }
+        
+    } 
+
+    @media (max-width: 700px) {
+        width: 60%; 
+
+        span { 
+            width: 85%;
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    }
 `
 const ImageBox = styled.div`
     width: 40%; 
@@ -157,7 +179,7 @@ const ImageBox = styled.div`
     transition: 3s; 
 
     img { 
-        width: 300px; 
+        width: 600px; 
         height: 400px;
         object-fit: cover;
         border-radius: 20px;
@@ -201,7 +223,39 @@ const ImageBox = styled.div`
               }
             }
           }};
-    } 
+    }
+
+    @media (max-width: 1600px) {
+        img { 
+            width: 450px; 
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 1200px) {
+        img { 
+            width: 300px; 
+            height: 400px;
+        }
+    }
+    
+    @media (max-width: 1000px) {
+        width: 50%;
+
+        img { 
+            width: 90%; 
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        width: 50%;
+
+        img { 
+            width: 95%; 
+            height: 320px;
+        }
+    }
 `
 const About = styled.div`
     width: 100%; 
