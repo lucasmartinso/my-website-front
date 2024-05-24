@@ -110,7 +110,7 @@ const Resume = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 180px; 
+    padding-top: 220px; 
 `
 const Abstract = styled.div`
     width: 40%; 
@@ -157,14 +157,13 @@ const Abstract = styled.div`
             margin-top: 15px;
             font-size: 20px;
         }
-        
     } 
 
     @media (max-width: 700px) {
-        width: 60%; 
+        width: 70%; 
 
         span { 
-            width: 85%;
+            width: 80%;
             margin-top: 15px;
             font-size: 18px;
         }
@@ -266,11 +265,25 @@ const About = styled.div`
     } 
 
     span { 
-        width: 70%;
+        width: 50%;
         margin-bottom: 15px;
         font-family: "Syne", sans-serif;
         font-weight: 400;
-        font-size: 17px;
+        font-size: 20px;
+    }
+
+    @media (max-width: 1200px) {
+        span { 
+            width: 80%;
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        span { 
+            width: 80%;
+            font-size: 17px;
+        }
     }
 `
 const Skills = styled.div`
@@ -302,7 +315,13 @@ const Skills = styled.div`
                 color: ${props => props.toggleLight ? ("black") : ("white")};
             }
         }
-    } 
+    }
+
+    @media (max-width: 700px) {
+        a { 
+            font-size: 45px;
+        }
+    }
 `
 const BoxSkills = styled.div`
     width: 100%; 
@@ -360,4 +379,8 @@ const Skiil = styled.div`
             width: 100%;
         }
     }
+
+    // @media (max-width: 1200px) {
+    //     
+    // }
 `

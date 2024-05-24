@@ -5,10 +5,12 @@ import { useContext } from "react";
 import History from "../pages/History";
 import { wait } from "@testing-library/user-event/dist/utils";
 import Toggle from "../pages/Toggle";
+import Tittle from "../pages/Tittle";
 
 export default function MainScreen() { 
     return( 
         <Container>
+            <Tittle />
             <Toggle />
             
             <History />
