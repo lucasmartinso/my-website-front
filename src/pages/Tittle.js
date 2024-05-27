@@ -3,10 +3,11 @@ import whiteLogo from "../styles/images/logo_white.svg";
 import blackLogo from "../styles/images/logo_black.svg";
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useState } from "react";
+import EmailContext from "../contexts/EmailContext";
 
 export default function Tittle() { 
     const { toggleLight } = useContext(ToggleContext); 
-    const [ popUp, setPopUp ] = useState(false);
+    const { emailPopUp, setEmailPopUp } = useContext(EmailContext);
 
     return( 
         <Container toggleLight={toggleLight}>
@@ -18,7 +19,7 @@ export default function Tittle() {
             </Guide>
             <Tags toggleLight={toggleLight}>
                 <div id="zap" onClick={() => window.open('https://wa.me/5532988002451?text=Vim+pelo+seu+site%21+Queria+bater+um+papo+com+voc%C3%AA%21','_blank')}><ion-icon name="logo-whatsapp"></ion-icon></div>
-                <div id="email" onClick={() => setPopUp(true)}><ion-icon name="logo-google"></ion-icon></div>
+                <div id="email" onClick={() => setEmailPopUp(true)}><ion-icon name="logo-google"></ion-icon></div>
                 <div id="linkedin" onClick={() => window.open('https://www.linkedin.com/in/lucas-martins-oliveir/', '_blank')}><ion-icon name="logo-linkedin"></ion-icon></div>
                 <div id="github" toggleLight={toggleLight} onClick={() => window.open('https://github.com/lucasmartinso', '_blank')}><ion-icon name="logo-github"></ion-icon></div>
             </Tags>
