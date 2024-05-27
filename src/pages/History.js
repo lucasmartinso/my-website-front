@@ -27,7 +27,6 @@ export default function History() {
     const [ techs, setTechs ] = useState(''); 
     const [ slideEffect, setSlideEffect ] = useState(true);
 
-    console.log(slideEffect);
     useEffect(async () => {
         async function fetchData() {
             try {
