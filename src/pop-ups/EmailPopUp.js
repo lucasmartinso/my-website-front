@@ -8,12 +8,13 @@ export default function EmailPopUp() {
     const [ email, setEmail ] = useState(""); 
     const [ subject, setSubject ] = useState("");
     const [ message, setMessage ] = useState("");
-    const [ sending, setSending ] = useState(false);
+    const [ sending, setSending ] = useState(true);
+    const [ visible, setVisble ] = useState(false);
     const [ shared, setShared ] = useState(false);
 
     async function sendEmail(event) {
         event.preventDefault(); 
-
+        
         setSending(true);
         console.log("Envia email");
         const emailData = { 
@@ -23,11 +24,23 @@ export default function EmailPopUp() {
         }
 
         try {
-            //await function(emailData);
+            //await function(emailData); //integra no backend pro email
             setTimeout(() => {
-                setSending(false);
+                setVisble(true);
+            }, 1);
+            setTimeout(() => {
                 setShared(true);
-            }, 2000);
+            }, 3000);
+            setTimeout(() => {
+                setVisble(false);
+            }, 4000);
+            setTimeout(() => {
+                setEmail(""); 
+                setSubject(""); 
+                setMessage("");
+                setEmailPopUp(false);
+            }, 5000);
+            setShared(false);
         } catch (error) {
             console.log(error);
         }
@@ -90,7 +103,20 @@ export default function EmailPopUp() {
                 </Box>
 
                 { sending ? (
-                    "skmkxm"
+                    <SendingBox>
+                        {shared ? ("") : (
+                            <UndoBox onClick={() => setSending(false)} className={visible ? 'visible' : ''}>Desfazer</UndoBox>
+                        )}
+                        <SendingMessage className={visible ? 'visible' : ''} shared={shared}>
+                        {shared ? (
+                            <span>
+                                Enviado <ion-icon name="checkmark-circle-outline"></ion-icon>
+                            </span>
+                        ) : (
+                            "Enviando..."
+                        )}
+                        </SendingMessage>
+                    </SendingBox>
                 ): ("")}
             </Container>
         ) : ("")}
@@ -98,7 +124,7 @@ export default function EmailPopUp() {
     )
 }
 
-const Container = styled.div`
+export const Container = styled.div`
     width: 100%; 
     height: 100%;
     position: fixed; 
@@ -109,6 +135,7 @@ const Container = styled.div`
     display: flex; 
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 `
 const Box = styled.div`
     width: 80%;
@@ -221,3 +248,74 @@ const Creative = styled.div`
         }
     }
 ` 
+const SendingBox = styled.div`
+    width: 100%; 
+    height: 100px; 
+    display: flex; 
+    justify-content: right;
+`
+const SendingMessage = styled.div`
+    width: 40%; 
+    height: 50px;
+    ${props => props.shared ? "border-radius: 12px 0px 0px 12px;" : ";"} 
+    background-color: #67C260;
+    margin-top: 150px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    color: white;
+    font-family: "Kavoon", serif;
+    font-size: 20px;
+    box-shadow: rgba(254, 245, 227, 0.5) 0px 22px 70px 4px;
+    transform: translateX(-100%);
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    opacity: 0;
+
+    span { 
+        display: flex; 
+        align-items: center;
+
+        ion-icon { 
+            margin-left: 5px;
+            width: 20px; 
+            height: 20px;
+        }
+    }
+
+    &.visible {
+        transform: translateX(0);
+        opacity: 1;
+    }
+`
+const UndoBox = styled.div`
+    width: 20%; 
+    height: 50px; 
+    background-color: #D8364B;
+    border-radius: 12px 0px 0px 12px;
+    margin-top: 150px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    color: white;
+    font-family: "Kavoon", serif;
+    font-size: 20px;
+    box-shadow: rgba(254, 245, 227, 0.5) 0px 22px 70px 4px;
+    transform: translateX(-100%);
+    transition: transform 2s ease-in-out, opacity 2s ease-in-out, width 2s;
+    opacity: 0; 
+
+    &.visible {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    &:hover,
+    &:focus { 
+        cursor: pointer;
+        width: 25%;
+    }
+
+    &:active { 
+        width: 15%;
+    }
+`
