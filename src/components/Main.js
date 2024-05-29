@@ -8,16 +8,19 @@ import Tittle from "../pages/Tittle";
 import EmailContext from "../contexts/EmailContext";
 import EmailPopUp from "../pop-ups/EmailPopUp";
 import SkillPopUp from "../pop-ups/SkillsPopUp";
+import BaseBoard from "../pages/BaseBoard";
 
 export default function MainScreen() { 
     return( 
         <Container>
             <EmailPopUp />
             <SkillPopUp />
+
             <Tittle />
             <Toggle />
             
             <History />
+            <BaseBoard />
         </Container>
     )
 }
