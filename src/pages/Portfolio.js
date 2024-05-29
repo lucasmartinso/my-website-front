@@ -1,10 +1,24 @@
-import { useEffect } from "react"
-import { styled } from "styled-components"
+import { useContext, useEffect, useState } from "react";
+import { styled } from "styled-components";
+import ToggleContext from "../contexts/ToggleContext";
+import * as projectApi from "../requests/projectApi";
+
 
 export default function Portfolio() { 
+    const { toggleLight } = useContext(ToggleContext);
+    const [ projects, setProjects ] = useState([]);
 
     useEffect(() => { 
+        async function projectData() { 
+            try {
+                const response = await projectApi.getProjects(); 
+                setProjects(projects);
+            } catch (error) {
+                console.log(error); 
+            }
+        }
 
+        projectData();
     },[]);
 
     return( 
