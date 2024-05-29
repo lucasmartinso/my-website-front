@@ -354,6 +354,10 @@ const Skiil = styled.div`
     p#left { 
         animation-name: slidein-left;
         animation-duration: 60s;
+        white-space: pre-wrap;  
+        word-wrap: break-word;  
+        word-break: break-word; 
+        overflow-wrap: break-word;
     }
 
     @keyframes slidein-right {
