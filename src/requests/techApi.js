@@ -9,3 +9,13 @@ export async function getTechs() {
         return [];
     }
 }
+
+export async function searchTechs() { 
+    try {
+        const response = await api.get('/techs/search');
+        return response.data;
+    } catch (error) {
+        console.log('Error retrieving techs:', error); 
+        return [];
+    }
+}

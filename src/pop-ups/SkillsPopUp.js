@@ -3,10 +3,10 @@ import { useContext, useEffect, useState } from "react";
 import SkillContext from "../contexts/SkillsContext";
 import { Box, Container } from "./EmailPopUp";
 import * as techApi from "../requests/techApi";
+import { DebounceInput } from "react-debounce-input";
 
 export default function SkillPopUp() { 
     const { skillPopUp, setSkillPopUp } = useContext(SkillContext);
-    const [ search, setSearch ] = useState("");
     const [ techs, setTechs ] = useState([]);
 
     useEffect(() => { 
@@ -20,7 +20,16 @@ export default function SkillPopUp() {
         }
 
         skillData()
-    }, [])
+    }, []); 
+
+    async function searchTech(event) { 
+        const tech = { tech: event }; 
+        try {
+            //await techApi.search(tech); 
+        } catch (error) {
+            console.log(error);
+        }
+    }
   
     return( 
         <>
@@ -43,11 +52,12 @@ export default function SkillPopUp() {
                     </Skills>
                     <Bottom>
                         <span>Pesquise uma hard-skill também:</span>
-                        <input 
+                        <DebounceInput
                             type="text"
-                            placeholder="Digite aqui..." 
-                            value={search}
-                            onChange={(event) => setSearch(event.target.value)}
+                            placeholder="Digite aqui..."
+                            minLength={1}
+                            debounceTimeout={400}
+                            onChange={(event) => searchTech(event.target.value)} 
                         />
                     </Bottom>
                 </Box>
