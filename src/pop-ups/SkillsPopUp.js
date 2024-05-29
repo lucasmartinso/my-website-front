@@ -4,16 +4,21 @@ import SkillContext from "../contexts/SkillsContext";
 import { Box, Container } from "./EmailPopUp";
 import * as techApi from "../requests/techApi";
 import { DebounceInput } from "react-debounce-input";
+import { MagnifyingGlass } from "react-loader-spinner";
+import bomb from "../styles/images/bomb.gif";
+import ToggleContext from "../contexts/ToggleContext";
 
 export default function SkillPopUp() { 
+    const { toggleLight } = useContext(ToggleContext)
     const { skillPopUp, setSkillPopUp } = useContext(SkillContext);
     const [ techs, setTechs ] = useState([]);
+    const [ loading, setLoading ] = useState(false);
 
     useEffect(() => { 
         async function skillData() { 
             try {
-                const techs = await techApi.getTechs();
-                setTechs(techs);
+                const techx = await techApi.getTechs();
+                setTechs(techx);
             } catch (error) {
                 console.log(error);
             }
@@ -23,9 +28,14 @@ export default function SkillPopUp() {
     }, []); 
 
     async function searchTech(event) { 
-        const tech = { tech: event }; 
+        setLoading(true);
+        const tech = { name: event }; 
+        console.log(tech);
         try {
-            //await techApi.search(tech); 
+            console.log(tech);
+            const techx = await techApi.searchTechs(tech); 
+            setTechs(techx);
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -35,20 +45,40 @@ export default function SkillPopUp() {
         <>
         {skillPopUp ? (
             <Container>
-                <Box>
+                <Box toggleLight={toggleLight}>
                     <Tittle>
                         <span>Segue o fio com todas as hard-skills 🧶​:</span>
                         <a onClick={() => setSkillPopUp(false)}>X</a>
                     </Tittle>
-                    <Skills> 
-                        {techs.map(tech => { 
-                            return( 
-                                <Skill>
-                                    <span>📌​</span>
-                                    <a>{tech.name}</a>
-                                </Skill>
+                    <Skills loading={loading}> 
+                        {techs.length ? (
+                            techs.map(tech => { 
+                                return( 
+                                    <Skill>
+                                        <span>📌​</span>
+                                        <a>{tech.name}</a>
+                                    </Skill>
+                                )
+                            })
+                        ) : (
+                            loading ? (
+                                <MagnifyingGlass
+                                    visible={true}
+                                    height="150"
+                                    width="150"
+                                    ariaLabel="magnifying-glass-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="magnifying-glass-wrapper"
+                                    glassColor="#c0efff"
+                                    color="#e15b64"
+                                />
+                            ) : (
+                                <>
+                                    <img src={bomb} alt="not found" />
+                                    <span>Not Found, make other search!</span>
+                                </>
                             )
-                        })}
+                        )}   
                     </Skills>
                     <Bottom>
                         <span>Pesquise uma hard-skill também:</span>
@@ -95,9 +125,20 @@ const Skills = styled.div`
     display: flex; 
     flex-direction: column; 
     align-items: center;
+    ${props => props.loading ? ("justify-content: center;") : (";")};
     overflow-y: auto;
     max-height: 80%;
     box-sizing: border-box;
+
+    img { 
+        width: 500px; 
+        height: 250px;
+    }
+
+    span { 
+        font-size: 25px;
+        font-family: "Space Mono", monospace;
+    }
 `
 const Skill = styled.div`
     width: 90%;

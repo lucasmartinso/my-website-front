@@ -10,9 +10,10 @@ export async function getTechs() {
     }
 }
 
-export async function searchTechs() { 
+export async function searchTechs(tech) {
+    console.log(tech); 
     try {
-        const response = await api.get('/techs/search');
+        const response = await api.post('/techs/search',tech);
         return response.data;
     } catch (error) {
         console.log('Error retrieving techs:', error); 

@@ -2,8 +2,10 @@ import { useContext, useState } from "react";
 import { styled } from "styled-components";
 import EmailContext from "../contexts/EmailContext";
 import video from "../styles/images/paperplane.gif";
+import ToggleContext from "../contexts/ToggleContext";
 
 export default function EmailPopUp() { 
+    const { toggleLight } = useContext(ToggleContext)
     const { emailPopUp, setEmailPopUp } = useContext(EmailContext);
     const [ email, setEmail ] = useState(""); 
     const [ subject, setSubject ] = useState("");
@@ -50,7 +52,7 @@ export default function EmailPopUp() {
         <>
         {emailPopUp ? (
             <Container>
-                <Box>
+                <Box toggleLight={toggleLight}>
                     <Tittle>
                         <span>Qualquer dúvida, me envie um email por aqui!</span>
                         <a onClick={() => setEmailPopUp(false)}>X</a>
