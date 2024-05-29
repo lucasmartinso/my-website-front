@@ -95,7 +95,9 @@ export default function EmailPopUp() {
                                 />
                             </Field>
                         </Info>
+
                         <Separator></Separator>
+
                         <Creative> 
                             <img src={video} alt="email video" />
                             <button>Enviar</button>
@@ -164,6 +166,8 @@ const Tittle = styled.div`
 
     a { 
         margin-top: 15px; 
+        font-family: "Space Mono", monospace;
+        font-weight: bold;
 
         &:hover { 
             cursor: pointer;
@@ -176,6 +180,10 @@ const Data = styled.div`
     height: 100%; 
     display: flex; 
     justify-content: space-between;
+
+    @media (max-width: 800px) { 
+        width: 100%;
+    }
 `
 const Info = styled.div`
     width: 50%; 
@@ -183,6 +191,10 @@ const Info = styled.div`
     display: flex; 
     flex-direction: column; 
     align-items: center; 
+
+    @media (max-width: 800px) { 
+        width: 60%;
+    }
 `
 const Field = styled.div`
     width: 100%; 
@@ -208,12 +220,13 @@ const Field = styled.div`
         height: 80px;
         padding: 10px;
         font-family: "Syne", sans-serif;
-    }
+    } 
 `
 const Separator = styled.div`
     width: 1px; 
     height: 80%; 
     border: 1px solid gray;
+    margin: 0px 10px;
 `
 const Creative = styled.div`
     width: 45%; 
@@ -247,6 +260,24 @@ const Creative = styled.div`
         &:active { 
             width: 180px; 
             height: 60px;
+        }
+    }
+
+    @media (max-width: 800px) { 
+        width: 40%;
+        padding-left:15px;
+
+        img { 
+            width: 200px;
+            height: 180px;
+            object-fit: cover;
+            margin-top: 30px;
+        }
+
+        button { 
+            margin-top: 90px;
+            width: 180px; 
+            height: 70px;
         }
     }
 ` 

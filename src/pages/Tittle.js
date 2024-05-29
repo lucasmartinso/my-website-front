@@ -7,7 +7,7 @@ import EmailContext from "../contexts/EmailContext";
 
 export default function Tittle() { 
     const { toggleLight } = useContext(ToggleContext); 
-    const { emailPopUp, setEmailPopUp } = useContext(EmailContext);
+    const { setEmailPopUp } = useContext(EmailContext);
 
     return( 
         <Container toggleLight={toggleLight}>
@@ -40,6 +40,9 @@ const Container = styled.div`
     justify-content: space-between;
     padding: 0px 20px;
     transition: 1s;
+    box-shadow: ${props => props.toggleLight ? 
+        ("rgba(191, 191, 191, 0.8) 0px 2px 4px, rgba(191, 191, 191, 0.6) 0px 7px 13px -3px, rgba(191, 191, 191, 0.4) 0px -3px 0px inset"): 
+        ("rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset")};
 `
 const Guide = styled.div`
     height: 100%;

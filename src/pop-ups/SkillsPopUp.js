@@ -111,7 +111,9 @@ const Tittle = styled.div`
     }
 
     a { 
-        font-size: 15px;
+        font-size: 20px;
+        font-family: "Space Mono", monospace;
+        font-weight: bold;
 
         &:hover { 
             cursor: pointer;
@@ -127,6 +129,7 @@ const Skills = styled.div`
     align-items: center;
     ${props => props.loading ? ("justify-content: center;") : (";")};
     overflow-y: auto;
+    overflow-x: hidden;
     max-height: 80%;
     box-sizing: border-box;
 
@@ -138,10 +141,11 @@ const Skills = styled.div`
     span { 
         font-size: 25px;
         font-family: "Space Mono", monospace;
+        text-align: center;
     }
 `
 const Skill = styled.div`
-    width: 90%;
+    width: 80%;
     height: 60px;
     display: flex; 
     padding: 0px 10px;
@@ -167,6 +171,10 @@ const Skill = styled.div`
     &:focus { 
         background-color: gray;
         color: white;
+    } 
+
+    @media (max-width: 1200px) { 
+        width: 90%;
     }
 `
 const Bottom = styled.div`
