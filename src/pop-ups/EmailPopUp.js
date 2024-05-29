@@ -137,7 +137,7 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
 `
-const Box = styled.div`
+export const Box = styled.div`
     width: 80%;
     height: 60%;
     background-color: #FEF5E3;

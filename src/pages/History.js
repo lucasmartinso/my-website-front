@@ -6,12 +6,13 @@ import tvColor from "../styles/images/color.gif";
 import tvBlack from "../styles/images/black_white.gif";
 import ToggleContext from "../contexts/ToggleContext";
 import TransitionContext from "../contexts/TransitionContext";
+import SkillContext from "../contexts/SkillsContext";
 import * as techApi from "../requests/techApi";
-
 
 export default function History() { 
     const { toggleLight } = useContext(ToggleContext);
     const { transitionPhoto } = useContext(TransitionContext);
+    const { setSkillPopUp } = useContext(SkillContext);
     const description = [
         "Sou Lucas...",
         "Desenvolvedor Full Stack, com experiência em desenvolvimento de aplicações web front-end e back-end.",
@@ -91,7 +92,7 @@ export default function History() {
         </About> 
 
         <Skills toggleLight={toggleLight} slideEffect={slideEffect}> 
-            <a>HARD-SKILLS <ion-icon name="information-circle"></ion-icon></a>
+            <a>HARD-SKILLS <ion-icon name="information-circle" onClick={() => setSkillPopUp(true)}></ion-icon></a>
             <BoxSkills> 
                 <Skiil slideEffect={slideEffect}>
                     <p id="right">{techs.toUpperCase()}</p>
