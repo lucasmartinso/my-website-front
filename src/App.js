@@ -7,6 +7,7 @@ import EmailContext from "./contexts/EmailContext";
 import SkillContext from "./contexts/SkillsContext";
 import MainScreen from "./components/Main.js";
 import InitialScreen from "./components/Initial";
+import ProjectScreen from "./components/Projects";
 
 export default function App() {
   const [ toggleLight, setToggleLight ] = useState(true);
@@ -24,6 +25,7 @@ export default function App() {
           <Routes>
               <Route path="/" element={<InitialScreen />} />
               <Route path="/hello" element={<MainScreen />} />
+              <Route path="/projects/:type" element={<ProjectScreen />} />
           </Routes>
       </BrowserRouter>
     </SkillContext.Provider>

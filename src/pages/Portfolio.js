@@ -13,8 +13,9 @@ export default function Portfolio() {
     useEffect(() => { 
         async function projectData() { 
             try {
-                const response = await projectApi.getProjects(); 
-                setProjects(projects);
+                const response = await projectApi.getPinnedProjects(); 
+                console.log(response);
+                setProjects(response);
             } catch (error) {
                 console.log(error); 
             }
@@ -27,57 +28,19 @@ export default function Portfolio() {
         <Container toggleLight={toggleLight}>
             <p>Portifólio</p>
             <Box>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>Lucao</span>
-                        <a>Web</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
-                <Project>
-                    <img src={foto1} alt="id" />
-                    <Circle className="circle">
-                        <span>{`Lucas`.toUpperCase()}</span>
-                        <a>{`Web`.toUpperCase()}</a>
-                    </Circle>
-                </Project>
+                {projects.map(project => {
+                    return(
+                        <Project>
+                            <img src={project.image} alt={project.id} />
+                            <Circle className="circle">
+                                <span>{project.name.toUpperCase()}</span>
+                                <a>{project.type.toUpperCase()}</a>
+                            </Circle>
+                        </Project>
+                    )
+                })}
             </Box>
-            <h onClick={() => navigate('/projects')}>Ver mais projetos <ion-icon name="add"></ion-icon></h>
+            <h onClick={() => navigate('/projects/all')}>Ver mais projetos <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 } 
@@ -118,15 +81,15 @@ const Container = styled.div`
         }
     }
 `
-const Box = styled.div`
+export const Box = styled.div`
     width: 90%; 
     height: 100%; 
     display: flex;
-    justify-content: left;
+    justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 40px;
 `
-const Project = styled.div`
+export const Project = styled.div`
     width: 150px; 
     height: 200px; 
     margin: 0px 10px 30px 20px;
@@ -148,7 +111,7 @@ const Project = styled.div`
         }
     }
 `
-const Circle = styled.div`
+export const Circle = styled.div`
     width: 90px;
     height: 90px;
     display: flex; 

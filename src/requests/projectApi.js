@@ -9,3 +9,13 @@ export async function getProjects() {
         return [];
     }
 }
+
+export async function getPinnedProjects() { 
+    try {
+        const response = await api.get('/projects/pinned');
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving projects:', error);
+        return [];
+    }
+}
