@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import whiteLogo from "../styles/images/logo_white.svg";
 import blackLogo from "../styles/images/logo_black.svg";
 import ToggleContext from "../contexts/ToggleContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import EmailContext from "../contexts/EmailContext";
 
 export default function Tittle() { 
@@ -118,17 +118,16 @@ const Tags = styled.div`
             width: 20px; 
             height: 20px;
             color: white;
-
-            &:focus { 
-                cursor: pointer;
-                transform: rotateX(360deg);
-            }
+            transition: 0.3s;
         }
 
         &:hover, 
         &:focus { 
             cursor: pointer;
-            transform: rotateX(360deg);
+
+            ion-icon { 
+                transform: rotateX(360deg);
+            }
         }
     }
 
