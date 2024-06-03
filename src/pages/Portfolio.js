@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import * as projectApi from "../requests/projectApi";
-import foto1 from "../styles/images/foto1.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Portfolio() { 

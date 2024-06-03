@@ -3,6 +3,7 @@ import { Box, Circle, Project } from "../pages/Portfolio"
 import foto1 from "../styles/images/foto1.png";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import * as projectApi from "../requests/projectApi";
 
 export default function ProjectScreen() { 
     const [ projects, setProjects ] = useState([]); 
@@ -10,10 +11,12 @@ export default function ProjectScreen() {
     const { type } = useParams();
 
     useEffect(() => { 
-        try {
-            //await projects 
-        } catch (error) {
-            console.log(error);
+        async function projectData() { 
+            try {
+                const response = await projects 
+            } catch (error) {
+                console.log(error);
+            }
         }
     }, []);
 
