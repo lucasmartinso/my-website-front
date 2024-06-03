@@ -3,10 +3,12 @@ import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import * as projectApi from "../requests/projectApi";
 import foto1 from "../styles/images/foto1.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Portfolio() { 
     const { toggleLight } = useContext(ToggleContext);
     const [ projects, setProjects ] = useState([]);
+    const navigate = useNavigate(); 
 
     useEffect(() => { 
         async function projectData() { 
@@ -27,13 +29,55 @@ export default function Portfolio() {
             <Box>
                 <Project>
                     <img src={foto1} alt="id" />
-                    <Circle>
+                    <Circle className="circle">
                         <span>Lucao</span>
-                        <Separator></Separator>
                         <a>Web</a>
                     </Circle>
                 </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
+                <Project>
+                    <img src={foto1} alt="id" />
+                    <Circle className="circle">
+                        <span>{`Lucas`.toUpperCase()}</span>
+                        <a>{`Web`.toUpperCase()}</a>
+                    </Circle>
+                </Project>
             </Box>
+            <h onClick={() => navigate('/projects')}>Ver mais projetos <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 } 
@@ -53,6 +97,26 @@ const Container = styled.div`
         margin: 20px 0px 50px 0px;
         transition: 1s;
     }
+
+    h { 
+        color:  #CCCCCC;
+        transition: 0.5s;
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        font-family: "Kavoon", serif;
+
+        ion-icon { 
+            margin-left: 5px;
+        }
+
+        &:hover, 
+        &:focus { 
+            cursor: pointer;
+            color: black;
+        }
+    }
 `
 const Box = styled.div`
     width: 90%; 
@@ -60,6 +124,7 @@ const Box = styled.div`
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
+    margin-bottom: 40px;
 `
 const Project = styled.div`
     width: 150px; 
@@ -71,11 +136,16 @@ const Project = styled.div`
         height: 200px; 
         border-radius: 12px;
         position: absolute;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }
 
     &:hover, 
     &:focus {
         cursor: pointer;
+
+        .circle { 
+            transform: rotateX(180deg);
+        }
     }
 `
 const Circle = styled.div`
@@ -86,21 +156,20 @@ const Circle = styled.div`
     align-items: center;
     justify-content: center; 
     border-radius: 50%; 
-    background-color: red;
+    background-color: white;
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    transition: 1s;
+    transition: transform 1s;
 
     span { 
+        font-weight: bold;
         margin-bottom: 5px;
+    } 
+
+    a { 
+        color: #CCCCCC;
     }
-`
-const Separator = styled.div`
-    width: 90%; 
-    height: 1px;
-    border: 1px solid gray;
-    margin-bottom: 5px;
 `
