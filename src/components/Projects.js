@@ -11,7 +11,7 @@ import ToggleContext from "../contexts/ToggleContext";
 export default function ProjectScreen() { 
     const { toggleLight } = useContext(ToggleContext);
     const [ projects, setProjects ] = useState([]); 
-    const [ categories, setCategories ] = useState([]);
+    const [ categories, setCategories ] = useState([{enumlabel: "all"}]);
     const { type } = useParams();
 
     useEffect(() => { 
@@ -20,7 +20,7 @@ export default function ProjectScreen() {
                 const response = await projectApi.getProjects();
                 const types = await projectApi.getTypes();
                 setProjects(response);
-                setCategories(types);
+                setCategories(prevCategories => [...prevCategories, ...types]);
             } catch (error) {
                 console.log(error);
             }
@@ -36,14 +36,23 @@ export default function ProjectScreen() {
         <Toggle />
 
         <Container>
-            <Category toggleLight={toggleLight}>
+            <Category toggleLight={toggleLight} type={type}>
                 {categories.map(categorie => { 
-                    return( 
-                        <>
-                        <span>{categorie.enumlabel}</span>
-                        <a>/</a>
-                        </>
-                    )
+                    if(categorie.enumlabel === type) { 
+                        return( 
+                            <>
+                            <span id="selected">{categorie.enumlabel}</span>
+                            <a>/</a>
+                            </>
+                        ) 
+                    } else {
+                        return( 
+                            <>
+                            <span>{categorie.enumlabel}</span>
+                            <a>/</a>
+                            </>
+                        ) 
+                    }
                 })}
             </Category>
 
@@ -75,28 +84,34 @@ const Container = styled.div`
 `
 const Category = styled.div`
     width: 80%; 
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 
     span { 
-        margin-right: 5px;
+        margin-right: 10px;
         padding-bottom: 100px;
-        font-size: 30px;
-        font-family: "Syne", sans-serif;
+        font-size: 40px;
+        font-family: "Kavoon", serif;
         font-weight: bold;
-        color: ${props => props.toggleLight ? ("#A6ADBC") : ("white")};
-        transition: color linear 2s;
+        color: ${props => props.toggleLight ? ("#A6ADBC") : ("blue")};
+        transition: color linear 1s;
 
         &:hover, 
         &:focus { 
             cursor: pointer; 
             color: black;
-            
             text-decoration: underline;
+            opacity: 0.5;
         }
+    } 
+
+    span#selected { 
+        color: ${props => props.toggleLight ? ("black") : ("white")};
+        text-decoration: underline;
     }
 
     a { 
-        font-size: 30px;
-        color: gray;
+        font-size: 40px;
+        color: #e2e0e0;
+        font-weight: bold;
     }
 `
