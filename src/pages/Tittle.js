@@ -15,9 +15,9 @@ export default function Tittle() {
         <Container toggleLight={toggleLight}>
             <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" onClick={() => navigate("/hello")}/>
             <Guide toggleLight={toggleLight}>
-                <a href="#history">Sobre</a>
-                <a href="#portfolio">Portifólio</a>
-                <a id="block" href="#blog">Blog</a>
+                <a href="#history" onClick={() => navigate("/hello")}>Sobre</a>
+                <a href="#portfolio" onClick={() => navigate("/hello")}>Portifólio</a>
+                <a id="block">Blog</a>
             </Guide>
             <Tags toggleLight={toggleLight}>
                 <div id="zap" onClick={() => window.open('https://wa.me/5532988002451?text=Vim+pelo+seu+site%21+Queria+bater+um+papo+com+voc%C3%AA%21','_blank')}><ion-icon name="logo-whatsapp"></ion-icon></div>
