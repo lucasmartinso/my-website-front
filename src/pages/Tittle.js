@@ -4,14 +4,16 @@ import blackLogo from "../styles/images/logo_black.svg";
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext } from "react";
 import EmailContext from "../contexts/EmailContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Tittle() { 
     const { toggleLight } = useContext(ToggleContext); 
     const { setEmailPopUp } = useContext(EmailContext);
+    const navigate = useNavigate();
 
     return( 
         <Container toggleLight={toggleLight}>
-            <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" />
+            <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" onClick={() => navigate("/hello")}/>
             <Guide toggleLight={toggleLight}>
                 <span>Sobre</span>
                 <span>Portifólio</span>
@@ -43,6 +45,12 @@ const Container = styled.div`
     box-shadow: ${props => props.toggleLight ? 
         ("rgba(191, 191, 191, 0.8) 0px 2px 4px, rgba(191, 191, 191, 0.6) 0px 7px 13px -3px, rgba(191, 191, 191, 0.4) 0px -3px 0px inset"): 
         ("rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset")};
+    
+    img { 
+        &:hover { 
+            cursor: pointer;
+        }
+    }
 `
 const Guide = styled.div`
     height: 100%;
