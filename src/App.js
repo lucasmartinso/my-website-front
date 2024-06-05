@@ -5,6 +5,7 @@ import ToggleContext from "./contexts/ToggleContext";
 import TransitionContext from "./contexts/TransitionContext";
 import EmailContext from "./contexts/EmailContext";
 import SkillContext from "./contexts/SkillsContext";
+import ProjectContext from "./contexts/ProjectContext";
 import MainScreen from "./components/Main.js";
 import InitialScreen from "./components/Initial";
 import ProjectScreen from "./components/Projects";
@@ -17,12 +18,14 @@ export default function App() {
   const [ transitionPhoto, setTransitionPhoto ] = useState(false);
   const [ emailPopUp, setEmailPopUp ] = useState(false);
   const [ skillPopUp, setSkillPopUp ] = useState(false);
+  const [ projectPopUp, setProjectPopUp ] = useState(false);
 
   return (
     <ToggleContext.Provider value={{toggleLight,setToggleLight}}>
     <TransitionContext.Provider value={{transitionPhoto,setTransitionPhoto}}>
     <EmailContext.Provider value={{emailPopUp,setEmailPopUp}}>
     <SkillContext.Provider value={{skillPopUp,setSkillPopUp}}>
+    <ProjectContext.Provider value={{projectPopUp,setProjectPopUp}}> 
       <GlobalStyle />
       <BrowserRouter>
           <Routes>
@@ -31,6 +34,7 @@ export default function App() {
               <Route path="/projects/:type" element={<ProjectScreen />} />
           </Routes>
       </BrowserRouter>
+    </ProjectContext.Provider>
     </SkillContext.Provider>
     </EmailContext.Provider>
     </TransitionContext.Provider>
