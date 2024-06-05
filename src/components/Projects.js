@@ -6,6 +6,8 @@ import * as projectApi from "../requests/projectApi";
 import Tittle from "../pages/Tittle";
 import Toggle from "../pages/Toggle";
 import ToggleContext from "../contexts/ToggleContext";
+import bomb from "../styles/images/bomb.gif";
+import BaseBoard from "../pages/BaseBoard";
 
 export default function ProjectScreen() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -67,19 +69,31 @@ export default function ProjectScreen() {
             </Category>
 
             <Box> 
-                {projects.map(project => {
-                    return(
-                        <Project>
-                            <img src={project.image} alt={project.id} />
-                            <Circle className="circle">
-                                <span>{project.name.toUpperCase()}</span>
-                                <a>{project.type.toUpperCase()}</a>
-                            </Circle>
-                        </Project>
-                    )
-                })}
+                {projects.length ? (
+                     projects.map(project => {
+                        return(
+                            <Project>
+                                <img src={project.image} alt={project.id} />
+                                <Circle className="circle">
+                                    <span>{project.name.toUpperCase()}</span>
+                                    <a>{project.type.toUpperCase()}</a>
+                                </Circle>
+                            </Project>
+                        )
+                    })
+                ) : (
+                    <>
+                        <NotRegister toggleLight={toggleLight}>
+                            <img src={bomb} alt="not found" />
+                            <span><ion-icon name="close-circle"></ion-icon> Ainda não foram cadastrados projetos com esse tipo!!</span>
+                        </NotRegister>
+                    </>
+                )}
+                   
             </Box>
         </Container>
+
+        <BaseBoard />
         </>
     )
 } 
@@ -87,10 +101,14 @@ export default function ProjectScreen() {
 const Container = styled.div`
     width: 100%; 
     height: 100%;
-    margin-top: 200px; 
+    margin: 200px 0px; 
     display: flex; 
     flex-direction: column;
     align-items: center;
+
+    @media (max-width: 700px) { 
+       margin: 230px 0px 150px 0px;
+    }
 `
 const Category = styled.div`
     width: 80%; 
@@ -123,5 +141,47 @@ const Category = styled.div`
         font-size: 40px;
         color: #e2e0e0;
         font-weight: bold;
+    }
+
+    @media (max-width: 700px) { 
+        width: 90%;
+     }
+`
+const NotRegister = styled.div`
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 70px;
+
+    img { 
+        width: 500px; 
+        height: 250px;
+    }
+
+    span { 
+        display: flex; 
+        align-items: center;
+        font-size: 25px;
+        color: ${props => props.toggleLight ? ("black") : ("white")};
+        text-align: center;
+
+        ion-icon { 
+            width: 40px; 
+            height: 40px;
+            margin-right: 10px;
+            color: red;
+        }
+    }
+
+    @media (max-width: 700px) { 
+        span { 
+            ion-icon { 
+                width: 50px; 
+                height: 50px;
+            }
+        }
     }
 `

@@ -46,7 +46,7 @@ const ToggleBox = styled.div`
     }
 
     @media (max-width: 700px) {
-        right: 0px;
+        right: 10px;
         top: 150px;
     }
 `

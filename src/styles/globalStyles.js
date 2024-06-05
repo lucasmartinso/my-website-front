@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Syne', sans-serif;
     margin: 0px 30px;
     transition: 2s;
+    scroll-behavior: smooth;
   }
   html{
     @media (max-width:612px) {
