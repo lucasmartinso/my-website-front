@@ -18,7 +18,7 @@ export default function App() {
   const [ transitionPhoto, setTransitionPhoto ] = useState(false);
   const [ emailPopUp, setEmailPopUp ] = useState(false);
   const [ skillPopUp, setSkillPopUp ] = useState(false);
-  const [ projectPopUp, setProjectPopUp ] = useState(false);
+  const [ projectPopUp, setProjectPopUp ] = useState(true);
 
   return (
     <ToggleContext.Provider value={{toggleLight,setToggleLight}}>

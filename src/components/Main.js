@@ -6,12 +6,14 @@ import EmailPopUp from "../pop-ups/EmailPopUp";
 import SkillPopUp from "../pop-ups/SkillsPopUp";
 import BaseBoard from "../pages/BaseBoard";
 import Portfolio from "../pages/Portfolio";
+import ProjectPopUp from "../pop-ups/ProjectPopUp";
 
 export default function MainScreen() { 
     return( 
         <Container>
             <EmailPopUp />
             <SkillPopUp />
+            <ProjectPopUp />
 
             <Tittle />
             <Toggle />
