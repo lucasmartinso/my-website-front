@@ -72,7 +72,7 @@ export default function ProjectScreen() {
                 {projects.length ? (
                      projects.map(project => {
                         return(
-                            <Project>
+                            <Project key={project.id} toggleLight={toggleLight}>
                                 <img src={project.image} alt={project.id} />
                                 <Circle className="circle">
                                     <span>{project.name.toUpperCase()}</span>

@@ -29,7 +29,7 @@ export default function Portfolio() {
             <Box>
                 {projects.map(project => {
                     return(
-                        <Project>
+                        <Project key={project.id} toggleLight={toggleLight}>
                             <img src={project.image} alt={project.id} />
                             <Circle className="circle">
                                 <span>{project.name.toUpperCase()}</span>
@@ -61,7 +61,8 @@ const Container = styled.div`
     }
 
     h { 
-        color:  #CCCCCC;
+        color: #CCCCCC;
+        opacity: ${props => props.toggleLight ? 1 : 0.4};
         transition: 0.5s;
         display: flex; 
         align-items: center;
@@ -76,7 +77,8 @@ const Container = styled.div`
         &:hover, 
         &:focus { 
             cursor: pointer;
-            color: black;
+            color: ${props => props.toggleLight ? ("black") : ("white")};
+            opacity: 1;
         }
     }
 `
@@ -92,13 +94,18 @@ export const Project = styled.div`
     width: 150px; 
     height: 200px; 
     margin: 0px 10px 30px 20px;
+    box-shadow: ${props => props.toggleLight ? 
+        ("rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset") : 
+        ("rgba(255, 255, 255, 0.4) 0px 0px 0px 2px, rgba(255, 255, 255, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset")};    
+    border-radius: 12px;
+    transition: 1s;
 
     img { 
         width: 150px; 
         height: 200px; 
         border-radius: 12px;
         position: absolute;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        object-fit: cover;
     }
 
     &:hover, 
