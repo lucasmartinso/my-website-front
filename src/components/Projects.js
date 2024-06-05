@@ -1,8 +1,7 @@
 import { styled } from "styled-components"
 import { Box, Circle, Project } from "../pages/Portfolio"
-import foto1 from "../styles/images/foto1.png";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as projectApi from "../requests/projectApi";
 import Tittle from "../pages/Tittle";
 import Toggle from "../pages/Toggle";
@@ -13,13 +12,20 @@ export default function ProjectScreen() {
     const [ projects, setProjects ] = useState([]); 
     const [ categories, setCategories ] = useState([{enumlabel: "all"}]);
     const { type } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => { 
         async function projectData() { 
             try {
-                const response = await projectApi.getProjects();
+                if(type === "all") { 
+                    const response = await projectApi.getProjects();
+                    setProjects(response);
+                } else { 
+                    const response = await projectApi.getProjectsPerType(type);
+                    setProjects(response);
+                }                
                 const types = await projectApi.getTypes();
-                setProjects(response);
+                
                 setCategories(prevCategories => [...prevCategories, ...types]);
             } catch (error) {
                 console.log(error);
@@ -48,7 +54,7 @@ export default function ProjectScreen() {
                     } else {
                         return( 
                             <>
-                            <span>{categorie.enumlabel}</span>
+                            <span onClick={() => navigate(`/projects/${categorie.enumlabel}`)}>{categorie.enumlabel}</span>
                             <a>/</a>
                             </>
                         ) 
