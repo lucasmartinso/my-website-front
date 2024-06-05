@@ -10,7 +10,8 @@ export default function() {
     const { setTransitionPhoto } = useContext(TransitionContext);
 
     async function change() { 
-        setToggleLight(!toggleLight); 
+        localStorage.setItem("LIGHT",!toggleLight);
+        setToggleLight(!toggleLight);
         setTransitionPhoto(true); 
 
         await wait(2000);

@@ -10,7 +10,10 @@ import InitialScreen from "./components/Initial";
 import ProjectScreen from "./components/Projects";
 
 export default function App() {
-  const [ toggleLight, setToggleLight ] = useState(true);
+  const [ toggleLight, setToggleLight ] = useState(() => {
+    const saved = localStorage.getItem("LIGHT");
+    return saved !== null ? JSON.parse(saved) : true;
+  });
   const [ transitionPhoto, setTransitionPhoto ] = useState(false);
   const [ emailPopUp, setEmailPopUp ] = useState(false);
   const [ skillPopUp, setSkillPopUp ] = useState(false);

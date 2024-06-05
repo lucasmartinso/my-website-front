@@ -97,20 +97,20 @@ const Category = styled.div`
     margin-bottom: 50px;
 
     span { 
-        margin-right: 10px;
+        margin: 0px 10px;
         padding-bottom: 100px;
         font-size: 40px;
         font-family: "Kavoon", serif;
         font-weight: bold;
-        color: ${props => props.toggleLight ? ("#A6ADBC") : ("blue")};
+        color: ${props => props.toggleLight ? ("#A6ADBC") : ("rgba(255, 255, 255, 0.5)")};
         transition: color linear 1s;
 
         &:hover, 
         &:focus { 
             cursor: pointer; 
-            color: black;
+            color: ${props => props.toggleLight ? ("black") : ("white")};
             text-decoration: underline;
-            opacity: 0.5;
+            opacity: ${props => props.toggleLight ? ("0.5") : ("0.8")};
         }
     } 
 
