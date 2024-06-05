@@ -35,6 +35,10 @@ export default function ProjectScreen() {
         projectData();
     }, []);
 
+    function reloadProjects(cat) { 
+        navigate(`/projects/${cat}`);
+        window.location.reload();
+    }
 
     return(
         <>
@@ -54,7 +58,7 @@ export default function ProjectScreen() {
                     } else {
                         return( 
                             <>
-                            <span onClick={() => navigate(`/projects/${categorie.enumlabel}`)}>{categorie.enumlabel}</span>
+                            <span onClick={() => reloadProjects(categorie.enumlabel)}>{categorie.enumlabel}</span>
                             <a>/</a>
                             </>
                         ) 
