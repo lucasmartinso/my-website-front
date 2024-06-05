@@ -15,9 +15,9 @@ export default function Tittle() {
         <Container toggleLight={toggleLight}>
             <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" onClick={() => navigate("/hello")}/>
             <Guide toggleLight={toggleLight}>
-                <span>Sobre</span>
-                <span>Portifólio</span>
-                <span id="block">Blog</span>
+                <a href="#history">Sobre</a>
+                <a href="#portfolio">Portifólio</a>
+                <a id="block" href="#blog">Blog</a>
             </Guide>
             <Tags toggleLight={toggleLight}>
                 <div id="zap" onClick={() => window.open('https://wa.me/5532988002451?text=Vim+pelo+seu+site%21+Queria+bater+um+papo+com+voc%C3%AA%21','_blank')}><ion-icon name="logo-whatsapp"></ion-icon></div>
@@ -57,7 +57,7 @@ const Guide = styled.div`
     display: flex; 
     align-items: center;
 
-    span { 
+    a { 
         font-family: "Syne", sans-serif;
         color: ${props => props.toggleLight ? ("white") : ("black")};
         margin-left: 15px;
@@ -92,7 +92,7 @@ const Guide = styled.div`
         }
     } 
 
-    span#block { 
+    a#block { 
         transiton: 1s;
 
         &:hover, 

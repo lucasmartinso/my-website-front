@@ -16,8 +16,13 @@ export default function MainScreen() {
             <Tittle />
             <Toggle />
             
-            <History />
-            <Portfolio />
+            <section id="history">
+                <History />
+            </section>
+            
+            <section id="portfolio">
+                <Portfolio />
+            </section>
 
             <BaseBoard />
         </Container>
