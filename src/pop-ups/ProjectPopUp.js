@@ -8,7 +8,7 @@ export default function ProjectPopUp() {
     const [ project, setProject ] = useState([]);
 
     useEffect(() => { 
-
+        //await
     },[]);
     
     return(
@@ -16,7 +16,10 @@ export default function ProjectPopUp() {
         {projectPopUp ? (
         <Container>
             <Box>
-
+                <Tittle> 
+                    <span>Titulo</span>
+                    <Separator></Separator>
+                </Tittle>
             </Box>
         </Container>
         ) : ("")}
@@ -34,4 +37,24 @@ const Box = styled.div`
     align-items: center;
     flex-direction: column; 
     padding: 0px 0px 10px 10px;
+`
+const Tittle = styled.div`
+    width: 100%; 
+    height: 10%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 20px;
+
+    span { 
+        font-family: "Oi", serif;
+        font-size: 50px;
+    }
+`
+const Separator = styled.div`
+    width: 90%; 
+    height: 2px; 
+    background-color: black;
+    margin-top: 5px;
 `
