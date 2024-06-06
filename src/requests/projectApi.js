@@ -30,6 +30,16 @@ export async function getProjectsPerType(type) {
     }
 }
 
+export async function getProjectComplete(id) { 
+    try {
+        const response = await api.get(`/projects/${id}`); 
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving projects:', error);
+        return [];
+    }
+}
+
 export async function getTypes() { 
     try {
         const response = await api.get('/types');
