@@ -2,23 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import * as projectApi from "../requests/projectApi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProjectContext from "../contexts/ProjectContext";
 
-export default function Portfolio() { 
+export default function Portfolio({ id }) { 
     const { toggleLight } = useContext(ToggleContext);
     const { setProjectPopUp } = useContext(ProjectContext);
     const [ projects, setProjects ] = useState([]);
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get('id');
     const navigate = useNavigate(); 
 
     useEffect(() => { 
         async function projectData() { 
             try {
                 const response = await projectApi.getPinnedProjects(); 
-                console.log(response);
                 setProjects(response);
             } catch (error) {
                 console.log(error); 

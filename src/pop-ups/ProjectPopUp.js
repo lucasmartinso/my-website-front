@@ -9,7 +9,7 @@ import web from "../styles/images/screen.svg";
 import book from "../styles/images/book.svg";
 import * as projectApi from "../requests/projectApi";
 
-export default function ProjectPopUp() { 
+export default function ProjectPopUp({ id }) { 
     const { projectPopUp, setProjectPopUp } = useContext(projectContext);
     const [ project, setProject ] = useState([]);
     const techs = ['javascript', 'nodejs','react','chatgpt','javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt'];
@@ -17,7 +17,8 @@ export default function ProjectPopUp() {
     useEffect(() => { 
         async function projectData() { 
             try {
-                const response = await projectApi.getProjectComplete('1');
+                const response = await projectApi.getProjectComplete(id);
+                console.log(response);
                 setProject(response);
             } catch (error) {
                 console.log(error);

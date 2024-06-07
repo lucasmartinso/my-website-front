@@ -21,7 +21,6 @@ export default function ProjectScreen() {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
     const navigate = useNavigate();
-    console.log(`ID é ${id}`);
 
     useEffect(() => { 
         async function projectData() { 

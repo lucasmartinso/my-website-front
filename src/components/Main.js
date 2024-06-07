@@ -7,13 +7,18 @@ import SkillPopUp from "../pop-ups/SkillsPopUp";
 import BaseBoard from "../pages/BaseBoard";
 import Portfolio from "../pages/Portfolio";
 import ProjectPopUp from "../pop-ups/ProjectPopUp";
+import { useLocation } from "react-router-dom";
 
 export default function MainScreen() { 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+
     return( 
         <Container>
             <EmailPopUp />
             <SkillPopUp />
-            <ProjectPopUp />
+            <ProjectPopUp id={id}/>
 
             <Tittle />
             <Toggle />
@@ -23,7 +28,7 @@ export default function MainScreen() {
             </section>
             
             <section id="portfolio">
-                <Portfolio />
+                <Portfolio id={id}/>
             </section>
 
             <BaseBoard />
