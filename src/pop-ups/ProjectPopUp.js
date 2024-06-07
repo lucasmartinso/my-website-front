@@ -8,11 +8,13 @@ import gold from "../styles/images/gold.svg";
 import web from "../styles/images/screen.svg";
 import book from "../styles/images/book.svg";
 import * as projectApi from "../requests/projectApi";
+import { useNavigate } from "react-router-dom";
 
-export default function ProjectPopUp({ id }) { 
+export default function ProjectPopUp({ id, route }) { 
     const { projectPopUp, setProjectPopUp } = useContext(projectContext);
     const [ project, setProject ] = useState([]);
     const techs = ['javascript', 'nodejs','react','chatgpt','javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt'];
+    const navigate = useNavigate();
 
     useEffect(() => { 
         async function projectData() { 
@@ -27,6 +29,11 @@ export default function ProjectPopUp({ id }) {
         
         projectData();
     },[]);
+
+    function close() { 
+        setProjectPopUp(false);
+        navigate(`/${route}`);
+    }
     
     return(
         <>
@@ -34,7 +41,7 @@ export default function ProjectPopUp({ id }) {
         <Container>
             <Box>
                 <Tittle> 
-                    <p onClick={() => setProjectPopUp(false)}>x</p>
+                    <p onClick={close}>x</p>
                     <span>Titulo</span>
                     <Separator></Separator>
                 </Tittle>

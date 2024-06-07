@@ -18,7 +18,7 @@ export default function MainScreen() {
         <Container>
             <EmailPopUp />
             <SkillPopUp />
-            <ProjectPopUp id={id}/>
+            <ProjectPopUp id={id} route={'hello'}/>
 
             <Tittle />
             <Toggle />

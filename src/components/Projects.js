@@ -56,7 +56,7 @@ export default function ProjectScreen() {
     return(
         <>
         <EmailPopUp />
-        <ProjectPopUp />
+        <ProjectPopUp id={id} route={`projects/${type}`}/>
 
         <Tittle />
         <Toggle />
