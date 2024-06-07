@@ -75,7 +75,7 @@ export default function SkillPopUp() {
                             ) : (
                                 <>
                                     <img src={bomb} alt="not found" />
-                                    <span>Not Found, make other search!</span>
+                                    <span>Nenhuma tecnologia encontrada com esse nome!</span>
                                 </>
                             )
                         )}   
@@ -120,7 +120,6 @@ const Tittle = styled.div`
         }
     }
 `
-
 const Skills = styled.div`
     width: 100%; 
     height: 80%; 

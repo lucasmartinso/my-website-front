@@ -10,7 +10,8 @@ export default function() {
     const { setTransitionPhoto } = useContext(TransitionContext);
 
     async function change() { 
-        setToggleLight(!toggleLight); 
+        localStorage.setItem("LIGHT",!toggleLight);
+        setToggleLight(!toggleLight);
         setTransitionPhoto(true); 
 
         await wait(2000);
@@ -45,7 +46,7 @@ const ToggleBox = styled.div`
     }
 
     @media (max-width: 700px) {
-        right: 0px;
+        right: 10px;
         top: 150px;
     }
 `

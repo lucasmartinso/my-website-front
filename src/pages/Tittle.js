@@ -2,20 +2,22 @@ import { styled } from "styled-components";
 import whiteLogo from "../styles/images/logo_white.svg";
 import blackLogo from "../styles/images/logo_black.svg";
 import ToggleContext from "../contexts/ToggleContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import EmailContext from "../contexts/EmailContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Tittle() { 
     const { toggleLight } = useContext(ToggleContext); 
     const { setEmailPopUp } = useContext(EmailContext);
+    const navigate = useNavigate();
 
     return( 
         <Container toggleLight={toggleLight}>
-            <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" />
+            <img src={toggleLight ? whiteLogo : blackLogo} alt="logo" onClick={() => navigate("/hello")}/>
             <Guide toggleLight={toggleLight}>
-                <span>Sobre</span>
-                <span>Portifólio</span>
-                <span id="block">Blog</span>
+                <a href="#history" onClick={() => navigate("/hello")}>Sobre</a>
+                <a href="#portfolio" onClick={() => navigate("/hello")}>Portifólio</a>
+                <a id="block">Blog</a>
             </Guide>
             <Tags toggleLight={toggleLight}>
                 <div id="zap" onClick={() => window.open('https://wa.me/5532988002451?text=Vim+pelo+seu+site%21+Queria+bater+um+papo+com+voc%C3%AA%21','_blank')}><ion-icon name="logo-whatsapp"></ion-icon></div>
@@ -43,13 +45,19 @@ const Container = styled.div`
     box-shadow: ${props => props.toggleLight ? 
         ("rgba(191, 191, 191, 0.8) 0px 2px 4px, rgba(191, 191, 191, 0.6) 0px 7px 13px -3px, rgba(191, 191, 191, 0.4) 0px -3px 0px inset"): 
         ("rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset")};
+    
+    img { 
+        &:hover { 
+            cursor: pointer;
+        }
+    }
 `
 const Guide = styled.div`
     height: 100%;
     display: flex; 
     align-items: center;
 
-    span { 
+    a { 
         font-family: "Syne", sans-serif;
         color: ${props => props.toggleLight ? ("white") : ("black")};
         margin-left: 15px;
@@ -84,7 +92,7 @@ const Guide = styled.div`
         }
     } 
 
-    span#block { 
+    a#block { 
         transiton: 1s;
 
         &:hover, 
@@ -118,17 +126,16 @@ const Tags = styled.div`
             width: 20px; 
             height: 20px;
             color: white;
-
-            &:focus { 
-                cursor: pointer;
-                transform: rotateX(360deg);
-            }
+            transition: 0.3s;
         }
 
         &:hover, 
         &:focus { 
             cursor: pointer;
-            transform: rotateX(360deg);
+
+            ion-icon { 
+                transform: rotateX(360deg);
+            }
         }
     }
 

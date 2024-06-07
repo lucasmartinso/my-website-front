@@ -20,8 +20,11 @@ export default function History() {
         "Apaixonado pelos estudos e pela resolução de problemas por meio da tecnologia, que tenham impacto efetivo na vida real."
     ];
     const allMe = [ 
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.", 
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis ipsum a leo laoreet ultricies eget id urna. Quisque non maximus neque."
+        "A minha história com a tecnologia começa desde a cedo, mais precisamente na infância, quando aos 9 anos ganhei meu primeiro console, o PS2. A paixão por tecnologia foi instantânea e junto a essa veio a curiosidade de como aquela máquina funcionava.", 
+        "Esse fascínio, ao longo da trajetória escolar foi se afinizando pelo meu gosto nas disciplinas de exatas e, o também interesse na resolução de problemas de raciocínio lógico.", 
+        "Todavia, confrontou-se diretamente com uma outra afinidade minha, os carros, o que me levou a escolha do curso de engenharia mecânica. Nesse, ao realizar as primeiras disciplinas obrigatórias, me deparei logo com a disciplina de algoritmos, que foi um divisor de águas para que eu, cada vez mais, buscasse sobre tecnologia e computação, fazendo assim com que eu tomasse a decisão vital na minha vida, a de migrar para área tech, já que era aquilo que queria para minha vida, e enfim realizei a troca para curso de ciência da computação, na própria UFJF, que estou finalizando atualmente.", 
+        "Nesse meio tempo realizei um bootcamp, que acelerou a obtenção de habilidades na área, tanto da parte técnica, quanto da pessoal.",
+        "Além de outras atividades extracurriculares ao longo da graduação, seja assumindo cargos de liderança na Empresa Jr., seja atuando em projetos de Iniciação Científica, como o de 'Modelagem computacional no tratamento de câncer por hipertermia usando nanopartículas.'"
     ];
     const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
@@ -354,6 +357,10 @@ const Skiil = styled.div`
     p#left { 
         animation-name: slidein-left;
         animation-duration: 60s;
+        white-space: pre-wrap;  
+        word-wrap: break-word;  
+        word-break: break-word; 
+        overflow-wrap: break-word;
     }
 
     @keyframes slidein-right {
