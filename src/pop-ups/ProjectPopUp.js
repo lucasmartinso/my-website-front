@@ -33,6 +33,7 @@ export default function ProjectPopUp() {
         <Container>
             <Box>
                 <Tittle> 
+                    <p onClick={() => setProjectPopUp(false)}>x</p>
                     <span>Titulo</span>
                     <Separator></Separator>
                 </Tittle>
@@ -107,10 +108,22 @@ const Tittle = styled.div`
     align-items: center; 
     justify-content: center; 
     margin-top: 20px;
+    position: relative;
 
     span { 
         font-family: "Oi", serif;
         font-size: 50px;
+    }
+
+    p { 
+        position: absolute;
+        top: 10px; 
+        right: 20px;
+        font-size: 30px;
+
+        &:hover { 
+            cursor: pointer;
+        }
     }
 `
 const Separator = styled.div`

@@ -1,20 +1,27 @@
 import { styled } from "styled-components"
 import { Box, Circle, Project } from "../pages/Portfolio"
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as projectApi from "../requests/projectApi";
 import Tittle from "../pages/Tittle";
 import Toggle from "../pages/Toggle";
 import ToggleContext from "../contexts/ToggleContext";
 import bomb from "../styles/images/bomb.gif";
 import BaseBoard from "../pages/BaseBoard";
+import ProjectContext from "../contexts/ProjectContext";
+import EmailPopUp from "../pop-ups/EmailPopUp";
+import ProjectPopUp from "../pop-ups/ProjectPopUp";
 
 export default function ProjectScreen() { 
     const { toggleLight } = useContext(ToggleContext);
-    const [ projects, setProjects ] = useState([]); 
+    const { setProjectPopUp } = useContext(ProjectContext);    const [ projects, setProjects ] = useState([]); 
     const [ categories, setCategories ] = useState([{enumlabel: "all"}]);
     const { type } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
     const navigate = useNavigate();
+    console.log(`ID é ${id}`);
 
     useEffect(() => { 
         async function projectData() { 
@@ -40,10 +47,18 @@ export default function ProjectScreen() {
     function reloadProjects(cat) { 
         navigate(`/projects/${cat}`);
         window.location.reload();
+    } 
+
+    function redirect(id) { 
+        setProjectPopUp(true);
+        navigate(`/projects/${type}?id=${id}`); 
     }
 
     return(
         <>
+        <EmailPopUp />
+        <ProjectPopUp />
+
         <Tittle />
         <Toggle />
 
@@ -72,7 +87,7 @@ export default function ProjectScreen() {
                 {projects.length ? (
                      projects.map(project => {
                         return(
-                            <Project key={project.id} toggleLight={toggleLight}>
+                            <Project key={project.id} toggleLight={toggleLight} onClick={() => redirect(project.id)}>
                                 <img src={project.image} alt={project.id} />
                                 <Circle className="circle">
                                     <span>{project.name.toUpperCase()}</span>

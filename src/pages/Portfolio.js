@@ -2,11 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import * as projectApi from "../requests/projectApi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import ProjectContext from "../contexts/ProjectContext";
 
 export default function Portfolio() { 
     const { toggleLight } = useContext(ToggleContext);
+    const { setProjectPopUp } = useContext(ProjectContext);
     const [ projects, setProjects ] = useState([]);
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
     const navigate = useNavigate(); 
 
     useEffect(() => { 
@@ -23,13 +28,18 @@ export default function Portfolio() {
         projectData();
     },[]);
 
+    function redirect(id) { 
+        setProjectPopUp(true);
+        navigate(`/hello?id=${id}`); 
+    }
+
     return( 
         <Container toggleLight={toggleLight}>
             <p>Portifólio</p>
             <Box>
                 {projects.map(project => {
                     return(
-                        <Project key={project.id} toggleLight={toggleLight}>
+                        <Project key={project.id} toggleLight={toggleLight} onClick={() => redirect(project.id)}>
                             <img src={project.image} alt={project.id} />
                             <Circle className="circle">
                                 <span>{project.name.toUpperCase()}</span>
