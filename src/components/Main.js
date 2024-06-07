@@ -8,8 +8,11 @@ import BaseBoard from "../pages/BaseBoard";
 import Portfolio from "../pages/Portfolio";
 import ProjectPopUp from "../pop-ups/ProjectPopUp";
 import { useLocation } from "react-router-dom";
+import { useContext } from "react";
+import ProjectContext from "../contexts/ProjectContext";
 
 export default function MainScreen() { 
+    const { projectPopUp } = useContext(ProjectContext);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
@@ -18,7 +21,10 @@ export default function MainScreen() {
         <Container>
             <EmailPopUp />
             <SkillPopUp />
-            <ProjectPopUp id={id} route={'hello'}/>
+            {projectPopUp ? (
+                <ProjectPopUp id={id} route={'hello'}/>
+            ) : ("")}
+            
 
             <Tittle />
             <Toggle />

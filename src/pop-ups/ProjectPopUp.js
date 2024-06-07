@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import projectContext from "../contexts/ProjectContext";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "./EmailPopUp";
-import foto1 from "../styles/images/foto1.png";
 import ninja from "../styles/images/ninja.svg"; 
 import gold from "../styles/images/gold.svg";
 import web from "../styles/images/screen.svg";
@@ -11,7 +10,7 @@ import * as projectApi from "../requests/projectApi";
 import { useNavigate } from "react-router-dom";
 
 export default function ProjectPopUp({ id, route }) { 
-    const { projectPopUp, setProjectPopUp } = useContext(projectContext);
+    const { setProjectPopUp } = useContext(projectContext);
     const [ project, setProject ] = useState([]);
     const techs = ['javascript', 'nodejs','react','chatgpt','javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt'];
     const navigate = useNavigate();
@@ -20,7 +19,6 @@ export default function ProjectPopUp({ id, route }) {
         async function projectData() { 
             try {
                 const response = await projectApi.getProjectComplete(id);
-                console.log(response);
                 setProject(response);
             } catch (error) {
                 console.log(error);
@@ -37,23 +35,23 @@ export default function ProjectPopUp({ id, route }) {
     
     return(
         <>
-        {projectPopUp ? (
         <Container>
             <Box>
                 <Tittle> 
                     <p onClick={close}>x</p>
-                    <span>Titulo</span>
+                    <span>{project.name}</span>
                     <Separator></Separator>
                 </Tittle>
                 <MainInfo>
-                    <img src={foto1} alt="1" />
+                    <img src={project.image} alt={project.id} />
                     <Description>
                         <p>Descrição</p>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis i Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis i Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis i</span>
+                        <span>{project.description}</span>
                     </Description>
                 </MainInfo>
                 <Techs>
                     <h6>Tecnologias usadas: </h6>
+                    
                     {techs.map(tech => { 
                         return(
                             <span>{tech},</span>
@@ -61,28 +59,28 @@ export default function ProjectPopUp({ id, route }) {
                     })} 
                 </Techs>
                 <Options>
-                    <Tag onClick={() => window.open('https://www.google.com','_blank')}>
+                    <Tag className={!project.url ? ("block") : ("")} onClick={() => window.open(`${project.url}`,'_blank')}>
                         <img src={web} alt={web} />
                         <Content>
                             <p>Web <ion-icon name="arrow-forward-outline"></ion-icon></p>
                             <span>Hospedagem da aplicação</span>
                         </Content>
                     </Tag>
-                    <Tag onClick={() => window.open('https://www.google.com','_blank')}>
+                    <Tag className={!project.documentation ? ("block") : ("")} onClick={() => window.open(`${project.documentation}`,'_blank')}>
                         <img src={book} alt={book} />
                         <Content>
                             <p>Documentação <ion-icon name="arrow-forward-outline"></ion-icon></p>
                             <span>Documentação da aplicação</span>
                         </Content>
                     </Tag>
-                    <Tag onClick={() => window.open('https://www.google.com','_blank')}>
+                    <Tag className={!project.front ? ("block") : ("")} onClick={() => window.open(`${project.front}`,'_blank')}>
                         <img src={ninja} alt={ninja} />
                         <Content>
                             <p>Front-end <ion-icon name="arrow-forward-outline"></ion-icon></p>
                             <span>Código do front-end</span>
                         </Content>
                     </Tag>
-                    <Tag onClick={() => window.open('https://www.google.com','_blank')}>
+                    <Tag className={!project.back ? ("block") : ("")} onClick={() => window.open(`${project.back}`,'_blank')}>
                         <img src={gold} alt={gold} />
                         <Content>
                             <p>Back-end <ion-icon name="arrow-forward-outline"></ion-icon></p>
@@ -92,13 +90,12 @@ export default function ProjectPopUp({ id, route }) {
                 </Options>
             </Box>
         </Container>
-        ) : ("")}
         </>
     )
 }
 
 const Box = styled.div`
-    width: 90%;
+    width: 60%;
     height: 85%;
     background-color: #FEF5E3;
     border-radius: 20px;
@@ -107,6 +104,18 @@ const Box = styled.div`
     align-items: center;
     flex-direction: column; 
     padding: 0px 0px 10px 10px;
+
+    @media (max-width: 1600px) { 
+        width: 75%;
+    }
+
+    @media (max-width: 1200px) { 
+        width: 90%;
+    }
+
+    @media (max-width: 1600px) { 
+        width: 95%; 
+    }
 `
 const Tittle = styled.div`
     width: 100%; 
@@ -149,7 +158,7 @@ const MainInfo = styled.div`
 
     img { 
         height: 280px; 
-        width: 400px;
+        width: 50%;
         object-fit: cover;
         border-radius: 12px;
         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;  
@@ -198,7 +207,7 @@ const Techs = styled.div`
     }
 `
 const Options = styled.div`
-    width: 90%; 
+    width: 80%; 
     height: 30%; 
     //background-color: white;
     display: flex; 
@@ -207,6 +216,10 @@ const Options = styled.div`
     border-radius: 12px;
     //box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     flex-wrap: wrap;
+
+    @media (max-width: 1600px) { 
+        width: 90%;
+    } 
 `
 const Tag = styled.div`
     width: 45%; 
@@ -219,7 +232,7 @@ const Tag = styled.div`
     border: 4px solid black;
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-    transition: background-color linear 1s, color linear 0.5s;
+    transition: color linear 0.5s;
 
     img { 
         width: 90px; 
@@ -231,6 +244,29 @@ const Tag = styled.div`
         cursor: pointer;
         background-color: black; 
         color: white;
+    }
+
+    &.block { 
+        background-color: #CCCCCC;
+
+        &:hover { 
+            color: black;
+            cursor: not-allowed;
+        }
+    }
+
+    @media (max-width: 1600px) { 
+        width: 45%; 
+        height: 40%;
+    }
+
+    @media (max-width: 800px) { 
+        padding-left: 0px;
+
+        img { 
+            width: 70px; 
+            height: 50px;
+        }
     }
 `
 const Content = styled.div`
@@ -249,5 +285,20 @@ const Content = styled.div`
 
     span { 
         color: #aaa9a9;
+    }
+
+    @media (max-width: 800px) { 
+        p { 
+            font-size: 15px;
+            margin-bottom: 1px;
+
+            ion-icon { 
+                margin-left: 1px;
+            }
+        }
+
+        span { 
+            font-size: 14px;
+        }
     }
 `

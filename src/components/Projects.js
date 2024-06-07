@@ -14,7 +14,7 @@ import ProjectPopUp from "../pop-ups/ProjectPopUp";
 
 export default function ProjectScreen() { 
     const { toggleLight } = useContext(ToggleContext);
-    const { setProjectPopUp } = useContext(ProjectContext);    const [ projects, setProjects ] = useState([]); 
+    const { projectPopUp, setProjectPopUp } = useContext(ProjectContext);    const [ projects, setProjects ] = useState([]); 
     const [ categories, setCategories ] = useState([{enumlabel: "all"}]);
     const { type } = useParams();
     const location = useLocation();
@@ -56,7 +56,10 @@ export default function ProjectScreen() {
     return(
         <>
         <EmailPopUp />
-        <ProjectPopUp id={id} route={`projects/${type}`}/>
+        {projectPopUp ? (
+            <ProjectPopUp id={id} route={`projects/${type}`}/>
+        ) : ("")}
+        
 
         <Tittle />
         <Toggle />
