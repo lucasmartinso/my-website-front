@@ -10,6 +10,7 @@ import ProjectPopUp from "../pop-ups/ProjectPopUp";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import ProjectContext from "../contexts/ProjectContext";
+import Blog from "../pages/Blog";
 
 export default function MainScreen() { 
     const { projectPopUp } = useContext(ProjectContext);
@@ -35,6 +36,10 @@ export default function MainScreen() {
             
             <section id="portfolio">
                 <Portfolio id={id}/>
+            </section>
+
+            <section id="blog" >
+                <Blog />
             </section>
 
             <BaseBoard />

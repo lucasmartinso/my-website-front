@@ -56,7 +56,7 @@ const Container = styled.div`
     display: flex; 
     flex-direction: column;
     align-items: center;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
 
     p { 
         color: ${props => props.toggleLight ? ("black") : ("white")};
