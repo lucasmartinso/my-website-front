@@ -17,6 +17,7 @@ export default function App() {
     const saved = localStorage.getItem("LIGHT");
     return saved !== null ? JSON.parse(saved) : true;
   });
+  const [ token, setToken ] = localStorage.getItem("MY_TOKEN");
   const [ transitionPhoto, setTransitionPhoto ] = useState(false);
   const [ emailPopUp, setEmailPopUp ] = useState(false);
   const [ skillPopUp, setSkillPopUp ] = useState(false);
