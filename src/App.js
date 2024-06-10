@@ -10,6 +10,7 @@ import MainScreen from "./components/Main.js";
 import InitialScreen from "./components/Initial";
 import ProjectScreen from "./components/Projects";
 import AuthScreen from "./components/Auth";
+import CreateScreen from "./components/Create";
 
 export default function App() {
   const [ toggleLight, setToggleLight ] = useState(() => {
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="/hello" element={<MainScreen />} />
               <Route path="/projects/:type" element={<ProjectScreen />} />
               <Route path="/auth" element={<AuthScreen />} />
+              <Route path="/auth/create" element={<CreateScreen />} />
           </Routes>
       </BrowserRouter>
     </ProjectContext.Provider>

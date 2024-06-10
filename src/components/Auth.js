@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 export default function AuthScreen() { 
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ error, setError ] = useState(false);
+    const navigate = useNavigate();
 
     async function sendAuth() { 
         //const token = await sendAuth
@@ -12,7 +15,10 @@ export default function AuthScreen() {
 
     return(
         <Container>
-            <Box>
+            <House>
+                <ion-icon name="home" onClick={() => navigate("/hello")}></ion-icon>
+            </House>
+            <Box error={error}>
                 <Contains>
                     <p>Autorização<span>.</span></p>
                     <form onSubmit={sendAuth}>
@@ -32,6 +38,12 @@ export default function AuthScreen() {
                             onChange={(event) => setPassword(event.target.value)}
                             required
                         />
+                        {error ? (
+                            <Error>
+                                <span><ion-icon name="close-circle" onClick={() => setError(false)}></ion-icon>Usuário ou senha incompatíveis</span>
+                            </Error>
+                        ) : ("")}
+                        
                         <button>Entrar</button>
                     </form>
                 </Contains>
@@ -50,10 +62,29 @@ const Container = styled.div`
     display: flex; 
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+`
+const House = styled.div`
+    width: 75%; 
+    height: 5%; 
+    display: flex; 
+    justify-content: right;
+
+    ion-icon { 
+        width: 70px; 
+        height: 70px;
+        transition: 1s;
+
+        &:hover, 
+        &:focus { 
+            cursor: pointer;
+            color: gray;
+        }
+    }
 `
 const Box = styled.div`
     width: 50%; 
-    height: 50%; 
+    height: ${props => props.error ? ("60%") : ("50%")}; 
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -61,6 +92,8 @@ const Box = styled.div`
     opacity: 0.9;
     border-radius: 100px;
     box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    margin-top: 50px;
+    transition: 1s;
 
     @media (max-width: 1200px) { 
         width: 70%;
@@ -132,6 +165,33 @@ const Contains = styled.div`
         &:active { 
             width: 180px; 
             height: 60px;
+        }
+    }
+`
+const Error = styled.div`
+    width: 90%; 
+    height: 15%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    border-radius: 12px;
+
+    span { 
+        display: flex; 
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+
+        ion-icon {  
+            width: 24px; 
+            height: 24px;
+            margin-right: 5px;
+
+            &:hover { 
+                cursor: pointer;
+            }
         }
     }
 `
