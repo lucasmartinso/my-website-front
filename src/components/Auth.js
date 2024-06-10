@@ -10,7 +10,6 @@ export default function AuthScreen() {
 
     async function sendAuth() { 
         //const token = await sendAuth
-
     }
 
     return(
