@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import TokenContext from "../contexts/TokenContext";
+import * as personalApi from "../requests/personalApi";
 
 export default function AuthScreen() { 
+    const { setToken } = useContext(TokenContext);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState(false);
     const navigate = useNavigate();
 
-    async function sendAuth() { 
-        //const token = await sendAuth
+    async function sendAuth(event) { 
+        event.preventDefault();
+
+        try {
+            const personalData = { 
+                email,
+                password
+            }
+            const { token } = await personalApi.auth(personalData);
+            localStorage.setItem("MY_TOKEN",token);
+            setToken(token);
+            console.log(token);
+            navigate("/create");
+        } catch (error) {
+            setError(true);
+            console.log(error);
+        }
     }
 
     return(
@@ -38,7 +56,7 @@ export default function AuthScreen() {
                             required
                         />
                         {error ? (
-                            <Error>
+                            <Error error={error}>
                                 <span><ion-icon name="close-circle" onClick={() => setError(false)}></ion-icon>Usuário ou senha incompatíveis</span>
                             </Error>
                         ) : ("")}
@@ -168,13 +186,14 @@ const Contains = styled.div`
     }
 `
 const Error = styled.div`
-    width: 90%; 
-    height: 15%; 
+    width: ${props => props.error ? ("90%") : ("0%")}; 
+    height: ${props => props.error ? ("20%") : ("0%")}; 
     display: flex; 
     justify-content: center;
     align-items: center;
     background-color: red;
     border-radius: 12px;
+    transition: 10s;
 
     span { 
         display: flex; 
@@ -184,8 +203,8 @@ const Error = styled.div`
         font-size: 20px;
 
         ion-icon {  
-            width: 24px; 
-            height: 24px;
+            width: 26px; 
+            height: 26px;
             margin-right: 5px;
 
             &:hover { 

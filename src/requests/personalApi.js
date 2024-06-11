@@ -16,7 +16,7 @@ export async function verifyAuth(token) {
             headers: { Authorization: `Bearer ${token}` },
         };
 
-        const response = await api.post('/verify/auth', null, token);
+        const response = await api.post('/verify/auth', null, config);
         return response.data;
     } catch (error) {
         console.error('Error retrieving techs:', error);

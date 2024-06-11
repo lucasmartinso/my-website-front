@@ -6,6 +6,7 @@ import TransitionContext from "./contexts/TransitionContext";
 import EmailContext from "./contexts/EmailContext";
 import SkillContext from "./contexts/SkillsContext";
 import ProjectContext from "./contexts/ProjectContext";
+import TokenContext from "./contexts/TokenContext";
 import MainScreen from "./components/Main.js";
 import InitialScreen from "./components/Initial";
 import ProjectScreen from "./components/Projects";
@@ -17,7 +18,7 @@ export default function App() {
     const saved = localStorage.getItem("LIGHT");
     return saved !== null ? JSON.parse(saved) : true;
   });
-  const [ token, setToken ] = localStorage.getItem("MY_TOKEN");
+  const [ token, setToken ] = useState(localStorage.getItem("MY_TOKEN"));
   const [ transitionPhoto, setTransitionPhoto ] = useState(false);
   const [ emailPopUp, setEmailPopUp ] = useState(false);
   const [ skillPopUp, setSkillPopUp ] = useState(false);
@@ -29,6 +30,7 @@ export default function App() {
     <EmailContext.Provider value={{emailPopUp,setEmailPopUp}}>
     <SkillContext.Provider value={{skillPopUp,setSkillPopUp}}>
     <ProjectContext.Provider value={{projectPopUp,setProjectPopUp}}> 
+    <TokenContext.Provider value={{token,setToken}}>
       <GlobalStyle />
       <BrowserRouter>
           <Routes>
@@ -39,6 +41,7 @@ export default function App() {
               <Route path="/auth/create" element={<CreateScreen />} />
           </Routes>
       </BrowserRouter>
+    </TokenContext.Provider>
     </ProjectContext.Provider>
     </SkillContext.Provider>
     </EmailContext.Provider>
