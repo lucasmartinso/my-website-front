@@ -62,7 +62,7 @@ export async function updateProject(id,projectData,config) {
     try {
         await api.put(`/edit/projects/${id}`,projectData,config);
     } catch (error) {
-        console.error('Error deleting project:', error);
+        console.error('Error updating project:', error);
     }
 }
 
@@ -70,6 +70,6 @@ export async function postProject(projectData,config) {
     try {
         await api.post(`/projects`,projectData,config);
     } catch (error) {
-        console.error('Error deleting project:', error);
+        console.error('Error posting project:', error);
     }
 }
