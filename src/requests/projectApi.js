@@ -57,3 +57,11 @@ export async function deleteProject(id,config) {
         console.error('Error deleting project:', error);
     }
 }
+
+export async function updateProject(id,projectData,config) { 
+    try {
+        await api.put(`/edit/projects/${id}`,projectData,config);
+    } catch (error) {
+        console.error('Error deleting project:', error);
+    }
+}
