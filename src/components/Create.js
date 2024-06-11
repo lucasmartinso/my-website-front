@@ -1,26 +1,51 @@
 import { styled } from "styled-components";
-import Tittle from "../pages/Tittle";
-import { useContext, useState } from "react";
-import ToggleContext from "../contexts/ToggleContext";
-import Toggle from "../pages/Toggle";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import Tittle from "../pages/Tittle";
+import Toggle from "../pages/Toggle";
+import ToggleContext from "../contexts/ToggleContext";
+import { Box, Circle, Project } from "../pages/Portfolio";
+import * as projectApi from "../requests/projectApi";
+import DeletePopUp from "../pop-ups/DeletePopUp";
 
 export default function CreateScreen(){
     const types = ['Projetos','Blog','Techs','Tipos'];
+    const cruds = ['Criar 🆕','Editar ✏️​', 'Excluir 🗑️']
+    const { toggleLight } = useContext(ToggleContext);
     const { type } = useParams();
     const [ selected, setSelected ] = useState(type);
-    const { toggleLight } = useContext(ToggleContext);
+    const [ action, setAction ] = useState(null);
+    const [ projects, setProjects ] = useState([]);
+  
     const navigate = useNavigate();
+    //CRIAR UMA PAGINA PARA CADA
+
+    useEffect(() => { 
+        async function fetchData() {
+            if(type === "Projetos" && action !== "Criar 🆕") { 
+                const response = await projectApi.getProjects(); 
+                setProjects(response);
+            }
+        } 
+        
+        fetchData();
+    },[])
 
     function redirect(type) { 
         setSelected(type);
         navigate(`/auth/crud/${type}`);
     }
 
+    function changeAction(action) { 
+        setAction(action);
+        navigate(`/auth/crud/${type}?action=${action}`);
+    }
+
     return(
         <>
         <Tittle /> 
         <Toggle />
+        <DeletePopUp />
 
         <Container>
             <Options toggleLight={toggleLight} selected={selected}>
@@ -34,9 +59,34 @@ export default function CreateScreen(){
                     
                 })}
             </Options>
+
             <Header>
-                <p>{selected.toLocaleUpperCase()}</p>
+                <p>{selected}</p>
             </Header>
+
+            <NewBox>
+                {cruds.map(crud => { 
+                    return(
+                        <span id={action === crud ? ("selected") : ("")} onClick={() => changeAction(crud)}>{crud}</span>
+                    )
+                })} 
+            </NewBox>
+
+            {action !== "Criar 🆕" && action && type === "Projetos" ? (
+                <Box> 
+                    {projects.map(project => {
+                        return(
+                            <Project key={project.id} toggleLight={toggleLight} onClick={() => redirect(project.id)}>
+                                <img src={project.image} alt={project.id} />
+                                <Circle className="circle">
+                                    <span>{project.name.toUpperCase()}</span>
+                                    <a>{project.type.toUpperCase()}</a>
+                                </Circle>
+                            </Project>
+                        )
+                    })}
+                    </Box>
+            ) : ("")}
         </Container>
         </>
     )
@@ -90,4 +140,28 @@ const Header = styled.div`
         font-size: 50px;
         margin-bottom: 50px;
     } 
+`
+const NewBox = styled.div`
+    width: 100%; 
+    height: auto; 
+    display: flex; 
+    justify-content: left;
+    margin-bottom: 50px;
+
+    span { 
+       font-size: 20px;
+       margin-right: 20px;
+       transition: 0.3s;
+       //text-decoration: underline;
+
+       &:hover, 
+       &:focus { 
+        cursor: pointer; 
+        font-size: 30px;
+       }
+    }
+
+    span#selected { 
+        font-size: 30px;
+    }
 `

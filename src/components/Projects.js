@@ -1,5 +1,5 @@
-import { styled } from "styled-components"
-import { Box, Circle, Project } from "../pages/Portfolio"
+import { styled } from "styled-components";
+import { Box, Circle, Project } from "../pages/Portfolio";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as projectApi from "../requests/projectApi";
