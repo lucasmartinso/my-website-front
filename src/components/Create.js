@@ -4,19 +4,23 @@ import { useContext, useEffect, useState } from "react";
 import Tittle from "../pages/Tittle";
 import Toggle from "../pages/Toggle";
 import ToggleContext from "../contexts/ToggleContext";
+import TokenContext from "../contexts/TokenContext";
 import { Box, Circle, Project } from "../pages/Portfolio";
 import * as projectApi from "../requests/projectApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
+import { configVar } from "../requests/personalApi";
 
 export default function CreateScreen(){
     const types = ['Projetos','Blog','Techs','Tipos'];
     const cruds = ['Criar 🆕','Editar ✏️​', 'Excluir 🗑️']
     const { toggleLight } = useContext(ToggleContext);
+    const { token } = useContext(TokenContext);
     const { type } = useParams();
     const [ selected, setSelected ] = useState(type);
     const [ action, setAction ] = useState(null);
     const [ projects, setProjects ] = useState([]);
-  
+    const [ deletePopUp, setDeletePopUp ] = useState(false);
+    const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
     //CRIAR UMA PAGINA PARA CADA
 
@@ -41,11 +45,26 @@ export default function CreateScreen(){
         navigate(`/auth/crud/${type}?action=${action}`);
     }
 
+    function selecting(id,name) { 
+        setEditing({id, name});
+        setDeletePopUp(true);
+    }
+
     return(
         <>
         <Tittle /> 
         <Toggle />
-        <DeletePopUp />
+
+        {deletePopUp ? (
+            <DeletePopUp 
+                id={editing.id}
+                name={editing.name}
+                type={type}
+                config={configVar(token)}
+                setDeletePopUp={setDeletePopUp}
+            />
+        ) : ("")}
+        
 
         <Container>
             <Options toggleLight={toggleLight} selected={selected}>
@@ -76,7 +95,7 @@ export default function CreateScreen(){
                 <Box> 
                     {projects.map(project => {
                         return(
-                            <Project key={project.id} toggleLight={toggleLight} onClick={() => redirect(project.id)}>
+                            <Project key={project.id} toggleLight={toggleLight} onClick={() => selecting(project.id,project.name)}>
                                 <img src={project.image} alt={project.id} />
                                 <Circle className="circle">
                                     <span>{project.name.toUpperCase()}</span>

@@ -1,13 +1,24 @@
 import { styled } from "styled-components";
 import { Container } from "./EmailPopUp";
+import * as projectApi from "../requests/projectApi";
+import * as techApi from "../requests/techApi";
+import { useNavigate } from "react-router-dom";
 
-export default function DeletePopUp({id,name}) { 
+export default function DeletePopUp({id,name,type,config,setDeletePopUp}) { 
+    const navigate = useNavigate()
     
-    async function deleteProject() { 
+    async function deleting() { 
         try {
-            
+            if(type==="Projetos") {
+                console.log(config.headers);
+                await projectApi.deleteProject(id,config);
+            } else if(type==="Techs") { 
+                await techApi.deleteTech(id,config);
+            }
+            window.location.reload();
+            setDeletePopUp(false);
         } catch (error) {
-            
+            console.log(error);
         }
     }
     
@@ -15,10 +26,10 @@ export default function DeletePopUp({id,name}) {
         <Container>
             <Box>
                 <ion-icon name="close-circle-outline"></ion-icon> 
-                <p>Deseja deletar o projeto NOME?</p>
+                <p>Deseja deletar o {type} {name}?</p>
                 <Buttons>
-                    <button id="yes">SIM!</button>
-                    <button id="cancel">CANCELAR!</button>
+                    <button id="yes" onClick={deleting}>SIM!</button>
+                    <button id="cancel" onClick={() => setDeletePopUp(false)}>CANCELAR!</button>
                 </Buttons>
             </Box>
         </Container>
@@ -73,7 +84,7 @@ const Buttons = styled.div`
         }
 
         &:active { 
-            width: 180px; 
+            width: 140px; 
             height: 60px;
         }
     }

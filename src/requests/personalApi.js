@@ -23,3 +23,11 @@ export async function verifyAuth(token) {
         return [];
     }
 }
+
+export function configVar(token) {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` },
+    };
+
+    return config;
+}

@@ -52,7 +52,8 @@ export async function getTypes() {
 
 export async function deleteProject(id,config) { 
     try {
-        await api.delete(`/delete/projects/${id}`,null,config);
+        console.log(config);
+        await api.delete(`/delete/projects/${id}`,config);
     } catch (error) {
         console.error('Error deleting project:', error);
     }

@@ -22,13 +22,13 @@ export async function searchTechs(tech) {
 
 export async function deleteTech(id,config) {
     try {
-        await api.delete(`/delete/techs/${id}`,null,config);
+        await api.delete(`/delete/techs/${id}`,config);
     } catch (error) {
         console.log('Error deleting techs:', error); 
     }
 }
 
-export async function deleteTech(id,techData,config) {
+export async function updateTech(id,techData,config) {
     try {
         await api.put(`/edit/techs/${id}`,techData,config);
     } catch (error) {
