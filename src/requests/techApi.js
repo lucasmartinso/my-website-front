@@ -35,3 +35,11 @@ export async function deleteTech(id,techData,config) {
         console.log('Error updating techs:', error); 
     }
 }
+
+export async function postTech(techData,config) {
+    try {
+        await api.put(`/techs`,techData,config);
+    } catch (error) {
+        console.log('Error posting techs:', error); 
+    }
+}
