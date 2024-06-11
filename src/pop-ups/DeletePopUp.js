@@ -26,7 +26,7 @@ export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {
         <Container>
             <Box>
                 <ion-icon name="close-circle-outline"></ion-icon> 
-                <p>Deseja deletar o {type} {name}?</p>
+                <p>Deseja deletar o {type} "{name.toUpperCase()}"?</p>
                 <Buttons>
                     <button id="yes" onClick={deleting}>SIM!</button>
                     <button id="cancel" onClick={() => setDeletePopUp(false)}>CANCELAR!</button>

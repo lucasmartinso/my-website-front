@@ -9,6 +9,7 @@ import { Box, Circle, Project } from "../pages/Portfolio";
 import * as projectApi from "../requests/projectApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
 import { configVar } from "../requests/personalApi";
+import EditProject from "../pages/EditProject";
 
 export default function CreateScreen(){
     const types = ['Projetos','Blog','Techs','Tipos'];
@@ -20,6 +21,8 @@ export default function CreateScreen(){
     const [ action, setAction ] = useState(null);
     const [ projects, setProjects ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
+    const [ writing, setWriting ] = useState(false);
+    const [ project, setProject ] = useState([]);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
     //CRIAR UMA PAGINA PARA CADA
@@ -45,9 +48,15 @@ export default function CreateScreen(){
         navigate(`/auth/crud/${type}?action=${action}`);
     }
 
-    function selecting(id,name) { 
+    async function selecting(id,name) { 
         setEditing({id, name});
-        setDeletePopUp(true);
+        if(action === "Excluir 🗑️") {
+            setDeletePopUp(true);
+        } else if(action === "Editar ✏️") { 
+            const response = await projectApi.getProjectComplete(id);
+            setProject(response);
+            setWriting(true);
+        }
     }
 
     return(
@@ -62,6 +71,12 @@ export default function CreateScreen(){
                 type={type}
                 config={configVar(token)}
                 setDeletePopUp={setDeletePopUp}
+            />
+        ) : ("")}
+
+        {writing ? (
+            <EditProject 
+                project={project}
             />
         ) : ("")}
         
