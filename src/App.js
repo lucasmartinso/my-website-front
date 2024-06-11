@@ -38,7 +38,7 @@ export default function App() {
               <Route path="/hello" element={<MainScreen />} />
               <Route path="/projects/:type" element={<ProjectScreen />} />
               <Route path="/auth" element={<AuthScreen />} />
-              <Route path="/auth/create" element={<CreateScreen />} />
+              <Route path="/auth/crud/:type" element={<CreateScreen />} />
           </Routes>
       </BrowserRouter>
     </TokenContext.Provider>
