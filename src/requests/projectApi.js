@@ -65,3 +65,11 @@ export async function updateProject(id,projectData,config) {
         console.error('Error deleting project:', error);
     }
 }
+
+export async function postProject(projectData,config) { 
+    try {
+        await api.post(`/projects`,projectData,config);
+    } catch (error) {
+        console.error('Error deleting project:', error);
+    }
+}
