@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { styled } from "styled-components";
+import SkillContext from "../contexts/SkillsContext";
 import * as projectApi from "../requests/projectApi";
 import * as typeApi from "../requests/typeApi";
+import SkillPopUp from "../pop-ups/SkillsPopUp";
 
 export default function EditProject({id, setWriting, toggleLight}) { 
+    const { skillPopUp, setSkillPopUp } = useContext(SkillContext);
     const [ types, setTypes ] = useState([]);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ image, setImage ] = useState("");
     const [ type, setType ] = useState("");
-    const [ techs, setTechs ] = useState([]);
+    const [ technologies, setTechnologies ] = useState([]);
     const [ web, setWeb ] = useState("");
     const [ doc, setDoc ] = useState("");
     const [ front, setFront ] = useState("");
@@ -33,7 +36,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setFront(response.front); 
                     setBack(response.back);
                     setPinned(response.pinned);
-                    setTechs(response.technologies);
+                    setTechnologies(response.technologies);
                     setType(response.type);
                 } else { 
                     setName(""); 
@@ -44,7 +47,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setFront(""); 
                     setBack("");
                     setPinned(false);
-                    setTechs([]);
+                    setTechnologies([]);
                 }
             } catch (error) {
                 console.log(error);
@@ -68,7 +71,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 front, 
                 back, 
                 pinned, 
-                technologies: techs
+                technologies
             }
 
             console.log(project);
@@ -142,18 +145,26 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 value={back}
                 onChange={(event) => setBack(event.target.value)}
             />
-            {/* criar caixa de seleção para as tecnologias */}
             <Box> 
-                {techs.map(tech => { 
+                {technologies.map(tech => { 
                     return(
-                        <TechBox>
+                        <TechBox onClick={() => setTechnologies(prevTech => prevTech.filter(element => element !== tech))}>
                             <span>x</span>
                             <span>{tech}</span>
                         </TechBox>
                     )
                 })}
-                <Buttonn>Selecionar</Buttonn>
+                <Buttonn onClick={() => setSkillPopUp(true)}>Selecionar</Buttonn>
             </Box>
+
+            {skillPopUp ? ( 
+                <SkillPopUp 
+                    technologies={technologies}
+                    setTechnologies={setTechnologies}
+                    edit={true}
+                />
+            ) : ("") }
+
             <PinnedBox toggleLight={toggleLight}> 
                 <span>Pinned:</span>
                 <ToggleBox>

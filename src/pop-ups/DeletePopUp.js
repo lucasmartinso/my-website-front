@@ -2,11 +2,8 @@ import { styled } from "styled-components";
 import { Container } from "./EmailPopUp";
 import * as projectApi from "../requests/projectApi";
 import * as techApi from "../requests/techApi";
-import { useNavigate } from "react-router-dom";
 
-export default function DeletePopUp({id,name,type,config,setDeletePopUp}) { 
-    const navigate = useNavigate()
-    
+export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {     
     async function deleting() { 
         try {
             if(type==="Projetos") {

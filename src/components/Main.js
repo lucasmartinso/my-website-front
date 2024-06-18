@@ -21,7 +21,11 @@ export default function MainScreen() {
     return( 
         <Container>
             <EmailPopUp />
-            <SkillPopUp />
+            <SkillPopUp 
+                technologies={[]}
+                setTechnologies={[]}
+                edit={false}
+            />
             {projectPopUp ? (
                 <ProjectPopUp id={id} route={'hello'}/>
             ) : ("")}
