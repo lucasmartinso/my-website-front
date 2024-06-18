@@ -200,7 +200,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
     )
 }
 
-const Container = styled.div`
+export const Container = styled.div`
     width: 100%; 
     height: 100%;
     display: flex; 

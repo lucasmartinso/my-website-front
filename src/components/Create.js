@@ -10,6 +10,7 @@ import * as projectApi from "../requests/projectApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
 import { configVar } from "../requests/personalApi";
 import EditProject from "../pages/EditProject";
+import EditTechType from "../pages/EditTechType";
 
 export default function CreateScreen(){
     const types = ['Projetos','Blog','Techs','Tipos'];
@@ -22,6 +23,7 @@ export default function CreateScreen(){
     const [ projects, setProjects ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
+    const [ editTechType, setEditTechType ] = useState(false);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
     //CRIAR UMA PAGINA PARA CADA
@@ -39,6 +41,7 @@ export default function CreateScreen(){
         setSelected(type);
         navigate(`/auth/crud/${type}`);
         setAction(null);
+        setWriting(false);
     }
 
     function changeAction(action) { 
@@ -104,6 +107,14 @@ export default function CreateScreen(){
                 <EditProject 
                     id={editing.id}
                     setWriting={setWriting}
+                    toggleLight={toggleLight}
+                />
+            ) : ("")}
+
+            {editTechType ? (
+                <EditTechType 
+                    id={editing.id}
+                    setEditTechType={setEditTechType}
                     toggleLight={toggleLight}
                 />
             ) : ("")}
