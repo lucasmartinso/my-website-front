@@ -79,7 +79,12 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 technologies
             }
 
-            await projectApi.postProject(project,configVar(token)); 
+            if(!id) { 
+                await projectApi.postProject(project,configVar(token));
+            } else { 
+                await projectApi.updateProject(id,project,configVar(token));
+            }
+             
             window.location.reload();
         } catch (erro) {
             setError(erro.response.data);

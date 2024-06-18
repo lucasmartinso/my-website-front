@@ -42,7 +42,6 @@ export async function getProjectComplete(id) {
 
 export async function deleteProject(id,config) { 
     try {
-        console.log(config);
         await api.delete(`/delete/projects/${id}`,config);
     } catch (error) {
         console.error('Error deleting project:', error);
@@ -50,11 +49,7 @@ export async function deleteProject(id,config) {
 }
 
 export async function updateProject(id,projectData,config) { 
-    try {
-        await api.put(`/edit/projects/${id}`,projectData,config);
-    } catch (error) {
-        console.error('Error updating project:', error);
-    }
+    await api.put(`/edit/projects/${id}`,projectData,config);
 }
 
 export async function postProject(projectData,config) { 
