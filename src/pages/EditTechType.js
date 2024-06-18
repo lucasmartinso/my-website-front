@@ -1,13 +1,45 @@
 import { styled } from "styled-components";
 import { Container } from "./EditProject";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as techsApi from "../requests/techApi"; 
+import * as typesApi from "../requests/typeApi";
 
-export default function EditTechType({id,setEditTechType,toggleLight}) { 
+export default function EditTechType({id,type,setEditTechType,toggleLight}) { 
     const [ name, setName ] = useState("");
+    const [ error, setError ] = useState(false);
 
-    async function sendInfo() { 
+    useEffect(() => { 
+        async function fecthData() { 
+            try {
+                if(id) { 
+                    if(type === "Techs") { 
+                        const response = await techsApi.getTechs();
+                        setName(response[id].name);
+                    } else if(type === "Tipos") { 
+                        const response = await typesApi.getTypes();
+                        setName(response[id].name);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+                setError(error.response.data);
+            }
+        }
+
+        fecthData();
+    },[])
+
+    async function sendInfo(event) {
+        event.preventDefault();
+        
         try {
-            
+            // if(type === "Techs") { 
+            //     const response = await techsApi.getTechs();
+            //     setTechs(response);
+            // } else if(type === "Tipos") { 
+            //     const response = await typesApi.getTypes();
+            //     setTypes(response);
+            // }
         } catch (error) {
             console.log(error);
         }
@@ -28,6 +60,8 @@ export default function EditTechType({id,setEditTechType,toggleLight}) {
                 onChange={(event) => setName(event.target.value)}
                 required
             />
+
+            <button>Enviar</button>
             </form>
         </Container>
     )

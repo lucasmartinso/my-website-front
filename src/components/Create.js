@@ -7,10 +7,13 @@ import ToggleContext from "../contexts/ToggleContext";
 import TokenContext from "../contexts/TokenContext";
 import { Box, Circle, Project } from "../pages/Portfolio";
 import * as projectApi from "../requests/projectApi";
+import * as techsApi from "../requests/techApi"; 
+import * as typesApi from "../requests/typeApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
 import { configVar } from "../requests/personalApi";
 import EditProject from "../pages/EditProject";
 import EditTechType from "../pages/EditTechType";
+import { Skill } from "../pop-ups/SkillsPopUp";
 
 export default function CreateScreen(){
     const types = ['Projetos','Blog','Techs','Tipos'];
@@ -21,6 +24,7 @@ export default function CreateScreen(){
     const [ selected, setSelected ] = useState(type);
     const [ action, setAction ] = useState(null);
     const [ projects, setProjects ] = useState([]);
+    const [ techs, setTechs ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
     const [ editTechType, setEditTechType ] = useState(false);
@@ -32,6 +36,11 @@ export default function CreateScreen(){
         async function fetchData() { 
             const response = await projectApi.getProjects(); 
             setProjects(response);
+            if(type === "Techs") { 
+                const response = await techsApi.getTechs();
+                console.log(response);
+                setTechs(response);
+            }
         } 
         
         fetchData();
@@ -42,15 +51,20 @@ export default function CreateScreen(){
         navigate(`/auth/crud/${type}`);
         setAction(null);
         setWriting(false);
+        setEditTechType(false);
     }
 
     function changeAction(action) { 
         setWriting(false);
+        setEditTechType(false);
         setAction(action);
         navigate(`/auth/crud/${type}?action=${action}`);
         if(type === "Projetos" && action === "Criar 🆕") { 
             setEditing({id:null, name:null});
             setWriting(true);
+        } else if((type === "Techs" || type === "Tipos") && action === "Criar 🆕") { 
+            setEditing({id:null, name:null});
+            setEditTechType(true);
         }
     }
 
@@ -60,6 +74,8 @@ export default function CreateScreen(){
             setDeletePopUp(true);
         } else if(type === "Projetos") { 
             setWriting(true);
+        } else if(type === "Tipos" || type === "Techs") { 
+            setEditTechType(true);
         }
     }
 
@@ -114,12 +130,12 @@ export default function CreateScreen(){
             {editTechType ? (
                 <EditTechType 
                     id={editing.id}
+                    type={type}
                     setEditTechType={setEditTechType}
                     toggleLight={toggleLight}
                 />
             ) : ("")}
             
-
             {action !== "Criar 🆕" && action && type === "Projetos" && !writing ? (
                 <Box> 
                     {projects.map(project => {
@@ -135,6 +151,31 @@ export default function CreateScreen(){
                     })}
                     </Box>
             ) : ("")}
+
+        {action !== "Criar 🆕" && action && (type === "Techs" || type === "Tipos") && !editTechType ? (
+            <SelectionBox>
+                {type === "Techs" ? (
+                    techs.map(tech => { 
+                        return(
+                            <Skill onClick={() => selecting(tech.id,tech.name)}>
+                                <span>📌​</span>
+                                <a>{tech.name}</a>
+                            </Skill>
+                        )
+                    })
+                ) : (
+                    types.map(tipo => { 
+                        return(
+                            <Skill onClick={() => selecting(tipo.id,tipo.name)}>
+                                <span>📌​</span>
+                                <a>{tipo.name}</a>
+                            </Skill>
+                        )
+                    })
+                )}
+                      
+            </SelectionBox>
+        ) : ("")}
         </Container>
         </>
     )
@@ -215,4 +256,11 @@ const NewBox = styled.div`
     span#selected { 
         font-size: 30px;
     }
+`
+const SelectionBox = styled.div`
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
 `
