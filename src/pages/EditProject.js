@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import * as projectApi from "../requests/projectApi";
 
-export default function EditProject({id, setWriting}) { 
+export default function EditProject({id, setWriting, toggleLight}) { 
     const [ project, setProject ] = useState([]);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
@@ -19,7 +19,6 @@ export default function EditProject({id, setWriting}) {
         async function fecthData() { 
             try {
                 if(id != null) {
-                    console.log(id);
                     const response = await projectApi.getProjectComplete(id);
                     setName(response.name); 
                     setDescription(response.description);
@@ -78,8 +77,8 @@ export default function EditProject({id, setWriting}) {
                 required
             /> */}
             <input 
-                type="image"
-                placeholder="Imagem"
+                type="url"
+                placeholder="Url da imagem"
                 value={image}
                 onChange={(event) => setImage(event.target.value)}
                 required
@@ -129,13 +128,16 @@ export default function EditProject({id, setWriting}) {
                 onChange={(event) => setPassword(event.target.value)}
                 required
             /> */}
-            <input 
-                type="checkbox"
-                placeholder="Pinned"
-                value={pinned}
-                onChange={(event) => setPinned(event.target.value)}
-                required
-            />
+            <PinnedBox toggleLight={toggleLight}> 
+                <span>Pinned:</span>
+                <ToggleBox>
+                    <LightDark onClick={() => setPinned(!pinned)} toggleLight={toggleLight}>
+                        <ion-icon name="power" id="on"></ion-icon>
+                        <ion-icon name="close" id="off"></ion-icon>
+                        <BallSlider pinned={pinned} toggleLight={toggleLight}></BallSlider>
+                    </LightDark>
+                </ToggleBox>
+            </PinnedBox>
         </Container>
         </>
     )
@@ -178,4 +180,66 @@ const Container = styled.div`
             cursor: pointer;
         }
     }
+`
+const PinnedBox = styled.div`
+    width: 100%; 
+    height: auto;
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    color: ${props => props.toggleLight ? ("black") : ("white")};
+    margin-bottom: 30px;
+
+    span { 
+        font-size: 30px;
+        margin-right: 20px;
+    }
+`
+const ToggleBox = styled.div`
+    width: 90px;
+    height: 40px; 
+    transition: 2s;
+`
+const LightDark = styled.label`
+    position: relative;
+    width: 100%; 
+    height: 100%;
+    border-radius: 30px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: ${props => props.toggleLight ? ("black") : ("#FEF5E3")};
+
+    ion-icon { 
+        position: absolute;
+        top: 8px;
+        color: red;
+        width: 23px; 
+        height: 23px;
+    }
+
+    ion-icon#on { 
+        color: #68c365;
+        margin-right: 40px;
+    }
+
+    ion-icon#off { 
+        width: 25px; 
+        height: 25px;
+        margin-left: 40px;
+    }
+
+    &:hover { 
+        cursor: pointer;
+    }
+`
+const BallSlider = styled.div`
+    position: absolute;
+    z-index: 1;
+    left: ${props => props.pinned ? ("6px") : ("50px")};
+    width: 33px; 
+    height: 33px;
+    background-color: ${props => props.toggleLight ? ("white") : ("black")};
+    border-radius: 50%;
+    transition: 2s;
 `

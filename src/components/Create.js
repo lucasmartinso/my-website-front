@@ -104,6 +104,7 @@ export default function CreateScreen(){
                 <EditProject 
                     id={editing.id}
                     setWriting={setWriting}
+                    toggleLight={toggleLight}
                 />
             ) : ("")}
             
