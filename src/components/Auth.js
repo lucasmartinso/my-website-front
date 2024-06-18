@@ -23,7 +23,8 @@ export default function AuthScreen() {
             localStorage.setItem("MY_TOKEN",token);
             setToken(token);
             console.log(token);
-            navigate("/auth/crud/Projetos");
+            if(!token) setError(true);
+            else navigate("/auth/crud/Projetos");
         } catch (error) {
             setError(true);
             console.log(error);

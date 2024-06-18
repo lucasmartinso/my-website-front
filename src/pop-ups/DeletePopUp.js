@@ -10,7 +10,7 @@ export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {
     async function deleting() { 
         try {
             if(type==="Projetos") {
-                console.log(config.headers);
+                console.log(config);
                 await projectApi.deleteProject(id,config);
             } else if(type==="Techs") { 
                 await techApi.deleteTech(id,config);

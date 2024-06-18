@@ -3,6 +3,7 @@ import { Box, Circle, Project } from "../pages/Portfolio";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import * as projectApi from "../requests/projectApi";
+import * as typeApi from "../requests/typeApi";
 import Tittle from "../pages/Tittle";
 import Toggle from "../pages/Toggle";
 import ToggleContext from "../contexts/ToggleContext";
@@ -32,7 +33,7 @@ export default function ProjectScreen() {
                     const response = await projectApi.getProjectsPerType(type);
                     setProjects(response);
                 }                
-                const types = await projectApi.getTypes();
+                const types = await typeApi.getTypes();
                 
                 setCategories(prevCategories => [...prevCategories, ...types]);
             } catch (error) {

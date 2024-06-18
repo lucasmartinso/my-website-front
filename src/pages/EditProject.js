@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import * as projectApi from "../requests/projectApi";
+import * as typeApi from "../requests/typeApi";
 
 export default function EditProject({id, setWriting, toggleLight}) { 
+    const [ types, setTypes ] = useState([]);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ image, setImage ] = useState("");
@@ -17,6 +19,10 @@ export default function EditProject({id, setWriting, toggleLight}) {
     useEffect(() => { 
         async function fecthData() { 
             try {
+                const response = await typeApi.getTypes();
+                setTypes(response);
+                setType(response[0].name);
+
                 if(id != null) {
                     const response = await projectApi.getProjectComplete(id);
                     setName(response.name); 
@@ -39,7 +45,6 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setBack("");
                     setPinned(false);
                     setTechs([]);
-                    setType("");
                 }
             } catch (error) {
                 console.log(error);
@@ -67,6 +72,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
             }
 
             console.log(project);
+            //if(id != null)
         } catch (error) {
             console.log(error);
         }
@@ -88,12 +94,12 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 onChange={(event) => setName(event.target.value)}
                 required
             />
-            {/* tem que ser um seletor para o tipo */}
-            <select>
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
+            <select value={type} onChange={(event) => setType(event.target.value)}>
+                {types.map(t => { 
+                    return(
+                        <option key={t.id} value={t.name} onClick={() => setType(t.name)}>{t.name}</option>
+                    )
+                })}
             </select>
             <input 
                 type="url"
@@ -137,13 +143,17 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 onChange={(event) => setBack(event.target.value)}
             />
             {/* criar caixa de seleção para as tecnologias */}
-            {/* <input 
-                type="password"
-                placeholder=""
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-            /> */}
+            <Box> 
+                {techs.map(tech => { 
+                    return(
+                        <TechBox>
+                            <span>x</span>
+                            <span>{tech}</span>
+                        </TechBox>
+                    )
+                })}
+                <Buttonn>Selecionar</Buttonn>
+            </Box>
             <PinnedBox toggleLight={toggleLight}> 
                 <span>Pinned:</span>
                 <ToggleBox>
@@ -224,6 +234,69 @@ const Container = styled.div`
             width: 140px; 
             height: 60px;
         }
+    }
+`
+const Box = styled.div`
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px 5px 5px 0px;
+    background-color: white;
+    border-radius: 12px;
+    padding-left: 15px;
+    transition: 0.2s;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border: 3px solid black;
+`
+const Buttonn = styled.div` 
+    position: absolute; 
+    bottom: 10px; 
+    right: 10px;
+    width: 100px; 
+    height: 35px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-size: 15px;
+    border-radius: 8px;
+    background-color: #0084F7;
+    color: white;
+    font-family: "Kavoon", serif;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    transition: 0.3s;
+
+    &:hover { 
+        cursor: pointer;
+    }
+
+    &:active { 
+        width: 140px; 
+        height: 35px;
+    }
+`
+const TechBox = styled.div`
+    width: 90px; 
+    height: 25px; 
+    display: flex;
+    align-items: center; 
+    justify-content: space-around;
+    background-color: #CCCCCC; 
+    color: black; 
+    border-radius: 8px;
+    margin-left: 10px;
+
+    span { 
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    &:hover { 
+        cursor: pointer;
     }
 `
 const PinnedBox = styled.div`
