@@ -2,15 +2,17 @@ import { styled } from "styled-components";
 import { Container } from "./EmailPopUp";
 import * as projectApi from "../requests/projectApi";
 import * as techApi from "../requests/techApi";
+import * as typeApi from "../requests/typeApi";
 
 export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {     
     async function deleting() { 
         try {
             if(type==="Projetos") {
-                console.log(config);
                 await projectApi.deleteProject(id,config);
             } else if(type==="Techs") { 
                 await techApi.deleteTech(id,config);
+            } else if(type==="Tipos") { 
+                await typeApi.deleteType(id,config);
             }
             window.location.reload();
             setDeletePopUp(false);
