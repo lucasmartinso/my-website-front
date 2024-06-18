@@ -1,10 +1,13 @@
 import { styled } from "styled-components";
 import { Container } from "./EditProject";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as techsApi from "../requests/techApi"; 
 import * as typesApi from "../requests/typeApi";
+import { configVar } from "../requests/personalApi";
+import TokenContext from "../contexts/TokenContext";
 
 export default function EditTechType({id,type,setEditTechType,toggleLight}) { 
+    const { token } = useContext(TokenContext);
     const [ name, setName ] = useState("");
     const [ error, setError ] = useState(false);
 
@@ -33,13 +36,17 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
         event.preventDefault();
         
         try {
-            // if(type === "Techs") { 
-            //     const response = await techsApi.getTechs();
-            //     setTechs(response);
-            // } else if(type === "Tipos") { 
-            //     const response = await typesApi.getTypes();
-            //     setTypes(response);
-            // }
+            const data = { 
+                name
+            };
+
+            if(type === "Techs") { 
+                if(id) await techsApi.updateTech(id,data,configVar(token));
+                else await techsApi.postTech(data,configVar(token));
+            } else if(type === "Tipos") { 
+                if(id) await typesApi.updateType(id,data,configVar(token));
+                else await typesApi.postType(data,configVar(token));
+            }
         } catch (error) {
             console.log(error);
         }
