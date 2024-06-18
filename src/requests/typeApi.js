@@ -9,3 +9,7 @@ export async function getTypes() {
         return [];
     }
 }
+
+export async function postType(data,config) { 
+    await api.post('/types',data,config);
+}
