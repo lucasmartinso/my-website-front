@@ -50,6 +50,7 @@ export default function AuthScreen() {
                         <input 
                             type="password"
                             placeholder="Senha"
+                            minLength={8}
                             maxLength={200}
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}

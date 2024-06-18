@@ -22,17 +22,14 @@ export default function CreateScreen(){
     const [ projects, setProjects ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
-    const [ project, setProject ] = useState([]);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
     //CRIAR UMA PAGINA PARA CADA
 
     useEffect(() => { 
-        async function fetchData() {
-            if(type === "Projetos" && action !== "Criar 🆕") { 
-                const response = await projectApi.getProjects(); 
-                setProjects(response);
-            }
+        async function fetchData() { 
+            const response = await projectApi.getProjects(); 
+            setProjects(response);
         } 
         
         fetchData();
@@ -41,20 +38,24 @@ export default function CreateScreen(){
     function redirect(type) { 
         setSelected(type);
         navigate(`/auth/crud/${type}`);
+        setAction(null);
     }
 
     function changeAction(action) { 
+        setWriting(false);
         setAction(action);
         navigate(`/auth/crud/${type}?action=${action}`);
+        if(type === "Projetos" && action === "Criar 🆕") { 
+            setEditing({id:null, name:null});
+            setWriting(true);
+        }
     }
 
     async function selecting(id,name) { 
         setEditing({id, name});
         if(action === "Excluir 🗑️") {
             setDeletePopUp(true);
-        } else if(action === "Editar ✏️") { 
-            const response = await projectApi.getProjectComplete(id);
-            setProject(response);
+        } else if(type === "Projetos") { 
             setWriting(true);
         }
     }
@@ -74,13 +75,6 @@ export default function CreateScreen(){
             />
         ) : ("")}
 
-        {writing ? (
-            <EditProject 
-                project={project}
-            />
-        ) : ("")}
-        
-
         <Container>
             <Options toggleLight={toggleLight} selected={selected}>
                 {types.map(type => { 
@@ -94,19 +88,27 @@ export default function CreateScreen(){
                 })}
             </Options>
 
-            <Header>
+            <Header toggleLight={toggleLight}>
                 <p>{selected}</p>
             </Header>
 
-            <NewBox>
+            <NewBox toggleLight={toggleLight}>
                 {cruds.map(crud => { 
                     return(
                         <span id={action === crud ? ("selected") : ("")} onClick={() => changeAction(crud)}>{crud}</span>
                     )
                 })} 
             </NewBox>
+            
+            {writing ? (
+                <EditProject 
+                    id={editing.id}
+                    setWriting={setWriting}
+                />
+            ) : ("")}
+            
 
-            {action !== "Criar 🆕" && action && type === "Projetos" ? (
+            {action !== "Criar 🆕" && action && type === "Projetos" && !writing ? (
                 <Box> 
                     {projects.map(project => {
                         return(
@@ -168,6 +170,8 @@ const Header = styled.div`
     height: auto;
     display: flex; 
     justify-content: center;
+    color: ${props => props.toggleLight ? ("black") : ("white")};
+    transition: 1s;
 
     p { 
         font-family: "Oi", serif;
@@ -181,6 +185,7 @@ const NewBox = styled.div`
     display: flex; 
     justify-content: left;
     margin-bottom: 50px;
+    color: ${props => props.toggleLight ? ("black") : ("white")};
 
     span { 
        font-size: 20px;
