@@ -3,7 +3,6 @@ import { styled } from "styled-components";
 import * as projectApi from "../requests/projectApi";
 
 export default function EditProject({id, setWriting, toggleLight}) { 
-    const [ project, setProject ] = useState([]);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ image, setImage ] = useState("");
@@ -31,7 +30,6 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setTechs(response.technologies);
                     setType(response.type);
                 } else { 
-                    console.log("AQUI");
                     setName(""); 
                     setDescription("");
                     setImage(""); 
@@ -49,7 +47,30 @@ export default function EditProject({id, setWriting, toggleLight}) {
         } 
 
         fecthData();
-    },[])
+    },[]); 
+
+    async function sendInfo(event) { 
+        event.preventDefault();
+
+        try {
+            const project = { 
+                name, 
+                type, 
+                image, 
+                description,
+                url: web, 
+                documentation: doc, 
+                front, 
+                back, 
+                pinned, 
+                technologies: techs
+            }
+
+            console.log(project);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <>
@@ -57,6 +78,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
             {id != null ? (
                 <ion-icon name="arrow-back-outline" onClick={() => setWriting(false)}></ion-icon>
             ) : ("")}
+            <form onSubmit={sendInfo}>
             <input 
                 type="text"
                 placeholder="Nome"
@@ -67,15 +89,12 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 required
             />
             {/* tem que ser um seletor para o tipo */}
-            {/* <input 
-                type="password"
-                placeholder="Senha"
-                minLength={8}
-                maxLength={200}
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-            /> */}
+            <select>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
             <input 
                 type="url"
                 placeholder="Url da imagem"
@@ -97,7 +116,6 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 placeholder="Url da hospedagem na web"
                 value={web}
                 onChange={(event) => setWeb(event.target.value)}
-                required
             />
             <input 
                 type="url"
@@ -111,14 +129,12 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 placeholder="Url do Front-end"
                 value={front}
                 onChange={(event) => setFront(event.target.value)}
-                required
             />
             <input 
                 type="url"
                 placeholder="Url do back-end"
                 value={back}
                 onChange={(event) => setBack(event.target.value)}
-                required
             />
             {/* criar caixa de seleção para as tecnologias */}
             {/* <input 
@@ -132,12 +148,14 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 <span>Pinned:</span>
                 <ToggleBox>
                     <LightDark onClick={() => setPinned(!pinned)} toggleLight={toggleLight}>
-                        <ion-icon name="power" id="on"></ion-icon>
                         <ion-icon name="close" id="off"></ion-icon>
+                        <ion-icon name="power" id="on"></ion-icon>
                         <BallSlider pinned={pinned} toggleLight={toggleLight}></BallSlider>
                     </LightDark>
                 </ToggleBox>
             </PinnedBox>
+            <button>Enviar</button>
+            </form>
         </Container>
         </>
     )
@@ -149,7 +167,7 @@ const Container = styled.div`
     display: flex; 
     flex-direction: column;
 
-    input, textarea { 
+    input, textarea, select { 
         width: 100%;
         height: 60px;
         border-radius: 12px;
@@ -171,6 +189,10 @@ const Container = styled.div`
         padding: 10px 2px 2px 15px;
     }
 
+    select { 
+        padding-right: 20px;
+    }
+
     ion-icon { 
         width: 40px; 
         height: 40px; 
@@ -178,6 +200,29 @@ const Container = styled.div`
 
         &:hover { 
             cursor: pointer;
+        }
+    }
+
+    button { 
+        width: 150px; 
+        height: 70px;
+        background-color: #0084F7;
+        border-radius: 20px;
+        color: white;
+        font-size: 22px;
+        font-family: "Kavoon", serif;
+        border: none;
+        box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+        transition: 0.3s;
+        margin-bottom: 70px;
+
+        &:hover { 
+            cursor: pointer;
+        }
+
+        &:active { 
+            width: 140px; 
+            height: 60px;
         }
     }
 `
