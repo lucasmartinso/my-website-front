@@ -1,12 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import { styled } from "styled-components";
 import SkillContext from "../contexts/SkillsContext";
+import TokenContext from "../contexts/TokenContext";
 import * as projectApi from "../requests/projectApi";
 import * as typeApi from "../requests/typeApi";
 import SkillPopUp from "../pop-ups/SkillsPopUp";
+import { configVar } from "../requests/personalApi";
+import { Error } from "../components/Auth";
 
 export default function EditProject({id, setWriting, toggleLight}) { 
     const { skillPopUp, setSkillPopUp } = useContext(SkillContext);
+    const { token } = useContext(TokenContext);
     const [ types, setTypes ] = useState([]);
     const [ name, setName ] = useState("");
     const [ description, setDescription ] = useState("");
@@ -18,6 +22,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
     const [ front, setFront ] = useState("");
     const [ back, setBack ] = useState("");
     const [ pinned, setPinned ] = useState(false);
+    const [ error, setError ] = useState(null);
     
     useEffect(() => { 
         async function fecthData() { 
@@ -53,7 +58,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 console.log(error);
             }
         } 
-
+        
         fecthData();
     },[]); 
 
@@ -74,10 +79,11 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 technologies
             }
 
-            console.log(project);
-            //if(id != null)
-        } catch (error) {
-            console.log(error);
+            await projectApi.postProject(project,configVar(token)); 
+            window.location.reload();
+        } catch (erro) {
+            setError(erro.response.data);
+            console.log(erro.response.data);
         }
     }
 
@@ -146,9 +152,9 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 onChange={(event) => setBack(event.target.value)}
             />
             <Box> 
-                {technologies.map(tech => { 
+                {technologies.map((tech,id) => { 
                     return(
-                        <TechBox onClick={() => setTechnologies(prevTech => prevTech.filter(element => element !== tech))}>
+                        <TechBox key={id} onClick={() => setTechnologies(prevTech => prevTech.filter(element => element !== tech))}>
                             <span>x</span>
                             <span>{tech}</span>
                         </TechBox>
@@ -175,6 +181,13 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     </LightDark>
                 </ToggleBox>
             </PinnedBox>
+
+            {error ? (
+                <Error error={error}>
+                    <span><ion-icon name="close-circle" onClick={() => setError(null)}></ion-icon>{error}</span>
+                </Error>
+            ) : ("")}
+
             <button>Enviar</button>
             </form>
         </Container>
@@ -292,7 +305,8 @@ const Buttonn = styled.div`
 `
 const TechBox = styled.div`
     width: 90px; 
-    height: 25px; 
+    min-height: 25px; 
+    height: 100%;
     display: flex;
     align-items: center; 
     justify-content: space-around;
@@ -300,6 +314,8 @@ const TechBox = styled.div`
     color: black; 
     border-radius: 8px;
     margin-left: 10px;
+    word-break: break-all;
+    overflow-wrap: break-word;
 
     span { 
         font-size: 18px;

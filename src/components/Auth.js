@@ -187,15 +187,18 @@ const Contains = styled.div`
         }
     }
 `
-const Error = styled.div`
+export const Error = styled.div`
     width: ${props => props.error ? ("90%") : ("0%")}; 
-    height: ${props => props.error ? ("20%") : ("0%")}; 
+    min-height: ${props => props.error ? ("20%") : ("0%")}; 
+    height: 100%;
     display: flex; 
     justify-content: center;
     align-items: center;
     background-color: red;
     border-radius: 12px;
     transition: 10s;
+    padding: 10px 5px 5px 10px;
+    margin-bottom: 20px;
 
     span { 
         display: flex; 

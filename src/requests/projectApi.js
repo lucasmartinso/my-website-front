@@ -58,9 +58,5 @@ export async function updateProject(id,projectData,config) {
 }
 
 export async function postProject(projectData,config) { 
-    try {
-        await api.post(`/projects`,projectData,config);
-    } catch (error) {
-        console.error('Error posting project:', error);
-    }
+    await api.post(`/projects`,projectData,config);
 }
