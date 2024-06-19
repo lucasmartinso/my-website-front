@@ -325,6 +325,12 @@ const Skills = styled.div`
             font-size: 45px;
         }
     }
+
+    @media (max-width: 500px) {
+        a { 
+            font-size: 33px;
+        }
+    }
 `
 const BoxSkills = styled.div`
     width: 100%; 

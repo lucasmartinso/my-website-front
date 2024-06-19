@@ -29,6 +29,11 @@ export default function Portfolio({ id }) {
         navigate(`/hello?id=${id}`); 
     }
 
+    function loadMoreProjects() { 
+        navigate('/projects/all'); 
+        window.location.reload();
+    }
+
     return( 
         <Container toggleLight={toggleLight}>
             <p>Portifólio</p>
@@ -45,7 +50,7 @@ export default function Portfolio({ id }) {
                     )
                 })}
             </Box>
-            <h onClick={() => navigate('/projects/all')}>Ver mais projetos <ion-icon name="add"></ion-icon></h>
+            <h onClick={loadMoreProjects}>Ver mais projetos <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 } 
@@ -85,6 +90,12 @@ const Container = styled.div`
             cursor: pointer;
             color: ${props => props.toggleLight ? ("black") : ("white")};
             opacity: 1;
+        }
+    }
+
+    @media (max-width: 500px) { 
+        p {
+            font-size: 40px;
         }
     }
 `

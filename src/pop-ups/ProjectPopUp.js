@@ -270,6 +270,10 @@ const Tag = styled.div`
             height: 50px;
         }
     }
+
+    @media (max-width: 500px) { 
+        word-break: break-all;
+    }
 `
 const Content = styled.div`
     width: 80%;
@@ -301,6 +305,21 @@ const Content = styled.div`
 
         span { 
             font-size: 14px;
+        }
+    }
+
+    @media (max-width: 500px) { 
+        p { 
+            font-size: 14px;
+            margin-bottom: 1px;
+
+            ion-icon { 
+                margin-left: 1px;
+            }
+        }
+
+        span { 
+            font-size: 13px;
         }
     }
 `
