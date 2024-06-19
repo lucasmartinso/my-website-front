@@ -20,7 +20,7 @@ export async function verifyAuth(token) {
         return response.data;
     } catch (error) {
         console.error('Error retrieving techs:', error);
-        return [];
+        return false;
     }
 }
 

@@ -10,7 +10,7 @@ import * as projectApi from "../requests/projectApi";
 import * as techsApi from "../requests/techApi"; 
 import * as typesApi from "../requests/typeApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
-import { configVar } from "../requests/personalApi";
+import { configVar, verifyAuth } from "../requests/personalApi";
 import EditProject from "../pages/EditProject";
 import EditTechType from "../pages/EditTechType";
 import { Skill } from "../pop-ups/SkillsPopUp";
@@ -34,6 +34,9 @@ export default function CreateScreen(){
 
     useEffect(() => { 
         async function fetchData() { 
+            const auth = await verifyAuth(token); 
+            if(!auth) navigate("/hello");
+
             const response = await projectApi.getProjects(); 
             setProjects(response);
             const typage = await typesApi.getTypes(); 

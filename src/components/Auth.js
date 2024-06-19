@@ -22,7 +22,6 @@ export default function AuthScreen() {
             const { token } = await personalApi.auth(personalData);
             localStorage.setItem("MY_TOKEN",token);
             setToken(token);
-            console.log(token);
             if(!token) setError(true);
             else navigate("/auth/crud/Projetos");
         } catch (error) {
@@ -190,7 +189,7 @@ const Contains = styled.div`
 export const Error = styled.div`
     width: ${props => props.error ? ("90%") : ("0%")}; 
     min-height: ${props => props.error ? ("20%") : ("0%")}; 
-    height: 100%;
+    //height: 100%;
     display: flex; 
     justify-content: center;
     align-items: center;
