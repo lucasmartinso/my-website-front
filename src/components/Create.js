@@ -38,12 +38,9 @@ export default function CreateScreen(){
             setProjects(response);
             const typage = await typesApi.getTypes(); 
             setTypes(typage);
-            if(type === "Techs") { 
-                const response = await techsApi.getTechs();
-                console.log(response);
-                setTechs(response);
-            }
-        } 
+            const techss = await techsApi.getTechs();
+            setTechs(techss);
+    } 
         
         fetchData();
     },[])

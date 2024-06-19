@@ -12,13 +12,14 @@ import { useNavigate } from "react-router-dom";
 export default function ProjectPopUp({ id, route }) { 
     const { setProjectPopUp } = useContext(projectContext);
     const [ project, setProject ] = useState([]);
-    const techs = ['javascript', 'nodejs','react','chatgpt','javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt', 'javascript', 'nodejs','react','chatgpt'];
+    const [ techs, setTechs ] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => { 
         async function projectData() { 
             try {
                 const response = await projectApi.getProjectComplete(id);
+                setTechs(response.technologies);
                 setProject(response);
             } catch (error) {
                 console.log(error);
@@ -51,12 +52,13 @@ export default function ProjectPopUp({ id, route }) {
                 </MainInfo>
                 <Techs>
                     <h6>Tecnologias usadas: </h6>
-                    
-                    {techs.map(tech => { 
-                        return(
-                            <span>{tech},</span>
-                        )
-                    })} 
+                    {techs.length ? (
+                        techs.map(tech => { 
+                            return(
+                                <span>{tech},</span>
+                            )
+                        })
+                    ) : ("")}
                 </Techs>
                 <Options>
                     <Tag className={!project.url ? ("block") : ("")} onClick={() => window.open(`${project.url}`,'_blank')}>

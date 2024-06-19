@@ -16,7 +16,7 @@ import ProjectPopUp from "../pop-ups/ProjectPopUp";
 export default function ProjectScreen() { 
     const { toggleLight } = useContext(ToggleContext);
     const { projectPopUp, setProjectPopUp } = useContext(ProjectContext);    const [ projects, setProjects ] = useState([]); 
-    const [ categories, setCategories ] = useState([{enumlabel: "all"}]);
+    const [ categories, setCategories ] = useState([{id:-1,name:"all"}]);
     const { type } = useParams();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -34,7 +34,7 @@ export default function ProjectScreen() {
                     setProjects(response);
                 }                
                 const types = await typeApi.getTypes();
-                
+                console.log(types);
                 setCategories(prevCategories => [...prevCategories, ...types]);
             } catch (error) {
                 console.log(error);
@@ -68,17 +68,17 @@ export default function ProjectScreen() {
         <Container>
             <Category toggleLight={toggleLight} type={type}>
                 {categories.map(categorie => { 
-                    if(categorie.enumlabel === type) { 
+                    if(categorie.name === type) { 
                         return( 
                             <>
-                            <span id="selected">{categorie.enumlabel}</span>
+                            <span id="selected">{categorie.name}</span>
                             <a>/</a>
                             </>
                         ) 
                     } else {
                         return( 
                             <>
-                            <span onClick={() => reloadProjects(categorie.enumlabel)}>{categorie.enumlabel}</span>
+                            <span onClick={() => reloadProjects(categorie.name)}>{categorie.name}</span>
                             <a>/</a>
                             </>
                         ) 
@@ -163,7 +163,19 @@ const Category = styled.div`
 
     @media (max-width: 700px) { 
         width: 90%;
-     }
+    }
+
+    @media (max-width: 500px) { 
+        width: 100%;
+
+        span, a { 
+            font-size: 30px;
+        } 
+
+        span { 
+            margin: 0px 5px;
+        }
+    }
 `
 const NotRegister = styled.div`
     width: 100%; 

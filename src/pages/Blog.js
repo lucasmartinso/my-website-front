@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext } from "react";
 import construction from "../styles/images/construction.gif";
-import maintance from "../styles/images/maintance.svg";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -11,7 +10,6 @@ export default function Blog() {
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
             <Images>
-                <img src={maintance} alt="maintance" />
                 <img id="construction" src={construction} alt="construction" />
             </Images>
             <span>Em breve...</span>
@@ -44,6 +42,12 @@ const Container = styled.div`
         width: 300px; 
         height: 300px;
     }
+
+    @media (max-width: 500px) { 
+        img#min { 
+            display: none;
+        }
+    }
 `
 const Images = styled.div`
     width: 100%; 
@@ -51,4 +55,6 @@ const Images = styled.div`
     display: flex; 
     justify-content: center;
     align-items: center;
+
+    img {}
 `

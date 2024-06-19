@@ -4,6 +4,7 @@ import * as techsApi from "../requests/techApi";
 import * as typesApi from "../requests/typeApi";
 import { configVar } from "../requests/personalApi";
 import TokenContext from "../contexts/TokenContext";
+import { Error } from "../components/Auth";
 
 export default function EditTechType({id,type,setEditTechType,toggleLight}) { 
     const { token } = useContext(TokenContext);
@@ -49,6 +50,7 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
             window.location.reload();
         } catch (error) {
             console.log(error);
+            setError(error.response.data);
         }
     }
     
@@ -67,6 +69,12 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
                 onChange={(event) => setName(event.target.value)}
                 required
             />
+            
+            {error ? (
+                <Error error={error}>
+                    <span><ion-icon name="close-circle" onClick={() => setError(null)}></ion-icon>{error}</span>
+                </Error>
+            ) : ("")}
 
             <button>Enviar</button>
             </form>
