@@ -38,7 +38,7 @@ export async function updateTech(id,techData,config) {
 
 export async function postTech(techData,config) {
     try {
-        await api.put(`/techs`,techData,config);
+        await api.post(`/techs`,techData,config);
     } catch (error) {
         console.log('Error posting techs:', error); 
     }

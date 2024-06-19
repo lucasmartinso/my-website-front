@@ -1,4 +1,3 @@
-import { styled } from "styled-components";
 import { Container } from "./EditProject";
 import { useContext, useEffect, useState } from "react";
 import * as techsApi from "../requests/techApi"; 
@@ -17,10 +16,10 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
                 if(id) { 
                     if(type === "Techs") { 
                         const response = await techsApi.getTechs();
-                        setName(response[id].name);
+                        setName(response.find(element => element.id === id).name);
                     } else if(type === "Tipos") { 
                         const response = await typesApi.getTypes();
-                        setName(response[id].name);
+                        setName(response.find(element => element.id === id).name);
                     }
                 }
             } catch (error) {
@@ -47,6 +46,7 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
                 if(id) await typesApi.updateType(id,data,configVar(token));
                 else await typesApi.postType(data,configVar(token));
             }
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }

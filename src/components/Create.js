@@ -16,7 +16,7 @@ import EditTechType from "../pages/EditTechType";
 import { Skill } from "../pop-ups/SkillsPopUp";
 
 export default function CreateScreen(){
-    const types = ['Projetos','Blog','Techs','Tipos'];
+    const ways = ['Projetos','Blog','Techs','Tipos'];
     const cruds = ['Criar 🆕','Editar ✏️​', 'Excluir 🗑️']
     const { toggleLight } = useContext(ToggleContext);
     const { token } = useContext(TokenContext);
@@ -25,17 +25,19 @@ export default function CreateScreen(){
     const [ action, setAction ] = useState(null);
     const [ projects, setProjects ] = useState([]);
     const [ techs, setTechs ] = useState([]);
+    const [ types, setTypes ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
     const [ editTechType, setEditTechType ] = useState(false);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
-    //CRIAR UMA PAGINA PARA CADA
 
     useEffect(() => { 
         async function fetchData() { 
             const response = await projectApi.getProjects(); 
             setProjects(response);
+            const typage = await typesApi.getTypes(); 
+            setTypes(typage);
             if(type === "Techs") { 
                 const response = await techsApi.getTechs();
                 console.log(response);
@@ -96,7 +98,7 @@ export default function CreateScreen(){
 
         <Container>
             <Options toggleLight={toggleLight} selected={selected}>
-                {types.map(type => { 
+                {ways.map(type => { 
                     return(
                         <>
                         <span id={type===selected ? ("selected") : ("")} onClick={() => redirect(type)}>{type}</span>
