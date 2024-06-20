@@ -17,10 +17,10 @@ export default function EditProject({id, setWriting, toggleLight}) {
     const [ image, setImage ] = useState("");
     const [ type, setType ] = useState("");
     const [ technologies, setTechnologies ] = useState([]);
-    const [ web, setWeb ] = useState("");
+    const [ url, setUrl ] = useState(null);
     const [ doc, setDoc ] = useState("");
-    const [ front, setFront ] = useState("");
-    const [ back, setBack ] = useState("");
+    const [ front, setFront ] = useState(null);
+    const [ back, setBack ] = useState(null);
     const [ pinned, setPinned ] = useState(false);
     const [ error, setError ] = useState(null);
     
@@ -36,7 +36,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setName(response.name); 
                     setDescription(response.description);
                     setImage(response.image); 
-                    setWeb(response.url);
+                    setUrl(response.url);
                     setDoc(response.documentation);
                     setFront(response.front); 
                     setBack(response.back);
@@ -47,10 +47,10 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setName(""); 
                     setDescription("");
                     setImage(""); 
-                    setWeb("");
+                    setUrl(null);
                     setDoc("");
-                    setFront(""); 
-                    setBack("");
+                    setFront(null); 
+                    setBack(null);
                     setPinned(false);
                     setTechnologies([]);
                 }
@@ -71,14 +71,14 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 type, 
                 image, 
                 description,
-                url: web, 
+                url, 
                 documentation: doc, 
                 front, 
                 back, 
                 pinned, 
                 technologies
             }
-
+            console.log(project);
             if(!id) { 
                 await projectApi.postProject(project,configVar(token));
             } else { 
@@ -134,8 +134,8 @@ export default function EditProject({id, setWriting, toggleLight}) {
             <input 
                 type="url"
                 placeholder="Url da hospedagem na web"
-                value={web}
-                onChange={(event) => setWeb(event.target.value)}
+                value={url}
+                onChange={(event) => setUrl(event.target.value)}
             />
             <input 
                 type="url"

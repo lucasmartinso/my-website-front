@@ -1,15 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import TokenContext from "../contexts/TokenContext";
 import * as personalApi from "../requests/personalApi";
 
 export default function AuthScreen() { 
-    const { setToken } = useContext(TokenContext);
+    const { token, setToken } = useContext(TokenContext);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => { 
+        async function authCredential() { 
+            try {
+                const auth = await personalApi.verifyAuth(token); 
+                if(auth) { 
+                    console.log("Ok");
+                    navigate("/auth/crud/Projetos");
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        
+        authCredential();
+    },[]);
 
     async function sendAuth(event) { 
         event.preventDefault();
