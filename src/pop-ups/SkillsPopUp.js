@@ -8,7 +8,7 @@ import { MagnifyingGlass } from "react-loader-spinner";
 import bomb from "../styles/images/bomb.gif";
 import ToggleContext from "../contexts/ToggleContext";
 
-export default function SkillPopUp() { 
+export default function SkillPopUp({technologies, setTechnologies,edit}) { 
     const { toggleLight } = useContext(ToggleContext)
     const { skillPopUp, setSkillPopUp } = useContext(SkillContext);
     const [ techs, setTechs ] = useState([]);
@@ -30,16 +30,25 @@ export default function SkillPopUp() {
     async function searchTech(event) { 
         setLoading(true);
         const tech = { name: event }; 
-        console.log(tech);
+
         try {
-            console.log(tech);
             const techx = await techApi.searchTechs(tech); 
             setTechs(techx);
             setLoading(false);
         } catch (error) {
             console.log(error);
         }
-    }
+    } 
+
+    function updateTechs(name) { 
+        if(edit) { 
+            if(technologies.includes(name)) { 
+                setTechnologies(prevTech => prevTech.filter(element => element !== name));
+            } else { 
+                setTechnologies(prevTech => [...prevTech, name]);
+            }
+        }
+    } 
   
     return( 
         <>
@@ -54,7 +63,7 @@ export default function SkillPopUp() {
                         {techs.length ? (
                             techs.map(tech => { 
                                 return( 
-                                    <Skill>
+                                    <Skill selected={technologies.includes(tech.name)} edit={edit} onClick={() => updateTechs(tech.name)}>
                                         <span>📌​</span>
                                         <a>{tech.name}</a>
                                     </Skill>
@@ -97,7 +106,7 @@ export default function SkillPopUp() {
     )
 }
 
-const Tittle = styled.div`
+export const Tittle = styled.div`
     width: 90%; 
     height: 10%; 
     display: flex;
@@ -120,7 +129,7 @@ const Tittle = styled.div`
         }
     }
 `
-const Skills = styled.div`
+export const Skills = styled.div`
     width: 100%; 
     height: 80%; 
     display: flex; 
@@ -143,14 +152,14 @@ const Skills = styled.div`
         text-align: center;
     }
 `
-const Skill = styled.div`
+export const Skill = styled.div`
     width: 80%;
     height: 60px;
     display: flex; 
     padding: 0px 10px;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: ${props => props.selected ? "gray" : "white"};
     font-family: "Syne", sans-serif;
     font-weight: bold;
     border-radius: 12px;
@@ -170,13 +179,18 @@ const Skill = styled.div`
     &:focus { 
         background-color: gray;
         color: white;
+        cursor: ${props => props.edit ? ("pointer") : ("default")};
     } 
+
+    .selected { 
+        background-color: gray;
+    }
 
     @media (max-width: 1200px) { 
         width: 90%;
     }
 `
-const Bottom = styled.div`
+export const Bottom = styled.div`
     width: 90%; 
     height: 10%;
     display: flex;

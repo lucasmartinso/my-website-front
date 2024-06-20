@@ -51,6 +51,10 @@ const Container = styled.div`
             cursor: pointer;
         }
     }
+
+    @media (max-width: 500px) { 
+        padding: 0px;
+    }
 `
 const Guide = styled.div`
     height: 100%;
@@ -101,6 +105,13 @@ const Guide = styled.div`
             cursor:not-allowed;
         }
         
+    }
+
+    @media (max-width: 500px) { 
+        a { 
+            font-size: 18px;
+            margin-left: 10px;
+        }
     }
 `
 const Tags = styled.div`
@@ -154,5 +165,16 @@ const Tags = styled.div`
     div#github { 
         background-color: #010409;
         //box-shadow: ${props => props.toggleLight ? ("rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(255, 255, 255, 0.09) 0px -3px 5px") : ("rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px")};
+    } 
+
+    @media (max-width: 500px) { 
+        div { 
+            width: 23px;
+
+            ion-icon { 
+                width: 17px; 
+                height: 17px;
+            }
+        }
     }
 `

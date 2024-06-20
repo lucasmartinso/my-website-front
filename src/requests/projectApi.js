@@ -40,12 +40,18 @@ export async function getProjectComplete(id) {
     }
 }
 
-export async function getTypes() { 
+export async function deleteProject(id,config) { 
     try {
-        const response = await api.get('/types');
-        return response.data;
+        await api.delete(`/delete/projects/${id}`,config);
     } catch (error) {
-        console.error('Error retrieving projects:', error);
-        return [];
+        console.error('Error deleting project:', error);
     }
+}
+
+export async function updateProject(id,projectData,config) { 
+    await api.put(`/edit/projects/${id}`,projectData,config);
+}
+
+export async function postProject(projectData,config) { 
+    await api.post(`/projects`,projectData,config);
 }

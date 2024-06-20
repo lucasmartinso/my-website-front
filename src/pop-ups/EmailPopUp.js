@@ -151,6 +151,10 @@ export const Box = styled.div`
     align-items: center;
     flex-direction: column; 
     padding: 0px 0px 10px 10px;
+
+    @media (max-width: 900px) { 
+        width: 95%;
+    }
 `
 const Tittle = styled.div`
     width: 95%; 
@@ -209,6 +213,7 @@ const Field = styled.div`
     }
 
     input { 
+        width: 400px;
         border: 2px solid black;
         height: 40px;
         padding-left: 10px;
@@ -221,6 +226,22 @@ const Field = styled.div`
         padding: 10px;
         font-family: "Syne", sans-serif;
     } 
+
+    @media (max-width: 1200px) { 
+        align-items: center;
+
+        input, textarea { 
+            width: 280px;
+        }
+    }
+
+    @media (max-width: 500px) { 
+        align-items: center;
+
+        input, textarea { 
+            width: 170px;
+        }
+    }
 `
 const Separator = styled.div`
     width: 1px; 
@@ -277,6 +298,21 @@ const Creative = styled.div`
         button { 
             margin-top: 90px;
             width: 180px; 
+            height: 70px;
+        }
+    }
+
+    @media (max-width: 500px) { 
+        img { 
+            width: 160px;
+            height: 180px;
+            object-fit: cover;
+            margin-top: 30px;
+        }
+
+        button { 
+            margin-top: 90px;
+            width: 120px; 
             height: 70px;
         }
     }

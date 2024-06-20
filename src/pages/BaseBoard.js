@@ -34,7 +34,8 @@ const Container = styled.div`
     margin-left: -30px;
     margin-right: -30px;
     width: calc(100% + 60px);
-    height: 500px; 
+    min-height: 450px;
+    height: auto; 
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -58,6 +59,14 @@ const Impact = styled.div`
         width: 200px; 
         height: 400px;
     }
+
+    @media (max-width: 500px) { 
+        img { 
+            width: 180px; 
+            height: 350px;
+            margin-right: 30px;
+        }
+    }
 `
 const Phrases = styled.div`
     width: 50%; 
@@ -76,6 +85,7 @@ const Phrases = styled.div`
 const Tags = styled.div`
     width: 100%; 
     height: 50%; 
+    margin-bottom: 30px;
     display: flex; 
     justify-content: space-around;
     color: ${props => props.toggleLight ? ("white") : ("black")};
