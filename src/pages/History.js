@@ -163,12 +163,18 @@ const Abstract = styled.div`
     } 
 
     @media (max-width: 700px) {
-        width: 70%; 
-
         span { 
             width: 80%;
             margin-top: 15px;
             font-size: 18px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        span { 
+            width: 95%;
+            margin-top: 15px;
+            font-size: 14px;
         }
     }
 `
@@ -244,10 +250,15 @@ const ImageBox = styled.div`
     }
 
     @media (max-width: 700px) {
-        width: 50%;
-
         img { 
             width: 95%; 
+            height: 320px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        img { 
+            width: 100%; 
             height: 320px;
         }
     }
@@ -288,6 +299,18 @@ const About = styled.div`
             font-size: 17px;
         }
     }
+
+    @media (max-width: 500px) {
+        p { 
+            font-size: 45px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        p { 
+            font-size: 40px;
+        }
+    }
 `
 const Skills = styled.div`
     width: 100%; 
@@ -306,6 +329,7 @@ const Skills = styled.div`
         display: flex; 
         align-items: center;
         transition: margin-bottom 5s;
+        text-align: center;
 
         ion-icon { 
             margin: 0px 0px 7px 10px;
@@ -328,7 +352,7 @@ const Skills = styled.div`
 
     @media (max-width: 500px) {
         a { 
-            font-size: 33px;
+            font-size: 32px;
         }
     }
 `
@@ -358,15 +382,16 @@ const Skiil = styled.div`
         animation-name: slidein-right;
         animation-duration: 100s;
         visibility: ${props => props.slideEffect ? ("visible") : ("hidden")};
+        white-space: nowrap;
     }
 
     p#left { 
         animation-name: slidein-left;
         animation-duration: 60s;
         white-space: pre-wrap;  
-        word-wrap: break-word;  
-        word-break: break-word; 
-        overflow-wrap: break-word;
+        word-wrap: ${props => props.slideEffect ? ("default") : ("break-word")};  
+        word-break: ${props => props.slideEffect ? ("default") : ("break-word")}; 
+        overflow-wrap: ${props => props.slideEffect ? ("default") : ("break-word")};
     }
 
     @keyframes slidein-right {
@@ -393,7 +418,9 @@ const Skiil = styled.div`
         }
     }
 
-    // @media (max-width: 1200px) {
-    //     
-    // }
+    @media (max-width: 1200px) {
+        p#left { 
+            animation-duration: 45s;
+        }
+    }
 `
