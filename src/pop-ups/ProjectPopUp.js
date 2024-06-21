@@ -144,6 +144,17 @@ const Tittle = styled.div`
             cursor: pointer;
         }
     }
+
+    @media (max-width: 700px) { 
+        span { 
+            font-size: 30px;
+        } 
+
+        p { 
+            top: 0px;
+            font-size: 18px;
+        }
+    }
 `
 const Separator = styled.div`
     width: 90%; 
@@ -168,7 +179,7 @@ const MainInfo = styled.div`
 `
 const Description = styled.div`
     width: 40%; 
-    height: 50%; 
+    height: auto; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -185,6 +196,13 @@ const Description = styled.div`
         text-overflow: ellipsis;
         hyphens: auto;
         font-size: 17px;
+        overflow: hidden;
+    }
+
+    @media (max-width: 500px){ 
+        span { 
+            font-size: 15px;
+        }
     }
 `
 const Techs = styled.div`
@@ -196,7 +214,7 @@ const Techs = styled.div`
     overflow-wrap: break-word; 
     word-break: break-all; 
     hyphens: auto;
-    margin-bottom: 20px;
+    margin: 15px 0px 20px 0px;
 
     h6 { 
         font-weight: bold;
@@ -310,7 +328,7 @@ const Content = styled.div`
 
     @media (max-width: 500px) { 
         p { 
-            font-size: 14px;
+            font-size: 11px;
             margin-bottom: 1px;
 
             ion-icon { 
@@ -319,7 +337,7 @@ const Content = styled.div`
         }
 
         span { 
-            font-size: 13px;
+            font-size: 11px;
         }
     }
 `

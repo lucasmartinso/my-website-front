@@ -52,7 +52,7 @@ const Container = styled.div`
         }
     }
 
-    @media (max-width: 500px) { 
+    @media (max-width: 700px) { 
         padding: 0px;
     }
 `
@@ -107,10 +107,16 @@ const Guide = styled.div`
         
     }
 
+    @media (max-width: 700px) { 
+        a { 
+            font-size: 19px;
+            margin-left: 8px;
+        }
+    }
+
     @media (max-width: 500px) { 
         a { 
-            font-size: 18px;
-            margin-left: 10px;
+            font-size: 17px;
         }
     }
 `
@@ -168,6 +174,8 @@ const Tags = styled.div`
     } 
 
     @media (max-width: 500px) { 
+        margin-left: 7px;
+
         div { 
             width: 23px;
 

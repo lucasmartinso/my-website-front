@@ -153,6 +153,12 @@ export const Circle = styled.div`
     span { 
         font-weight: bold;
         margin-bottom: 5px;
+        text-align: center;
+        word-break: normal;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        hyphens: auto;
     } 
 
     a { 
