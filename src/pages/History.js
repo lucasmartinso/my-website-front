@@ -187,8 +187,8 @@ const ImageBox = styled.div`
     transition: 3s; 
 
     img { 
-        width: 600px; 
-        height: 400px;
+        width: 500px; 
+        height: 500px;
         object-fit: cover;
         border-radius: 20px;
         transition: 0.5s;
