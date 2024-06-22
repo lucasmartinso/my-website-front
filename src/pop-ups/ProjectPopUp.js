@@ -115,8 +115,13 @@ const Box = styled.div`
         width: 90%;
     }
 
-    @media (max-width: 1600px) { 
+    @media (max-width: 1000px) { 
         width: 95%; 
+        height: 90%;
+    }
+
+    @media (max-width: 500px) { 
+        height: 95%;
     }
 `
 const Tittle = styled.div`
@@ -132,6 +137,7 @@ const Tittle = styled.div`
     span { 
         font-family: "Oi", serif;
         font-size: 50px;
+        text-align: center;
     }
 
     p { 
