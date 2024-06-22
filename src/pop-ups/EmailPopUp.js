@@ -143,7 +143,8 @@ export const Container = styled.div`
 `
 export const Box = styled.div`
     width: 80%;
-    height: 60%;
+    min-height: 60%;
+    height: auto;
     background-color: #FEF5E3;
     border-radius: 20px;
     border: 7px solid black;

@@ -34,7 +34,7 @@ const Container = styled.div`
     margin-left: -30px;
     margin-right: -30px;
     width: calc(100% + 60px);
-    min-height: 450px;
+    min-height: 500px;
     height: auto; 
     display: flex; 
     flex-direction: column;
@@ -81,11 +81,18 @@ const Phrases = styled.div`
     p { 
         margin-top: 20px; 
     }
+
+    @media (max-width: 700px) { 
+        span { 
+            margin-top: 10px;
+            font-size: 30px;
+        }
+    }
 `
 const Tags = styled.div`
     width: 100%; 
     height: 50%; 
-    margin-bottom: 30px;
+    margin: 10px 0px 30px 0px;
     display: flex; 
     justify-content: space-around;
     color: ${props => props.toggleLight ? ("white") : ("black")};

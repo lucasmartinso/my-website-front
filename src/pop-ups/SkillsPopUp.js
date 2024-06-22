@@ -131,7 +131,7 @@ export const Tittle = styled.div`
 `
 export const Skills = styled.div`
     width: 100%; 
-    height: 80%; 
+    max-height: 80%; 
     display: flex; 
     flex-direction: column; 
     align-items: center;
@@ -197,10 +197,9 @@ export const Bottom = styled.div`
     justify-content: left;
     align-items: center;
     font-family: "Kavoon", serif;
-    margin: 10px 0px  10px 10px;
+    margin: 10px 0px 10px 10px;
 
     span { 
-        
         font-size: 22px;
     }
 
@@ -212,5 +211,15 @@ export const Bottom = styled.div`
         margin-left: 20px;
         font-family: "Syne", sans-serif;
         border-radius: 12px;
+    }
+
+    @media (max-width: 700px) { 
+        span { 
+            font-size: 17px;
+        }
+
+        input { 
+            margin-left: 5px;
+        }
     }
 `
