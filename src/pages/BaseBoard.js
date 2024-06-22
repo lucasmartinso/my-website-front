@@ -34,7 +34,7 @@ const Container = styled.div`
     margin-left: -30px;
     margin-right: -30px;
     width: calc(100% + 60px);
-    min-height: 500px;
+    min-height: 450px;
     height: auto; 
     display: flex; 
     flex-direction: column;
@@ -84,7 +84,7 @@ const Phrases = styled.div`
 
     @media (max-width: 700px) { 
         span { 
-            margin-top: 10px;
+            margin-top: 20px;
             font-size: 30px;
         }
     }
