@@ -59,7 +59,7 @@ export default function History() {
                 
                 setTimeout(() => {
                     setSlideEffect(false);
-                }, 95000);
+                }, 70000);
             } catch (error) {
                 console.log(error);
             }
@@ -344,15 +344,29 @@ const Skills = styled.div`
         }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 800px) {
         a { 
             font-size: 45px;
         }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 700px) {
         a { 
-            font-size: 32px;
+            font-size: 40px;
+        }
+
+        ion-icon { 
+            margin: 0px 0px 7px 2px;
+            width: 50px; 
+            height: 50px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        ion-icon { 
+            margin: 0px 0px 0px 0px;
+            width: 50px; 
+            height: 50px;
         }
     }
 `
@@ -380,7 +394,7 @@ const Skiil = styled.div`
 
     p#right { 
         animation-name: slidein-right;
-        animation-duration: 100s;
+        animation-duration: 70s;
         visibility: ${props => props.slideEffect ? ("visible") : ("hidden")};
         white-space: nowrap;
     }
@@ -392,6 +406,11 @@ const Skiil = styled.div`
         word-wrap: ${props => props.slideEffect ? ("default") : ("break-word")};  
         word-break: ${props => props.slideEffect ? ("default") : ("break-word")}; 
         overflow-wrap: ${props => props.slideEffect ? ("default") : ("break-word")};
+        white-space: ${props => props.slideEffect ? ("nowrap") : ("default")};
+        display: -webkit-box;     
+        -webkit-box-orient: vertical; 
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
     }
 
     @keyframes slidein-right {
