@@ -203,6 +203,8 @@ const Description = styled.div`
         hyphens: auto;
         font-size: 17px;
         overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     @media (max-width: 500px){ 
@@ -307,6 +309,11 @@ const Content = styled.div`
         align-items: center; 
         font-weight: bold;
         margin-bottom: 5px;
+        word-break: normal;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        hyphens: auto;
 
         ion-icon { 
             margin-left: 5px;
@@ -314,7 +321,13 @@ const Content = styled.div`
     }
 
     span { 
+        width: 95%;
         color: #aaa9a9;
+        word-break: normal;
+        white-space: normal;
+        overflow-wrap: break-word;
+        text-overflow: ellipsis;
+        hyphens: auto;
     }
 
     @media (max-width: 800px) { 
@@ -343,7 +356,7 @@ const Content = styled.div`
         }
 
         span { 
-            font-size: 11px;
+            font-size: 9px;
         }
     }
 `
