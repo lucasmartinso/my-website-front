@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${({ toggleLight }) => (toggleLight ? "#FEF5E3" : "#302F2F")};
     font-family: 'Syne', sans-serif;
     margin: 0px 30px;
-    transition: 2s;
+    //transition: 2s;
     scroll-behavior: smooth;
   }
   html{
