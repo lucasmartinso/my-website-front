@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import books from "../styles/images/books.gif";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BaseBoard from "../pages/BaseBoard";
+import ToggleContext from "../contexts/ToggleContext";
 
 export default function TextBlogScreen() { 
+    const { toggleLight } = useContext(ToggleContext);
     const [ blog, setBlog ] = useState([]);
     const navigate = useNavigate();
     const text = `
@@ -24,14 +26,14 @@ export default function TextBlogScreen() {
 
     return(
         <Container>
-            <Tittle>
+            <Tittle toggleLight={toggleLight}>
                 <p>Lorem Ipsum njjcjdcnjsdn JKAHAHAHA</p>
                 <img src={books} alt="books"/>
                 <span>Lorem Ipsum njjcjdcnjsdn JKAHAHAHA Lorem Ipsum njjcjdcnjsdn JKAHAHAHA Lorem Ipsum njjcjdcnjsdn JKAHAHAHA Lorem Ipsum njjcjdcnjsdn JKAHAHAHA</span>
                 <ion-icon name="arrow-back" onClick={() => navigate("/hello")}></ion-icon>
             </Tittle>
 
-            <Content dangerouslySetInnerHTML={{ __html: text }}></Content>
+            <Content toggleLight={toggleLight} dangerouslySetInnerHTML={{ __html: text }}></Content>
         
             <BaseBoard />
         </Container>
@@ -57,7 +59,9 @@ const Tittle = styled.div`
     align-items: center; 
     background-color: blue;
     border-radius: 0px 0px 20px 20px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px, rgba(0, 0, 0, 0.09) 0px 64px 32px;
+    box-shadow: ${props => props.toggleLight ? 
+        ("30px 0px 0px 20px black") : 
+        ("30px 0px 0px 20px rgba(255, 255, 255, 0.9)")};
     position: relative;
     margin-bottom: 80px;
 
@@ -87,8 +91,8 @@ const Tittle = styled.div`
 
     img { 
         object-fit: cover;
-        width: 100px; 
-        height: 100px;
+        width: 150px; 
+        height: 150px;
         margin: 15px 0px;
     }
 
@@ -112,7 +116,13 @@ const Tittle = styled.div`
         }
 
         span { 
+            font-size: 18px;
             width: 80%;
+        }
+
+        img { 
+            width: 120px; 
+            height: 120px;
         }
 
         ion-icon { 
@@ -125,11 +135,18 @@ const Tittle = styled.div`
 
     @media (max-width: 500px) { 
         p { 
+            font-size: 40px;
             width: 80%;
         }
 
         span { 
-            width: 90%;
+            font-size: 17px;
+            width: 85%;
+        }
+
+        img { 
+            width: 100px; 
+            height: 100px;
         }
 
         ion-icon { 
@@ -156,6 +173,9 @@ const Content = styled.div`
         text-overflow: ellipsis;
         hyphens: auto;
         margin-top: 20px;
+        transition: 1s;
+        font-weight: 400;
+        color: ${props => props.toggleLight ? ("black") : ("rgba(255,255,255,0.9)")};
     }
 
     img { 
