@@ -29,3 +29,7 @@ export async function getCompleteBlog(id) {
         return [];
     }
 }
+
+export async function postBlog(blogData, config) { 
+    await api.post(`/blogs`,blogData,config);
+}
