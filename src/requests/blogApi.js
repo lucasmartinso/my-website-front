@@ -37,3 +37,7 @@ export async function postBlog(blogData, config) {
 export async function updateBlog(id, blogData, config) { 
     await api.put(`/edit/blogs/${id}`,blogData,config);
 }
+
+export async function deleteBlog(id, config) { 
+    await api.delete(`/delete/blogs/${id}`,config);
+}
