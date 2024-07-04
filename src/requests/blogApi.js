@@ -33,3 +33,7 @@ export async function getCompleteBlog(id) {
 export async function postBlog(blogData, config) { 
     await api.post(`/blogs`,blogData,config);
 }
+
+export async function updateBlog(id, blogData, config) { 
+    await api.put(`/edit/blogs/${id}`,blogData,config);
+}
