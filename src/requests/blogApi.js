@@ -19,3 +19,13 @@ export async function getRandomBlogs() {
         return [];
     }
 }
+
+export async function getCompleteBlog(id) { 
+    try {
+        const response = await api.get(`/blogs/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving complete blog:', error);
+        return [];
+    }
+}
