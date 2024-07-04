@@ -9,3 +9,13 @@ export async function getBlogs() {
         return [];
     }
 }
+
+export async function getRandomBlogs() { 
+    try {
+        const response = await api.get('/blogs/random');
+        return response.data;
+    } catch (error) {
+        console.error('Error retrieving random blogs:', error);
+        return [];
+    }
+}
