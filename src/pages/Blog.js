@@ -1,20 +1,54 @@
 import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import * as blogApi from "../requests/blogApi";
 import construction from "../styles/images/construction.gif";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
+    const colors = ['#0B66C2','red','green']
+    const [ blogs, setBlogs ] = useState([]);
+
+    useEffect(() => { 
+        async function blogRandomData() { 
+            const response = await blogApi.getRandomBlogs();
+            setBlogs(response);
+        }
+
+        const updateColor = blogs.map((blog,index) => ({
+            ...blog, 
+            color: 'red'//colors[index]
+        }));
+
+        setBlogs(updateColor);
+        console.log(blogs);
+
+        blogRandomData();
+    },[]);
+
+    useEffect(() => {
+        if (blogs.length > 0) { 
+            const updateColor = blogs.map((blog, index) => ({
+                ...blog, 
+                color: colors[index % colors.length]
+            }));
+
+            setBlogs(updateColor);
+        }
+    }, [blogs]);
 
     return(
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
             <Boxes>
-                <Box color="#0B66C2">
-                    <p>Titulo</p>
-                    <span>Description</span>
-                </Box>
-                <Box color="red"></Box>
+                {blogs.map(blog => { 
+                    return(
+                        <Box color={blog.color}>
+                            <p>{blog.tittle}</p>
+                            <span>{blog.description}</span>
+                        </Box>
+                    )
+                })}
             </Boxes>
         </Container>
     )
@@ -60,7 +94,7 @@ const Boxes = styled.div`
     flex-wrap: wrap;
 `
 const Box = styled.div`
-    width: 45%; 
+    width: ${props => props.color === 'green' ? ('90%') : ('45%')}; 
     height: 300px;
     display: flex; 
     flex-direction: column;
@@ -69,6 +103,7 @@ const Box = styled.div`
     background-color: ${props => props.color};
     border-radius: 20px;
     transition: width 0.5s, height 0.5s;
+    margin-bottom: 20px;
 
     p { 
         margin: 0;
@@ -104,7 +139,7 @@ const Box = styled.div`
     &:focus { 
         cursor: pointer; 
         height: 350px; 
-        width: 50%;
+        width: ${props => props.color === 'green' ? ('75%') : ('50%')};
 
         p { 
             font-size: 60px;
