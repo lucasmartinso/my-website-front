@@ -13,8 +13,12 @@ export default function TextBlogScreen({id}) {
 
     useEffect(() => { 
         async function fecthBlogData() { 
-            const response = await blogApi.getCompleteBlog(14); 
-            setBlog(response);
+            try {
+                const response = await blogApi.getCompleteBlog(14); 
+                setBlog(response);  
+            } catch (error) {
+                console.log(error);
+            }
         } 
 
         fecthBlogData();
