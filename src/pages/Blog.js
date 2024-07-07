@@ -2,11 +2,10 @@ import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useEffect, useState } from "react";
 import * as blogApi from "../requests/blogApi";
-import construction from "../styles/images/construction.gif";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
-    const colors = ['#0B66C2','red','green']
+    const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
     const [ blogs, setBlogs ] = useState([]);
 
     useEffect(() => { 
@@ -14,14 +13,6 @@ export default function Blog() {
             const response = await blogApi.getRandomBlogs();
             setBlogs(response);
         }
-
-        const updateColor = blogs.map((blog,index) => ({
-            ...blog, 
-            color: 'red'//colors[index]
-        }));
-
-        setBlogs(updateColor);
-        console.log(blogs);
 
         blogRandomData();
     },[]);
@@ -37,6 +28,10 @@ export default function Blog() {
         }
     }, [blogs]);
 
+    function loadMoreBlogs() { 
+        console.log("Clicou")
+    }
+
     return(
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
@@ -50,6 +45,7 @@ export default function Blog() {
                     )
                 })}
             </Boxes>
+            <h onClick={loadMoreBlogs}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 }
@@ -66,7 +62,7 @@ const Container = styled.div`
         color: ${props => props.toggleLight ? ("black") : ("white")};
         font-family: "Oi", serif;
         font-size: 50px;
-        margin: 30px 0px 50px 0px;
+        margin: 30px 0px 90px 0px;
         transition: 1s;
     }
 
@@ -80,9 +76,32 @@ const Container = styled.div`
         height: 300px;
     }
 
+    h { 
+        color: #CCCCCC;
+        opacity: ${props => props.toggleLight ? 1 : 0.4};
+        transition: 0.5s;
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        font-family: "Kavoon", serif;
+        margin-top: 80px;
+
+        ion-icon { 
+            margin-left: 5px;
+        }
+
+        &:hover, 
+        &:focus { 
+            cursor: pointer;
+            color: ${props => props.toggleLight ? ("black") : ("white")};
+            opacity: 1;
+        }
+    }
+
     @media (max-width: 500px) { 
-        img#min { 
-            display: none;
+        p { 
+            margin: 30px 0px 70px 0px;
         }
     }
 `
@@ -94,8 +113,9 @@ const Boxes = styled.div`
     flex-wrap: wrap;
 `
 const Box = styled.div`
-    width: ${props => props.color === 'green' ? ('90%') : ('45%')}; 
-    height: 300px;
+    width: ${props => props.color === '#e0f4ea' ? ('60%') : ('40%')}; 
+    min-height: 300px;
+    height: auto;
     display: flex; 
     flex-direction: column;
     align-items: center;
@@ -115,17 +135,18 @@ const Box = styled.div`
         overflow-wrap: break-word;
         text-overflow: ellipsis;
         hyphens: auto;
-        color: white;
+        color: ${props => props.color === "#e0f4ea" ? ("rgba(0, 2, 35)") : ("white")};
         font-weight: bold;
         transition: font-size 0.2s;
     }
 
     span { 
+        width: 90%;
         margin-top: 30px;
         font-size: 18px;
-        color: white;
+        color: ${props => props.color === "#e0f4ea" ? ("rgba(0, 2, 35)") : ("white")};
         font-weight: 400;
-        opacity: 0.7;
+        opacity: ${props => props.color === "#e0f4ea" ? (0.5) : (0.7)};
         text-align: center;
         word-break: normal;
         white-space: normal;
@@ -139,7 +160,7 @@ const Box = styled.div`
     &:focus { 
         cursor: pointer; 
         height: 350px; 
-        width: ${props => props.color === 'green' ? ('75%') : ('50%')};
+        width: ${props => props.color === '#e0f4ea' ? ('75%') : ('50%')};
 
         p { 
             font-size: 60px;
@@ -148,6 +169,36 @@ const Box = styled.div`
         span { 
             font-size: 25px;
             margin-top: 60px;
+        }
+    }
+
+    @media (max-width: 1200px) { 
+        width: ${props => props.color === '#e0f4ea' ? ('80%') : ('45%')}; 
+
+        &:hover,
+        &:focus { 
+            width: ${props => props.color === '#e0f4ea' ? ('90%') : ('50%')};
+        }
+    }
+    
+
+    @media (max-width: 500px) { 
+        width: ${props => props.color === '#e0f4ea' ? ('100%') : ('45%')}; 
+
+
+        p { 
+            font-size: 35px;
+        }
+
+        &:hover,
+        &:focus { 
+            p { 
+                font-size: 45px;
+            }
+
+            span { 
+                margin-top: 40px;
+            }
         }
     }
 `   
