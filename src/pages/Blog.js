@@ -2,11 +2,13 @@ import { styled } from "styled-components";
 import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useEffect, useState } from "react";
 import * as blogApi from "../requests/blogApi";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
     const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
     const [ blogs, setBlogs ] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => { 
         async function blogRandomData() { 
@@ -28,10 +30,6 @@ export default function Blog() {
         }
     }, [blogs]);
 
-    function loadMoreBlogs() { 
-        console.log("Clicou")
-    }
-
     return(
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
@@ -45,7 +43,7 @@ export default function Blog() {
                     )
                 })}
             </Boxes>
-            <h onClick={loadMoreBlogs}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
+            <h onClick={() => navigate("/blogs")}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 }
