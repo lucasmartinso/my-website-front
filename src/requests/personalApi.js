@@ -31,3 +31,7 @@ export function configVar(token) {
 
     return config;
 }
+
+export async function sendEmail(emailData) { 
+    await api.post('/email',emailData);
+}

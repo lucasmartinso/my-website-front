@@ -3,6 +3,7 @@ import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useEffect, useState } from "react";
 import * as blogApi from "../requests/blogApi";
 import { useNavigate } from "react-router-dom";
+import TextBlogScreen from "../components/TextBlog";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -30,13 +31,18 @@ export default function Blog() {
         }
     }, [blogs]);
 
+    function sendToBlog(id,tittle) { 
+        navigate(`/blog/${tittle}`, { state: { id } });
+        window.location.reload();
+    }
+
     return(
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
             <Boxes>
                 {blogs.map(blog => { 
                     return(
-                        <Box color={blog.color}>
+                        <Box color={blog.color} onClick={() => sendToBlog(blog.id, blog.tittle)}>
                             <p>{blog.tittle}</p>
                             <span>{blog.description}</span>
                         </Box>

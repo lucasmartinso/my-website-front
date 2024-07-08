@@ -1,20 +1,24 @@
 import styled from "styled-components";
 import books from "../styles/images/books.gif";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import BaseBoard from "../pages/BaseBoard";
 import ToggleContext from "../contexts/ToggleContext";
 import * as blogApi from "../requests/blogApi";
 
-export default function TextBlogScreen({id}) { 
+export default function TextBlogScreen() { 
     const { toggleLight } = useContext(ToggleContext);
+    const location = useLocation();
+    const { id } = location.state;
     const [ blog, setBlog ] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => { 
         async function fecthBlogData() { 
             try {
-                const response = await blogApi.getCompleteBlog(14); 
+                const response = await blogApi.getCompleteBlog(id); 
+                console.log(response);
+                console.log(id);
                 setBlog(response);  
             } catch (error) {
                 console.log(error);
@@ -30,7 +34,7 @@ export default function TextBlogScreen({id}) {
                 <p>{blog[0].tittle}</p>
                 <img src={books} alt="books"/>
                 <span>{blog[0].description}</span>
-                <ion-icon name="arrow-back" onClick={() => navigate("/hello")}></ion-icon>
+                <ion-icon name="arrow-back" onClick={() => navigate("/hello#blog")}></ion-icon>
             </Tittle>
 
             <Content toggleLight={toggleLight} dangerouslySetInnerHTML={{ __html: blog[0].text }}></Content>
