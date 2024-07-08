@@ -33,5 +33,10 @@ export function configVar(token) {
 }
 
 export async function sendEmail(emailData) { 
-    await api.post('/email',emailData);
+    try {
+        await api.post('/email',emailData);
+    } catch (error) {
+        console.log(error);
+    }
+    
 }
