@@ -21,12 +21,13 @@ export async function getRandomBlogs() {
 }
 
 export async function getCompleteBlog(id) { 
+    console.log(id);
     try {
         const response = await api.get(`/blogs/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error retrieving complete blog:', error);
-        return [];
+        return [{id:-1,tittle:"ERROR",description:"ERROR",text:"ERROR"}];
     }
 }
 

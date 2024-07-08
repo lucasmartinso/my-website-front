@@ -11,28 +11,26 @@ export default function Blog() {
     const [ blogs, setBlogs ] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => { 
+    useEffect(() => {
         async function blogRandomData() { 
             const response = await blogApi.getRandomBlogs();
-            setBlogs(response);
+            const updateColor = response.map((blog, index) => ({
+                ...blog,
+                color: colors[index % colors.length]
+            }));
+            setBlogs(updateColor);
         }
 
         blogRandomData();
-    },[]);
-
-    useEffect(() => {
-        if (blogs.length > 0) { 
-            const updateColor = blogs.map((blog, index) => ({
-                ...blog, 
-                color: colors[index % colors.length]
-            }));
-
-            setBlogs(updateColor);
-        }
-    }, [blogs]);
-
+    }, []);
+    
     function sendToBlog(id,tittle) { 
         navigate(`/blog/${tittle}`, { state: { id } });
+        window.location.reload();
+    }
+
+    function redirectToBlogs() { 
+        navigate("/blogs"); 
         window.location.reload();
     }
 
@@ -49,7 +47,7 @@ export default function Blog() {
                     )
                 })}
             </Boxes>
-            <h onClick={() => navigate("/blogs")}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
+            <h onClick={redirectToBlogs}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
         </Container>
     )
 }
@@ -103,9 +101,13 @@ const Container = styled.div`
         }
     }
 
-    @media (max-width: 500px) { 
+    @media (max-width: 600px) { 
         p { 
             margin: 30px 0px 70px 0px;
+        }
+
+        h { 
+            margin-top: 40px;
         }
     }
 `
@@ -128,17 +130,21 @@ const Box = styled.div`
     border-radius: 20px;
     transition: width 0.5s, height 0.5s;
     margin-bottom: 20px;
+    padding: 10px;
 
-    p { 
-        margin: 0;
-        font-family: 'Syne', sans-serif;
-        font-size: 40px;
+    p,span { 
         text-align: center;
         word-break: normal;
         white-space: normal;
         overflow-wrap: break-word;
         text-overflow: ellipsis;
         hyphens: auto;
+    }
+
+    p { 
+        margin: 0;
+        font-family: 'Syne', sans-serif;
+        font-size: 40px;
         color: ${props => props.color === "#e0f4ea" ? ("rgba(0, 2, 35)") : ("white")};
         font-weight: bold;
         transition: font-size 0.2s;
@@ -151,12 +157,6 @@ const Box = styled.div`
         color: ${props => props.color === "#e0f4ea" ? ("rgba(0, 2, 35)") : ("white")};
         font-weight: 400;
         opacity: ${props => props.color === "#e0f4ea" ? (0.5) : (0.7)};
-        text-align: center;
-        word-break: normal;
-        white-space: normal;
-        overflow-wrap: break-word;
-        text-overflow: ellipsis;
-        hyphens: auto;
         transition: font-size 0.2s;
     }
 
@@ -186,9 +186,8 @@ const Box = styled.div`
     }
     
 
-    @media (max-width: 500px) { 
+    @media (max-width: 600px) { 
         width: ${props => props.color === '#e0f4ea' ? ('100%') : ('45%')}; 
-
 
         p { 
             font-size: 35px;
