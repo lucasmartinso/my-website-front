@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import BaseBoard from "../pages/BaseBoard";
 import ToggleContext from "../contexts/ToggleContext";
 import * as blogApi from "../requests/blogApi";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function TextBlogScreen() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -17,7 +18,7 @@ export default function TextBlogScreen() {
         async function fecthBlogData() { 
             try {
                 const response = await blogApi.getCompleteBlog(id); 
-                setBlog(response);  
+                //setBlog(response);  
             } catch (error) {
                 console.log(error);
             }
@@ -27,8 +28,22 @@ export default function TextBlogScreen() {
     },[id]);
 
     return( 
-        <Container>
-            {!blog.length ? ("LOADING") : (
+        <Container blog={blog}>
+            {!blog.length ? (
+                <Loading>
+                    <ThreeDots
+                        visible={true}
+                        height="100"
+                        width="100"
+                        color={toggleLight ? "black" : "white"}
+                        radius="9"
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                    <p>Carregando...</p>
+                </Loading>
+            ) : (
                 <>
                  <Tittle toggleLight={toggleLight}>
                     <p>{blog[0].tittle}</p>
@@ -163,12 +178,25 @@ const Tittle = styled.div`
         }
     }
 `
+const Loading = styled.div`
+        width: 100%; 
+        height: auto;
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        flex-direction: column;
+        padding: 300px 0px;
+
+        p { 
+            font-size: 30px;
+        }
+`
 const Content = styled.div`
     width: 60%; 
     display: flex; 
     flex-direction: column;
     align-items: center; 
-    margin-bottom: 80px;
+    margin-bottom: 160px;
 
     p { 
         font-size: 22px;
