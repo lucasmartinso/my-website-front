@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { styled } from "styled-components";
 import TokenContext from "../contexts/TokenContext";
-import * as projectApi from "../requests/projectApi";
-import * as typeApi from "../requests/typeApi";
+import * as blogApi from "../requests/blogApi";
 import { configVar } from "../requests/personalApi";
 import { Error } from "../components/Auth";
 
@@ -17,11 +16,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
         async function fecthData() { 
             try {
                 if(id != null) {
-                    const response = await projectApi.getProjectComplete(id);
-                    setTittle(response.tittle); 
-                    setDescription(response.description);
-                    setText(response.text); 
-                } else { 
+                    const response = await blogApi.getCompleteBlog(id);
                     setTittle(response.tittle); 
                     setDescription(response.description);
                     setText(response.text); 
@@ -38,16 +33,16 @@ export default function EditProject({id, setWriting, toggleLight}) {
         event.preventDefault();
 
         try {
-            const project = { 
+            const blog = { 
                 tittle, 
                 description, 
                 text
             }
-            console.log(project);
+            console.log(blog);
             if(!id) { 
-                await projectApi.postProject(project,configVar(token));
+                await blogApi.postBlog(blog,configVar(token));
             } else { 
-                await projectApi.updateProject(id,project,configVar(token));
+                await blogApi.updateBlog(id,blog,configVar(token));
             }
              
             window.location.reload();
