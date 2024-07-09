@@ -14,9 +14,10 @@ import { configVar, verifyAuth } from "../requests/personalApi";
 import EditProject from "../pages/EditProject";
 import EditTechType from "../pages/EditTechType";
 import { Skill } from "../pop-ups/SkillsPopUp";
+import EditBlog from "../pages/EditBlog";
 
 export default function CreateScreen(){
-    const ways = ['Projetos','Blog','Techs','Tipos'];
+    const ways = ['Projetos','Blogs','Techs','Tipos'];
     const cruds = ['Criar 🆕','Editar ✏️​', 'Excluir 🗑️']
     const { toggleLight } = useContext(ToggleContext);
     const { token } = useContext(TokenContext);
@@ -29,6 +30,7 @@ export default function CreateScreen(){
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
     const [ editTechType, setEditTechType ] = useState(false);
+    const [ editBlog, setEditBlog ] = useState(false);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
 
@@ -54,11 +56,13 @@ export default function CreateScreen(){
         setAction(null);
         setWriting(false);
         setEditTechType(false);
+        setEditBlog(false);
     }
 
     function changeAction(action) { 
         setWriting(false);
         setEditTechType(false);
+        setEditBlog(false);
         setAction(action);
         navigate(`/auth/crud/${type}?action=${action}`);
         if(type === "Projetos" && action === "Criar 🆕") { 
@@ -67,6 +71,9 @@ export default function CreateScreen(){
         } else if((type === "Techs" || type === "Tipos") && action === "Criar 🆕") { 
             setEditing({id:null, name:null});
             setEditTechType(true);
+        } else if(type === "Blogs" && action === "Criar 🆕") { 
+            setEditing({id:null, name:null});
+            setEditBlog(true);
         }
     }
 
@@ -78,6 +85,8 @@ export default function CreateScreen(){
             setWriting(true);
         } else if(type === "Tipos" || type === "Techs") { 
             setEditTechType(true);
+        } else if(type === "Blogs") { 
+            setEditBlog(true);
         }
     }
 
@@ -125,6 +134,14 @@ export default function CreateScreen(){
                 <EditProject 
                     id={editing.id}
                     setWriting={setWriting}
+                    toggleLight={toggleLight}
+                />
+            ) : ("")}
+
+            {editBlog ? (
+                <EditBlog 
+                    id={editing.id}
+                    setEditBlog={setEditBlog}
                     toggleLight={toggleLight}
                 />
             ) : ("")}

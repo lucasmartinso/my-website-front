@@ -5,7 +5,7 @@ import * as blogApi from "../requests/blogApi";
 import { configVar } from "../requests/personalApi";
 import { Error } from "../components/Auth";
 
-export default function EditProject({id, setWriting, toggleLight}) { 
+export default function EditBlog({id, setEditBlog, toggleLight}) { 
     const { token } = useContext(TokenContext);
     const [ tittle, setTittle ] = useState("");
     const [ description, setDescription ] = useState("");
@@ -21,6 +21,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                     setDescription(response.description);
                     setText(response.text); 
                 }
+                console.log(id);
             } catch (error) {
                 console.log(error);
             }
@@ -38,6 +39,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
                 description, 
                 text
             }
+
             console.log(blog);
             if(!id) { 
                 await blogApi.postBlog(blog,configVar(token));
@@ -56,7 +58,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
         <>
         <Container>
             {id != null ? (
-                <ion-icon name="arrow-back-outline" onClick={() => setWriting(false)}></ion-icon>
+                <ion-icon name="arrow-back-outline" onClick={() => setEditBlog(false)}></ion-icon>
             ) : ("")}
             <form onSubmit={sendInfo}>
             <input 
