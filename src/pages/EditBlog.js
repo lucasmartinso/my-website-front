@@ -17,18 +17,17 @@ export default function EditBlog({id, setEditBlog, toggleLight}) {
             try {
                 if(id != null) {
                     const response = await blogApi.getCompleteBlog(id);
-                    setTittle(response.tittle); 
-                    setDescription(response.description);
-                    setText(response.text); 
+                    setTittle(response[0].tittle); 
+                    setDescription(response[0].description);
+                    setText(response[0].text); 
                 }
-                console.log(id);
             } catch (error) {
                 console.log(error);
             }
         } 
         
         fecthData();
-    },[]); 
+    },[id]); 
 
     async function sendInfo(event) { 
         event.preventDefault();
@@ -164,20 +163,4 @@ const Container = styled.div`
             height: 60px;
         }
     }
-`
-const Box = styled.div`
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px 5px 5px 0px;
-    background-color: white;
-    border-radius: 12px;
-    padding-left: 15px;
-    transition: 0.2s;
-    font-size: 20px;
-    margin-bottom: 20px;
-    border: 3px solid black;
 `

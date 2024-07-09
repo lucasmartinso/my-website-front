@@ -53,7 +53,7 @@ export default function CreateScreen(){
         } 
         
         fetchData();
-    },[])
+    },[navigate,token]);
 
     function redirect(type) { 
         setSelected(type);
