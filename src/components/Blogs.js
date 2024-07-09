@@ -4,6 +4,7 @@ import * as blogApi from "../requests/blogApi";
 import ToggleContext from "../contexts/ToggleContext";
 import { useNavigate } from "react-router-dom";
 import BaseBoard from "../pages/BaseBoard";
+import Toggle from "../pages/Toggle";
 
 export default function BlogsScreen() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -35,6 +36,7 @@ export default function BlogsScreen() {
     
     return( 
         <>
+        <Toggle />
         <Container toggleLight={toggleLight}>
             <p>Blogs</p>
             <ion-icon name="arrow-back" onClick={() => navigate("/hello#blog")}></ion-icon>
@@ -62,6 +64,7 @@ const Container = styled.div`
     align-items: center;
     margin-bottom: 80px;
     position: relative;
+    transition: 0.5s;
 
     p { 
         color: ${props => props.toggleLight ? ("black") : ("white")};
