@@ -197,6 +197,10 @@ const Content = styled.div`
     flex-direction: column;
     align-items: center; 
     margin-bottom: 160px;
+    
+    p,span { 
+        color: ${props => props.toggleLight ? ("black") : ("rgba(255,255,255,0.9)")};
+    }
 
     p { 
         font-size: 22px;
@@ -209,7 +213,6 @@ const Content = styled.div`
         margin-top: 20px;
         transition: 1s;
         font-weight: 400;
-        color: ${props => props.toggleLight ? ("black") : ("rgba(255,255,255,0.9)")};
     }
 
     span { 

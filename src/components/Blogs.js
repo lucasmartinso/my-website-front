@@ -83,7 +83,7 @@ const Container = styled.div`
         &:hover, 
         &:focus { 
             cursor: pointer; 
-            color: ${props => props.toggleLight ? ("white") : ("gray")};
+            color: gray;
         }
     }
 `
