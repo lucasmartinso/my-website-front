@@ -31,3 +31,12 @@ export function configVar(token) {
 
     return config;
 }
+
+export async function sendEmail(emailData) { 
+    try {
+        await api.post('/email',emailData);
+    } catch (error) {
+        console.log(error);
+    }
+    
+}

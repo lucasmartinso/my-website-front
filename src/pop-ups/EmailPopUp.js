@@ -3,13 +3,14 @@ import { styled } from "styled-components";
 import EmailContext from "../contexts/EmailContext";
 import video from "../styles/images/paperplane.gif";
 import ToggleContext from "../contexts/ToggleContext";
+import * as personalApi from "../requests/personalApi";
 
 export default function EmailPopUp() { 
     const { toggleLight } = useContext(ToggleContext)
     const { emailPopUp, setEmailPopUp } = useContext(EmailContext);
     const [ email, setEmail ] = useState(""); 
     const [ subject, setSubject ] = useState("");
-    const [ message, setMessage ] = useState("");
+    const [ text, setText ] = useState("");
     const [ sending, setSending ] = useState(true);
     const [ visible, setVisble ] = useState(false);
     const [ shared, setShared ] = useState(false);
@@ -18,15 +19,14 @@ export default function EmailPopUp() {
         event.preventDefault(); 
         
         setSending(true);
-        console.log("Envia email");
         const emailData = { 
             email, 
             subject, 
-            message
+            text
         }
 
         try {
-            //await function(emailData); //integra no backend pro email
+            await personalApi.sendEmail(emailData);
             setTimeout(() => {
                 setVisble(true);
             }, 1);
@@ -39,7 +39,7 @@ export default function EmailPopUp() {
             setTimeout(() => {
                 setEmail(""); 
                 setSubject(""); 
-                setMessage("");
+                setText("");
                 setEmailPopUp(false);
             }, 5000);
             setShared(false);
@@ -89,8 +89,8 @@ export default function EmailPopUp() {
                                 <span>Mensagem</span>
                                 <textarea 
                                     type="text"
-                                    value={message}
-                                    onChange={(event) => setMessage(event.target.value)}
+                                    value={text}
+                                    onChange={(event) => setText(event.target.value)}
                                     required
                                 />
                             </Field>

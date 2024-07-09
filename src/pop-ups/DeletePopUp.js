@@ -3,6 +3,7 @@ import { Container } from "./EmailPopUp";
 import * as projectApi from "../requests/projectApi";
 import * as techApi from "../requests/techApi";
 import * as typeApi from "../requests/typeApi";
+import * as blogApi from "../requests/blogApi";
 
 export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {     
     async function deleting() { 
@@ -13,6 +14,8 @@ export default function DeletePopUp({id,name,type,config,setDeletePopUp}) {
                 await techApi.deleteTech(id,config);
             } else if(type==="Tipos") { 
                 await typeApi.deleteType(id,config);
+            } else if(type==="Blogs") { 
+                await blogApi.deleteBlog(id,config);
             }
             window.location.reload();
             setDeletePopUp(false);

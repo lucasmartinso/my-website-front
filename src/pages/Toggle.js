@@ -4,8 +4,7 @@ import ToggleContext from "../contexts/ToggleContext";
 import TransitionContext from "../contexts/TransitionContext";
 import { wait } from "@testing-library/user-event/dist/utils";
 
-
-export default function() { 
+export default function Toggle() { 
     const { toggleLight, setToggleLight } = useContext(ToggleContext);
     const { setTransitionPhoto } = useContext(TransitionContext);
 

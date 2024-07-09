@@ -9,14 +9,17 @@ import { Box, Circle, Project } from "../pages/Portfolio";
 import * as projectApi from "../requests/projectApi";
 import * as techsApi from "../requests/techApi"; 
 import * as typesApi from "../requests/typeApi";
+import * as blogApi from "../requests/blogApi";
 import DeletePopUp from "../pop-ups/DeletePopUp";
 import { configVar, verifyAuth } from "../requests/personalApi";
 import EditProject from "../pages/EditProject";
 import EditTechType from "../pages/EditTechType";
 import { Skill } from "../pop-ups/SkillsPopUp";
+import EditBlog from "../pages/EditBlog";
+import { BlogBox } from "./Blogs";
 
 export default function CreateScreen(){
-    const ways = ['Projetos','Blog','Techs','Tipos'];
+    const ways = ['Projetos','Blogs','Techs','Tipos'];
     const cruds = ['Criar 🆕','Editar ✏️​', 'Excluir 🗑️']
     const { toggleLight } = useContext(ToggleContext);
     const { token } = useContext(TokenContext);
@@ -26,9 +29,11 @@ export default function CreateScreen(){
     const [ projects, setProjects ] = useState([]);
     const [ techs, setTechs ] = useState([]);
     const [ types, setTypes ] = useState([]);
+    const [ blogs, setBlogs ] = useState([]);
     const [ deletePopUp, setDeletePopUp ] = useState(false);
     const [ writing, setWriting ] = useState(false);
     const [ editTechType, setEditTechType ] = useState(false);
+    const [ editBlog, setEditBlog ] = useState(false);
     const [ editing, setEditing ] = useState({id:null,name:null});
     const navigate = useNavigate();
 
@@ -43,10 +48,12 @@ export default function CreateScreen(){
             setTypes(typage);
             const techss = await techsApi.getTechs();
             setTechs(techss);
-    } 
+            const blogss = await blogApi.getBlogs(); 
+            setBlogs(blogss);
+        } 
         
         fetchData();
-    },[])
+    },[navigate,token]);
 
     function redirect(type) { 
         setSelected(type);
@@ -54,11 +61,13 @@ export default function CreateScreen(){
         setAction(null);
         setWriting(false);
         setEditTechType(false);
+        setEditBlog(false);
     }
 
     function changeAction(action) { 
         setWriting(false);
         setEditTechType(false);
+        setEditBlog(false);
         setAction(action);
         navigate(`/auth/crud/${type}?action=${action}`);
         if(type === "Projetos" && action === "Criar 🆕") { 
@@ -67,6 +76,9 @@ export default function CreateScreen(){
         } else if((type === "Techs" || type === "Tipos") && action === "Criar 🆕") { 
             setEditing({id:null, name:null});
             setEditTechType(true);
+        } else if(type === "Blogs" && action === "Criar 🆕") { 
+            setEditing({id:null, name:null});
+            setEditBlog(true);
         }
     }
 
@@ -78,6 +90,8 @@ export default function CreateScreen(){
             setWriting(true);
         } else if(type === "Tipos" || type === "Techs") { 
             setEditTechType(true);
+        } else if(type === "Blogs") { 
+            setEditBlog(true);
         }
     }
 
@@ -129,6 +143,14 @@ export default function CreateScreen(){
                 />
             ) : ("")}
 
+            {editBlog ? (
+                <EditBlog 
+                    id={editing.id}
+                    setEditBlog={setEditBlog}
+                    toggleLight={toggleLight}
+                />
+            ) : ("")}
+
             {editTechType ? (
                 <EditTechType 
                     id={editing.id}
@@ -152,6 +174,17 @@ export default function CreateScreen(){
                         )
                     })}
                     </Box>
+            ) : ("")}
+
+            {action !== "Criar 🆕" && action && type === "Blogs" && !editBlog ? (
+                blogs.map(blog => { 
+                    return(
+                        <BlogBox color="blue" onClick={() => selecting(blog.id,blog.tittle)}>
+                            <p>{blog.tittle}</p>
+                            <span>{blog.description}</span>
+                        </BlogBox>
+                    )
+                })
             ) : ("")}
 
         {action !== "Criar 🆕" && action && (type === "Techs" || type === "Tipos") && !editTechType ? (

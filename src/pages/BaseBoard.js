@@ -12,7 +12,7 @@ export default function BaseBoard() {
     return(
         <Container toggleLight={toggleLight}>
             <Impact>
-                <img src={toggleLight ? loveWhite : loveBlack} />  
+                <img src={toggleLight ? loveWhite : loveBlack} alt="logo"/>  
                 <Phrases toggleLight={toggleLight}>
                     <span>FAÇA O QUE VOCÊ AMA!!</span>
                     <p>Muito obrigado pela visita :)</p>

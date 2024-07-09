@@ -30,7 +30,7 @@ export default function EditTechType({id,type,setEditTechType,toggleLight}) {
         }
 
         fecthData();
-    },[])
+    },[id,type]);
 
     async function sendInfo(event) {
         event.preventDefault();

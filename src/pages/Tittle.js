@@ -17,7 +17,7 @@ export default function Tittle() {
             <Guide toggleLight={toggleLight}>
                 <a href="#history" onClick={() => navigate("/hello")}>Sobre</a>
                 <a href="#portfolio" onClick={() => navigate("/hello")}>Portifólio</a>
-                <a id="block">Blog</a>
+                <a href="#blog" onClick={() => navigate("/hello")}>Blog</a>
             </Guide>
             <Tags toggleLight={toggleLight}>
                 <div id="zap" onClick={() => window.open('https://wa.me/5532988002451?text=Vim+pelo+seu+site%21+Queria+bater+um+papo+com+voc%C3%AA%21','_blank')}><ion-icon name="logo-whatsapp"></ion-icon></div>

@@ -42,7 +42,7 @@ export default function ProjectScreen() {
         } 
 
         projectData();
-    }, []);
+    }, [type]);
 
     function reloadProjects(cat) { 
         navigate(`/projects/${cat}`);
@@ -131,6 +131,11 @@ const Container = styled.div`
 const Category = styled.div`
     width: 80%; 
     margin-bottom: 50px;
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    hyphens: auto;
 
     span { 
         margin: 0px 10px;
@@ -162,18 +167,20 @@ const Category = styled.div`
     }
 
     @media (max-width: 700px) { 
-        width: 90%;
-    }
-
-    @media (max-width: 500px) { 
         width: 100%;
 
         span, a { 
-            font-size: 30px;
-        } 
+            font-size: 35px;
+        }
 
         span { 
             margin: 0px 5px;
+        }
+    }
+
+    @media (max-width: 500px) { 
+        span, a { 
+            font-size: 28px;
         }
     }
 `

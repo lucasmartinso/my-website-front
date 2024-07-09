@@ -60,7 +60,7 @@ export default function EditProject({id, setWriting, toggleLight}) {
         } 
         
         fecthData();
-    },[]); 
+    },[id]); 
 
     async function sendInfo(event) { 
         event.preventDefault();

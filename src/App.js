@@ -12,6 +12,8 @@ import InitialScreen from "./components/Initial";
 import ProjectScreen from "./components/Projects";
 import AuthScreen from "./components/Auth";
 import CreateScreen from "./components/Create";
+import TextBlogScreen from "./components/TextBlog.js";
+import BlogsScreen from "./components/Blogs.js";
 
 export default function App() {
   const [ toggleLight, setToggleLight ] = useState(() => {
@@ -37,6 +39,8 @@ export default function App() {
               <Route path="/" element={<InitialScreen />} />
               <Route path="/hello" element={<MainScreen />} />
               <Route path="/projects/:type" element={<ProjectScreen />} />
+              <Route path="/blog/:title" element={<TextBlogScreen />} />
+              <Route path="/blogs" element={<BlogsScreen />} />
               <Route path="/auth" element={<AuthScreen />} />
               <Route path="/auth/crud/:type" element={<CreateScreen />} />
           </Routes>
