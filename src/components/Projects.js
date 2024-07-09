@@ -42,7 +42,7 @@ export default function ProjectScreen() {
         } 
 
         projectData();
-    }, []);
+    }, [type]);
 
     function reloadProjects(cat) { 
         navigate(`/projects/${cat}`);

@@ -25,7 +25,7 @@ export default function AuthScreen() {
         }
         
         authCredential();
-    },[]);
+    },[navigate,token]);
 
     async function sendAuth(event) { 
         event.preventDefault();

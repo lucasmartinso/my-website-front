@@ -27,7 +27,7 @@ export default function ProjectPopUp({ id, route }) {
         }
         
         projectData();
-    },[]);
+    },[id]);
 
     function close() { 
         setProjectPopUp(false);
