@@ -3,6 +3,7 @@ import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useEffect, useState } from "react";
 import * as blogApi from "../requests/blogApi";
 import { useNavigate } from "react-router-dom";
+import construction from "../styles/images/construction.gif";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
@@ -36,7 +37,9 @@ export default function Blog() {
     return(
         <Container toggleLight={toggleLight}>
             <p>Blog</p>
-            <Boxes>
+            {blogs.length > 2 ? (
+                <>
+                <Boxes>
                 {blogs.map(blog => { 
                     return(
                         <Box key={blog.id} color={blog.color} onClick={() => sendToBlog(blog.id, blog.tittle)}>
@@ -45,8 +48,18 @@ export default function Blog() {
                         </Box>
                     )
                 })}
-            </Boxes>
-            <h onClick={redirectToBlogs}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
+                </Boxes>
+                <h onClick={redirectToBlogs}>Ver mais blogs <ion-icon name="add"></ion-icon></h>
+                </>
+            ) : (
+                <>
+                <Images>
+                    <img id="construction" src={construction} alt="construction" />
+                </Images>
+                <span>Em breve...</span>
+                </>
+            )}
+            
         </Container>
     )
 }
@@ -204,3 +217,12 @@ const Box = styled.div`
         }
     }
 `   
+const Images = styled.div`
+    width: 100%; 
+    height: auto; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+    img {}
+`
