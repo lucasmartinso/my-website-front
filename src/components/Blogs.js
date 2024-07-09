@@ -43,10 +43,10 @@ export default function BlogsScreen() {
 
             {blogs.map(blog => { 
                 return(
-                    <Box color={blog.color} onClick={() => sendToBlog(blog.id,blog.tittle)}>
+                    <BlogBox color={blog.color} onClick={() => sendToBlog(blog.id,blog.tittle)}>
                         <p>{blog.tittle}</p>
                         <span>{blog.description}</span>
-                    </Box>
+                    </BlogBox>
                 )
             })}
         </Container>
@@ -90,7 +90,7 @@ const Container = styled.div`
         }
     }
 `
-const Box = styled.div`
+export const BlogBox = styled.div`
     width: 70%; 
     min-height: 300px;
     height: auto;
