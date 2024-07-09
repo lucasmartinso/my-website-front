@@ -18,7 +18,7 @@ export default function TextBlogScreen() {
         async function fecthBlogData() { 
             try {
                 const response = await blogApi.getCompleteBlog(id); 
-                //setBlog(response);  
+                setBlog(response);  
             } catch (error) {
                 console.log(error);
             }
