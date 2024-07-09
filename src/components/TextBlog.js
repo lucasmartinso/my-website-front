@@ -49,7 +49,7 @@ export default function TextBlogScreen() {
                     <p>{blog[0].tittle}</p>
                     <img src={books} alt="books"/>
                     <span>{blog[0].description}</span>
-                    <ion-icon name="arrow-back" onClick={() => navigate("/hello#blog")}></ion-icon>
+                    <ion-icon name="arrow-back" onClick={() => navigate("/blogs")}></ion-icon>
                 </Tittle>
     
                 <Content toggleLight={toggleLight} dangerouslySetInnerHTML={{ __html: blog[0].text }}></Content>
