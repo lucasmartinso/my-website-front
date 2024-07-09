@@ -26,7 +26,6 @@ export default function History() {
         "Nesse meio tempo realizei um bootcamp, que acelerou a obtenção de habilidades na área, tanto da parte técnica, quanto da pessoal.",
         "Além de outras atividades extracurriculares ao longo da graduação, seja assumindo cargos de liderança na Empresa Jr., seja atuando em projetos de Iniciação Científica, como o de 'Modelagem computacional no tratamento de câncer por hipertermia usando nanopartículas.'"
     ];
-    const [ textArray, setTextArray ] = useState([]);
     const [ slowText, setSlowText ] = useState([]);
     const [ techs, setTechs ] = useState(''); 
     const [ slideEffect, setSlideEffect ] = useState(true);
@@ -38,11 +37,9 @@ export default function History() {
                 const techNames = techx.map(tech => tech.name).join('***');
                 setTechs(techNames);
     
-                const textArrayData = description.map(element => element.split(''));
-                setTextArray(textArrayData);
-                console.log(textArray);
+                const textArrayData = await description.map(element => element.split(''));
     
-                textArrayData.forEach((textItem, textIndex) => {
+                await textArrayData.forEach((textItem, textIndex) => {
                     textItem.forEach((letter, letterIndex) => {
                         setTimeout(() => {
                             setSlowText(prev => {
