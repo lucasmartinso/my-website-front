@@ -3,7 +3,6 @@ import ToggleContext from "../contexts/ToggleContext";
 import { useContext, useEffect, useState } from "react";
 import * as blogApi from "../requests/blogApi";
 import { useNavigate } from "react-router-dom";
-import TextBlogScreen from "../components/TextBlog";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);

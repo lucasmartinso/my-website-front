@@ -7,6 +7,7 @@ import BaseBoard from "../pages/BaseBoard";
 
 export default function BlogsScreen() { 
     const { toggleLight } = useContext(ToggleContext);
+    const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
     const [ blogs, setBlogs ] = useState([]);
     const navigate = useNavigate();
 
@@ -14,8 +15,11 @@ export default function BlogsScreen() {
         async function blogsData() { 
             try {
                 const response = await blogApi.getBlogs(); 
-                console.log(response);
-                setBlogs(response); 
+                const updateColor = response.map((blog, index) => ({
+                    ...blog,
+                    color: colors[index % colors.length]
+                }));
+                setBlogs(updateColor);
             } catch (error) {
                 console.log(error);
             }
@@ -33,9 +37,11 @@ export default function BlogsScreen() {
         <>
         <Container toggleLight={toggleLight}>
             <p>Blogs</p>
+            <ion-icon name="arrow-back" onClick={() => navigate("/hello#blog")}></ion-icon>
+
             {blogs.map(blog => { 
                 return(
-                    <Box color="blue" onClick={() => sendToBlog(blog.id,blog.tittle)}>
+                    <Box color={blog.color} onClick={() => sendToBlog(blog.id,blog.tittle)}>
                         <p>{blog.tittle}</p>
                         <span>{blog.description}</span>
                     </Box>
@@ -55,6 +61,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     margin-bottom: 80px;
+    position: relative;
 
     p { 
         color: ${props => props.toggleLight ? ("black") : ("white")};
@@ -62,6 +69,22 @@ const Container = styled.div`
         font-size: 50px;
         margin: 80px 0px 90px 0px;
         transition: 1s;
+    }
+
+    ion-icon { 
+        position: absolute;
+        width: 40px; 
+        height: 40px;
+        left: 0px; 
+        top: 20px;
+        color: ${props => props.toggleLight ? ("black") : ("white")};
+
+
+        &:hover, 
+        &:focus { 
+            cursor: pointer; 
+            color: ${props => props.toggleLight ? ("white") : ("gray")};
+        }
     }
 `
 const Box = styled.div`
@@ -110,10 +133,10 @@ const Box = styled.div`
     &:focus { 
         cursor: pointer; 
         height: 350px; 
-        width: ${props => props.color === '#e0f4ea' ? ('75%') : ('50%')};
+        width: 50%;
 
         p { 
-            font-size: 70px;
+            font-size: 65px;
         }
 
         span { 
