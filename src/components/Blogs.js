@@ -8,13 +8,13 @@ import Toggle from "../pages/Toggle";
 
 export default function BlogsScreen() { 
     const { toggleLight } = useContext(ToggleContext);
-    const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
     const [ blogs, setBlogs ] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => { 
         async function blogsData() { 
             try {
+                const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
                 const response = await blogApi.getBlogs(); 
                 const updateColor = response.map((blog, index) => ({
                     ...blog,
@@ -43,7 +43,7 @@ export default function BlogsScreen() {
 
             {blogs.map(blog => { 
                 return(
-                    <BlogBox color={blog.color} onClick={() => sendToBlog(blog.id,blog.tittle)}>
+                    <BlogBox key={blog.id} color={blog.color} onClick={() => sendToBlog(blog.id,blog.tittle)}>
                         <p>{blog.tittle}</p>
                         <span>{blog.description}</span>
                     </BlogBox>

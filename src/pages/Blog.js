@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Blog() { 
     const { toggleLight } = useContext(ToggleContext);
-    const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
     const [ blogs, setBlogs ] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         async function blogRandomData() { 
+            const colors = ['rgba(0, 23, 107)','rgba(0, 2, 35)','#e0f4ea'];
             const response = await blogApi.getRandomBlogs();
             const updateColor = response.map((blog, index) => ({
                 ...blog,
@@ -39,7 +39,7 @@ export default function Blog() {
             <Boxes>
                 {blogs.map(blog => { 
                     return(
-                        <Box color={blog.color} onClick={() => sendToBlog(blog.id, blog.tittle)}>
+                        <Box key={blog.id} color={blog.color} onClick={() => sendToBlog(blog.id, blog.tittle)}>
                             <p>{blog.tittle}</p>
                             <span>{blog.description}</span>
                         </Box>
@@ -204,12 +204,3 @@ const Box = styled.div`
         }
     }
 `   
-const Images = styled.div`
-    width: 100%; 
-    height: auto; 
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-
-    img {}
-`
